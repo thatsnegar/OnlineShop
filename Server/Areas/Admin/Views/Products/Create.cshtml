@@ -1,0 +1,360 @@
+﻿@model ViewModels.AdminViewModels.Products.CreateViewModel
+
+@section Styles
+    {
+    <link rel="stylesheet" type="text/css" href="~/admin/app-assets/css-rtl/core/colors/palette-gradient.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/admin/assets/css/uploadFile.css" />
+}
+
+<div class="app-content content">
+    <div class="content-wrapper pb-0">
+        <div class="content-wrapper-before"></div>
+        <div class="content-header row">
+            <div class="content-header-right col-md-8 col-12">
+                <div class="breadcrumbs-top">
+                    <div class="breadcrumb-wrapper mr-1">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a asp-area="Admin" asp-controller="Home" asp-action="Index">
+                                    خانه
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item ">
+                                <a asp-area="Admin" asp-controller="Products" asp-action="Index">
+                                    مدیریت محصولات
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                محصولات
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <section id="basic-form-layouts">
+                <div class="row match-height">
+                    <div class="col-md-12">
+                        <div class="card mb-0">
+                            <div class="card-header">
+                                <h4 class="card-title" id="basic-layout-form">اضافه کردن محصول</h4>
+                                <a class="heading-elements-toggle">
+                                    <i class="la la-ellipsis-v font-medium-3"></i>
+                                </a>
+                                <div class="heading-elements">
+                                    <ul class="list-inline mb-0">
+                                        <li>
+                                            <a data-action="collapse">
+                                                <i class="ft-minus"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a data-action="reload">
+                                                <i class="ft-rotate-cw"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a data-action="expand">
+                                                <i class="ft-maximize"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a data-action="close">
+                                                <i class="ft-x"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-content collapse show">
+                                <div class="card-body">
+                                    <form class="needs-validation" asp-controller="Products" asp-action="Create" enctype="multipart/form-data" method="Post">
+                                        <div asp-validation-summary="ModelOnly"></div>
+                                        <div class="form-body">
+                                            <h4 class="form-section">
+                                                <i class="ft-file-text"></i>
+                                                اطلاعات محصول
+                                            </h4>
+                                            <div class="row">
+                                                @*Product Category*@
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>
+                                                            دسته بندی محصول
+                                                        </label>
+                                                        <select class="select2-size-xs form-control" name="ProductCategoryId" id="productCategoryId" asp-items="ViewBag.ProductCategories">
+                                                            <option value="null">--انتخاب دسته بندی محصولات--</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                @*Title*@
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>
+                                                            نام محصول:
+                                                        </label>
+                                                        <input type="text" id="Title" class="form-control" asp-for="Title" placeholder="@Html.DisplayNameFor(m=>m.Title)" />
+                                                        <span asp-validation-for="Title" class="text-danger fontSize14"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            @*Has Discount*@
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="Discount">
+                                                        آیا تخفیف دارد؟
+                                                    </label>
+                                                    <input type="checkbox" asp-for="HasDiscount" placeholder="@Html.DisplayNameFor(m=>m.HasDiscount)" />
+                                                    <div class="invalid-feedback">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row pb-2">
+                                                @*Price*@
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>
+                                                            قیمت محصول:
+                                                        </label>
+                                                        <input type="number" class="form-control" asp-for="Price" placeholder="@Html.DisplayNameFor(m=>m.Price)" />
+                                                        <span asp-validation-for="Price" class="text-danger fontSize14"></span>
+                                                    </div>
+                                                </div>
+                                                @*Discount Percentage*@
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>
+                                                            درصد تخفیف:
+                                                        </label>
+                                                        <input type="number" class="form-control" asp-for="DiscountPercentage" placeholder="@Html.DisplayNameFor(m=>m.DiscountPercentage)" />
+                                                        <div class="invalid-feedback">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @*Discounted Price*@
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>
+                                                            تخفیف محاسبه شده:
+                                                        </label>
+                                                        <input type="number" class="form-control" asp-for="DiscountedPrice" placeholder="@Html.DisplayNameFor(m=>m.DiscountedPrice)" />
+                                                        <div class="invalid-feedback">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <hr />
+
+                                            @*Upload File*@
+                                            <div class="row pb-2">
+                                                <div class="col-sm-2 imageUp">
+                                                    <div class="imagePreview"></div>
+                                                    <label class="btn btn-primary">
+                                                        Upload File
+                                                        <input type="file" class="uploadFile image" name="File" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
+                                                        <span asp-validation-for="File" class="text-danger fontSize14"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <hr />
+
+                                            @*Upload Files*@
+                                            <div class="row pb-2">
+                                                <div class="col-sm-2 imagesUp">
+                                                    <div class="imagesPreview"></div>
+                                                    <label class="btn btn-primary">
+                                                        Upload Files
+                                                        <input type="file" class="uploadFiles images" name="Files" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
+                                                        <span asp-validation-for="File" class="text-danger fontSize14"></span>
+                                                    </label>
+                                                </div>
+                                                <i class="fa fa-plus imagesAdd"></i>
+                                            </div>
+
+                                            <hr />
+
+                                            @*Description*@
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <h4>
+                                                        اطلاعات
+                                                    </h4>
+                                                    <div class="form-group">
+                                                        <textarea asp-for="Description" id="description" rows="17" cols="70" data-val-maxlength-max="5000" data-val-maxlength="The field Description must be a string or array type with a maximum length of '5000'." placeholder="">
+                                                        </textarea>
+                                                        <div class="invalid-feedback">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <hr />
+
+                                            @*Specification*@
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <h4>
+                                                        اطلاعات اضافه
+                                                    </h4>
+                                                    <div class="form-group">
+                                                        <textarea asp-for="Specification" id="specification" rows="17" cols="70" data-val-maxlength-max="5000" data-val-maxlength="The field Description must be a string or array type with a maximum length of '5000'." placeholder="">
+                                                                                            </textarea>
+                                                        <div class="invalid-feedback">
+                                                            <span class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-actions mt-0 pb-0">
+                                                <a asp-area="Admin" asp-controller="Products" asp-action="GetAllComparisionProducts" class="btn btn-glowbtn btn-outline-warning btn-min-width mr-1">
+                                                    <i class="ft-corner-down-right"></i>
+                                                    بازگشت
+                                                </a>
+                                                <button type="submit" id="submit" class="btn btn-outline-success btn-min-width">
+                                                    <i class="la la-check-square-o"></i>
+                                                    ذخیره
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        @section Scripts
+            {
+            @*CKEditor Initialing*@
+
+            <script src="~/ckeditor/ckeditor.js"></script>
+            <script>
+                CKEDITOR.replace('description');
+            </script>
+            <script>
+                CKEDITOR.replace('specification');
+            </script>
+
+
+            @*Upload File*@
+            <script>
+                $(function () {
+                    $(document).on("change", ".uploadFile", function () {
+                        var uploadFile = $(this)
+
+                        var files = !!this.files ? this.files : []
+
+                        if (!files.length || !window.FileReader)
+                            return; // no file selected, or no FileReader support
+
+                        if (/^image/.test(files[0].type)) // only image file
+                        {
+                            var reader = new FileReader() // instance of the FileReader
+
+                            reader.readAsDataURL(files[0]) // read the local file
+
+                            reader.onloadend = function () // set image data as background of div
+                            {
+                                //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
+                                uploadFile.closest(".imageUp").find('.imagePreview').css("background-image", "url(" + this.result + ")");
+                            }
+                        }
+
+                    });
+                });
+
+            </script>
+
+            @*Upload Files*@
+            <script>
+                $(".imagesAdd").click(function () {
+                    $(this).closest(".row").find('.imagesAdd')
+                        .before(`
+                                                                    <div class="col-sm-2 imagesUp">
+                                                                        <div class="imagesPreview">
+                                                                        </div>
+                                                                        <label class="btn btn-primary">
+                                                                            Upload Files
+                                                                            <input type="file" class="uploadFiles images" name="Files" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
+                                                                        </label>
+                                                                        <i class="fa fa-times del"></i>
+                                                                    </div>
+                                                                `);
+                });
+
+                $(document).on("click", "i.del", function () {
+                    // 	to remove card
+                    $(this).parent().remove()
+                    // to clear image
+                    // $(this).parent().find('.imagePreview').css("background-image","url('')")
+                });
+
+                $(function () {
+                    $(document).on("change", ".uploadFiles", function () {
+                        var uploadFiles = $(this)
+
+                        var files = !!this.files ? this.files : []
+
+                        if (!files.length || !window.FileReader)
+                            return; // no file selected, or no FileReader support
+
+                        if (/^image/.test(files[0].type)) // only image file
+                        {
+                            var reader = new FileReader() // instance of the FileReader
+
+                            reader.readAsDataURL(files[0]) // read the local file
+
+                            reader.onloadend = function () // set image data as background of div
+                            {
+                                //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
+                                uploadFiles.closest(".imagesUp").find('.imagesPreview').css("background-image", "url(" + this.result + ")");
+                            }
+                        }
+
+                    });
+                });
+
+            </script>
+
+            @*GetAllProductCategoriesByMainCategoryTitle*@
+            @*<script>
+        $(document).ready(function() {
+        $("#productCategoryId").change(function() {
+        $.ajax({
+        type: 'post',
+        url: '@Url.Action("GetAllProductCategories")',
+        success: function(productCategories) {
+        var array = JSON.parse(productCategories);
+
+        array.forEach(function(item) {
+        $("#productCategoryId").append('<option value="'
+        + item.Id + '">'
+        + item.Title + '</option>');
+        })
+        },
+        error: function(ex) {
+        alert('Failed to retrieve Product Categories.' + ex);
+        }
+        });
+
+        return false;
+        })
+        })
+        </script>*@
+
+            @{
+                await Html.RenderPartialAsync("~/Areas/Admin/Views/Shared/_ValidationScriptsPartial.cshtml");
+            }
+        }
+
+    </div>
+</div>

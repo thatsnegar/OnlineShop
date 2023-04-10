@@ -1,0 +1,99 @@
+﻿@model ViewModels.Accounts.LoginViewModel
+
+@{
+    Layout = "~/Views/Shared/Layout/_Account.cshtml";
+
+    string activeUser = "";
+
+    string activeDoctor = "";
+
+    string activeUserNav = "";
+
+    string activeDoctorNav = "";
+
+    if (ViewBag.UserLogin != null)
+    {
+        activeUser = "tab-pane fade active show";
+        activeDoctor = "tab-pane fade";
+        activeUserNav = "nav-link active";
+        activeDoctorNav = "nav-link";
+    }
+
+    if (ViewBag.DoctorLogin != null)
+    {
+        activeDoctor = "tab-pane fade active show";
+        activeUser = "tab-pane fade";
+        activeDoctorNav = "nav-link active";
+        activeUserNav = "nav-link";
+    }
+
+    var userLogin = new ViewModels.Accounts.UserLoginViewModel()
+    {
+        ReturnUrl = Model.ReturnUrl,
+    };
+    var doctorLogin = new ViewModels.Accounts.DoctorLoginViewModel()
+    {
+         ReturnUrl = Model.ReturnUrl,
+    };
+
+}
+
+<main class="content">
+    <section class="mb-5 pb-sm-2 pb-md-3  pb-lg-4 pb-xl-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="multi-step-login col-sm-10 col-md-9 col-lg-8  col-xl-6">
+                    <div class="login login-register-wrap">
+                        <div class="area-form-login area-form-login-register p-3 p-sm-4 p-md-5 ">
+                            <!-- **************************************************-->
+                            <!-- **************************************************-->
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="@(activeUserNav)" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
+                                        ورود کاربران
+                                    </button>
+                                </li>
+                            </ul>
+                            <!-- **************************************************-->
+                            <!-- **************************************************-->
+                            <div class="tab-content" id="myTabContent">
+                                @*General Login*@
+                                <div class="@(activeUser)" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                    <partial name="~/Views/Shared/PartialViews/Account/_UserLogin.cshtml" model="@userLogin" />
+                                </div>
+                            </div>
+                            <!-- **************************************************-->
+                            <!-- **************************************************-->
+                            <div class="footer-login">
+                                <div class="area-socialIcon socialIcon-bg-secondary d-flex justify-content-center">
+                                    <a href="http://www.facebook.com" class="icon facebook">
+                                        <span class="tooltip-site">Facebook</span>
+                                    </a>
+                                    <a href="http://www.github.com" class="icon instegram">
+                                        <span class="tooltip-site">instegram</span>
+                                    </a>
+                                    <a href="http://www.dribble.com" class="icon linkedin">
+                                        <span class="tooltip-site">linkedin</span>
+                                    </a>
+                                    <a href="http://www.twitter.com" class="icon twitter">
+                                        <span class="tooltip-site">Twitter</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+@section Scripts
+    {
+    @*	<partial name="~/Views/Shared/PartialViews/Account/_CaptchaScripts.cshtml" />*@
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
+

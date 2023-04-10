@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html class="loading" lang="fa" data-textdirection="rtl">
+<head>
+
+	<link rel="stylesheet" type="text/css" href="~/admin/app-assets/fonts/simple-line-icons/style.min.css">
+	<!-- Meta Tags -->
+	<partial name="~/Areas/Admin/Views/Shared/PartialViews/Default/_MetaTags.cshtml" />
+	<!-- Meta Tags -->
+	<!--Css Links -->
+	<partial name="~/Areas/Admin/Views/Shared/PartialViews/Default/_Styles.cshtml" />
+	<!-- Css Links -->
+	@RenderSection("Styles", required: false)
+</head>
+
+<body class="vertical-layout vertical-menu 2-columns fixed-navbar" data-open="click" data-menu="vertical-menu" data-color="bg-primary" data-col="2-columns" onload="loading()">
+
+	<!-- Header -->
+	<partial name="~/Areas/Admin/Views/Shared/PartialViews/_Header.cshtml" />
+	<!-- Header -->
+	<!-- RightSidebarMenu -->
+	<partial name="~/Areas/Admin/Views/Shared/PartialViews/_SidebarMenu.cshtml" />
+	<!-- RightSidebarMenu -->
+	<!-- Customizer -->
+	<partial name="~/Areas/Admin/Views/Shared/PartialViews/_Customizer.cshtml" />
+	<!-- Customizer -->
+	@RenderBody()
+	<!-- Footer -->
+	<partial name="~/Areas/Admin/Views/Shared/PartialViews/_Footer.cshtml" />
+	<!-- Footer -->
+	<!--Js Scripts -->
+	<partial name="~/Areas/Admin/Views/Shared/PartialViews/Default/_Scripts.cshtml" />
+	<!--Js Scripts -->
+	@RenderSection("Scripts", required: false)
+</body>
+
+</html>
+

@@ -1,0 +1,300 @@
+﻿@model ViewModels.Order.OrderDetailsViewModel
+
+<body class="contact">
+    <section class="mb-5 pb-sm-2 pb-md-3  pb-lg-4 pb-xl-5">
+        @await Component.InvokeAsync(name:"BreadCrumbsComponent")
+        <h1 class="text-center mb-3">
+            سبد خرید
+        </h1>
+        <nav aria-label="breadcrumb" class="mb-4 mb-lg-3">
+            <ol class="breadcrumb breadcrumb-singleProduct ">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Index">
+                        خانه
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    سبد خرید
+                </li>
+            </ol>
+        </nav>
+        </div>
+    </section>  
+    <main class="content">
+        <section class="mb-5 pb-sm-2 pb-md-3  pb-lg-4 pb-xl-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-xl-8">
+                        <div class="area-table-cart-shop area-table-shop mb-5">
+                            <table class="table table-shop">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            حذف
+                                        </th>
+                                        <th scope="col">
+                                            تصویر
+                                        </th>
+                                        <th scope="col">
+                                            محصول
+                                        </th>
+                                        <th scope="col">
+                                            قیمت (تومان)
+                                        </th>
+                                        <th scope="col">
+                                            تعداد
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.OrderDetails.Count > 0)
+                                    {
+                                        foreach (var item in Model.OrderDetails)
+                                        {
+
+                                            <tr>
+                                                <td>
+                                                    <a asp-controller="Order" asp-action="Remove" asp-route-id="@item.ProductId" class="remove-product">
+                                                        <i class="fal fa-times"></i>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <div class="product-thumbnail">
+                                                        <a asp-controller="Products" asp-action="Details" asp-route-productId="@(item.ProductId)" >
+                                                            <img src="~/emoniFiles/Products/@(item.ProductImage)">
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="name-product">
+                                                        <a asp-controller="Products" asp-action="Details" asp-route-productId="@(item.ProductId)" >
+                                                            <h3>
+                                                                @(item.ProductName)
+                                                            </h3>
+                                                        </a>
+                                                    </div>
+                                                </td>
+
+                                                @if (item.ProductHasDiscount)
+                                                {
+                                                    <td class="cell-product-price">
+                                                        <div class="product-price">
+                                                            @(item.ProductDiscountedPrice)
+                                                        </div>
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="cell-product-price">
+                                                        <div class="product-price">
+                                                            @(item.ProductPrice)
+                                                        </div>
+                                                    </td>
+                                                }
+                                                <td>
+                                                    <a class="btn btn-outline-success" onclick="Increase('@item.ProductId', '@item.ProductPrice')" id="increase" style="height: 30px;">
+                                                        <span>
+                                                            +
+                                                        </span>
+                                                    </a>
+                                                    @{
+                                                        string productId = $"{item.ProductId}-count";
+                                                    }
+                                                    <input class="countValue" id="@(productId)" value="@(item.Count)" />
+                                                    <a class="btn btn-outline-warning" onclick="Decrease('@item.ProductId','@item.ProductPrice')" id="decrease" style="height: 30px;">
+                                                        <span>
+                                                            -
+                                                        </span>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-xl-4">
+                        <div class="box-cart-total ">
+                            <h2>جمع سبد خرید</h2>
+                            <div class="details-cart-total">
+                                <div class="cart-subtotal d-flex justify-content-between align-items-center  mb-4">
+                                    <span>
+                                        مجموع
+                                    </span>
+                                    <span class="subtotal" id="totalPrice">
+                                        @{
+                                            double totalAmount = 0;
+
+                                            foreach (var item in Model.OrderDetails)
+                                            {
+                                                if (item.ProductHasDiscount)
+                                                {
+                                                    totalAmount += (item.Count * item.ProductDiscountedPrice);
+                                                }
+                                                else
+                                                {
+                                                    totalAmount += (item.Count * item.ProductPrice);
+                                                }
+
+                                            }
+                                        }
+                                        @(totalAmount)
+                                    </span>
+                                </div>
+
+                                <hr>
+
+                            </div>
+                        </div>
+
+                        <div class="area-btn-checkout  mt-4">
+                            <div href="checkout.html">
+                                <a class="btn-animate1 border-0" asp-controller="Order" asp-action="OrderSubmission" id="sendDiscount">
+                                    ادامه جهت تسویه حساب
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+
+@section Scripts
+    {
+    @*Increase Number of Products*@
+
+    <script>
+        function Increase(itemProductId, itemProductPrice) {
+            let countIncrease = 0
+
+            $.ajax
+                ({
+                    type: 'post',
+                    url: '@Url.Action("IncreaseProduct")',
+                    data:
+                    {
+                        productId: itemProductId
+                    },
+                    success: function(countIncrease) {
+                        var totalAmount = document.querySelector('#totalPrice').innerHTML
+
+                        var totalAmountInt = parseInt(totalAmount)
+
+                        var productPriceInt = parseInt(itemProductPrice)
+
+                        var total = totalAmountInt + productPriceInt
+
+                        document.querySelector('#totalPrice').innerHTML = total
+
+                        const productIdString = `${itemProductId}-count`
+
+                        document.getElementById(productIdString).value = countIncrease.toString()
+
+                    },
+                    error: function(err) {
+                        alert("!عملیات موفق نبود")
+                    }
+                })
+        }
+
+    </script>
+
+    @*Decrease Number of Products*@
+    <script>
+        function Decrease(itemProductId, itemProductPrice) {
+            let countDecrease = 0
+
+            $.ajax
+                ({
+                    type: 'post',
+                    url: '@Url.Action("DecreaseProduct")',
+                    data:
+                    {
+                        productId: itemProductId
+                    },
+                    success: function(countDecrease) {
+                        var totalAmount = document.querySelector('#totalPrice').innerHTML
+
+                        var totalAmountInt = parseInt(totalAmount)
+
+                        var productPriceInt = parseInt(itemProductPrice)
+
+                        var total = productPriceInt
+
+                        if (totalAmountInt > productPriceInt) {
+
+                            total = totalAmountInt - productPriceInt
+                        }
+                        else {
+                            total = totalAmountInt
+                        }
+
+                        document.querySelector('#totalPrice').innerHTML = total
+
+                         const productIdString = `${itemProductId}-count`
+
+                        document.getElementById(productIdString).value = countDecrease.toString();
+                    },
+                    error: function(err) {
+                        alert("!عملیات موفق نبود")
+                    }
+                })
+        }
+    </script>
+
+    @*Discount*@
+    <script>
+        $(document).ready(function() {
+
+            $("#inputCoupon").change(function(itemProductId, itemProductPrice) {
+
+                const discountText = $("#inputCoupon").val();
+
+                let discountPercentage = 0;
+
+                $.ajax({
+                    type: 'post',
+                    url: '@Url.Action("GetCupponePercentByItsName")',
+                    data: {
+
+                        discountText: discountText
+                    },
+                    success: function(discountPercentage) {
+
+                        var totalAmount = document.querySelector('#totalPrice').innerHTML
+
+                        var totalAmountInt = parseInt(totalAmount)
+
+                        var productPriceInt = parseInt(itemProductPrice)
+
+                        var discount = (totalAmountInt * discountPercentage) / 100
+
+                        var total = totalAmount
+
+                        document.querySelector('#discountPercent').innerHTML = discount
+
+                        document.querySelector('#totalPrice').innerHTML = total
+
+                        document.querySelector('#FinalAmount').innerHTML = total - discount
+
+                        document.getElementById("discountPercentage").value = discountPercentage;
+
+                        document.getElementById("sendDiscount").dataset.value= discountPercentage;
+                        
+                        document.getElementById("sendDiscount").dataset.value= discountPercentage;
+                    },
+                    error: function(ex) {
+                        alert('Failed to retrieve discountPercentage.' + ex);
+                    }
+                });
+                return false;
+            })
+        }
+        )
+    </script>
+
+    }

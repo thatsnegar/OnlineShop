@@ -1,0 +1,28 @@
+﻿@model ViewModels.AdminViewModels.Roles.CreateViewModel
+
+@section Styles
+{
+	<link rel="stylesheet" type="text/css" href="~/admin/app-assets/css-rtl/core/colors/palette-gradient.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+}
+
+	<div class="row">
+		<form asp-area="Admin" asp-controller="Role" asp-action="Create" method="Post" class="col-md-12 d-flex">
+			<div asp-validation-summary="ModelOnly"></div>
+
+			<div class="col-md-4">
+				<div class="form-group">
+					<input type="text" asp-for="Name" placeholder="@Html.DisplayNameFor(m=>m.Name)" class="form-control" required />
+					<span asp-validation-for="Name" class="text-danger fontSize14"></span>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="form-group">
+					<button class="btn btn-success" type="submit">ثبت</button>
+				</div>
+			</div>
+
+		</form>
+	</div>
+	<hr />

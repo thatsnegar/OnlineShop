@@ -1,0 +1,270 @@
+﻿@model IEnumerable<ViewModels.Addresses.IndexViewModel>
+
+@{
+    Layout = "~/Views/Shared/Layout/_ProfileDetails.cshtml";
+}
+
+<div class="col-12 col-xl-9 container-content-account">
+    <partial name="~/Views/Shared/PartialViews/ProfileDetails/_ProfileHeader.cshtml" />
+    <div class="container container-2xl">
+        <div class="account-content content-address-account">
+            <div class="row justify-content-center">
+                <div class="dropdown-header">
+                    <div class="dropdown">
+                        <button onclick="RequestCreate()" class="btn dropdown-toggle" style="float: left; background-color: #2b426e;color: #fff;" type="button" id="dropdownMenuButton1" data-bs-toggle="modal" data-bs-target="#create-modal" aria-expanded="false">
+                            آدرس جدید
+                        </button>
+                    </div>
+
+                    <!-- Create a new address -->
+                    @* @(await Component.InvokeAsync(name: "CreateAddressComponent"))*@
+                    <partial name="~/Views/Shared/PartialViews/ProfileDetails/_CreateAddressModal.cshtml" />
+                    <h1 class="title-tabcontent-account">
+                        نشانی ها
+                    </h1>
+                </div>
+                <div class="main-content-account col-sm-12 col-lg-10 justify-content-center col-lg-11 main-content-account">
+                    <div class="profile-address-container">
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ZipCode)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UserAddress)
+                                </th>
+                                <th>عملیات</th>
+                            </tr>
+                            @{
+                                var index = 1;
+
+                                foreach (var item in Model)
+                                {
+                                        <tr>
+                                            <td>
+                                                @index
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(model => item.ZipCode)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(model => item.UserAddress)
+                                            </td>
+                                            <td>
+                                                <div class="dropdown-table">
+                                                    <div class="dropdown">
+                                                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="far fa-ellipsis-v"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                            <li>
+                                                            <a onclick="ConfirmDelete('@item.Id')" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                                                    حذف آدرس
+                                                                </a>
+                                                            </li>
+
+                                                            <li>
+                                                            <a onclick="RequestEdit('@item.Id')" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal">
+                                                                    ویرایش آدرس
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    index++;
+                                }
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete address modal -->
+<input type="hidden" id="hiddenId" />
+<div class="modal fade" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal">
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2>آیا از حذف اطلاعات خود مطمعن هستید؟</h2>
+            </div>
+            <div class="modal-footer"
+                 style="text-align: center;">
+                <button onclick="DeleteItem()" type="button" class="btn btn-danger btn-multi-step" data-bs-dismiss="modal" style="justify-content: center;">
+                    بله
+                </button>
+                <button type="button" class="btn btn-danger btn-multi-step-prev" data-bs-dismiss="modal" style="justify-content: center;">
+                    خیر
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit address modal -->
+<partial name="~/Views/Shared/PartialViews/ProfileDetails/_EditAddressModal.cshtml" model="@new ViewModels.Addresses.EditAddressViewModel()" />
+
+@section PopperJs
+    {
+    <script src=" https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
+    </script>
+    }
+
+@section Scripts
+    {
+        @*Create*@
+    <script>
+        //Request Create
+
+        function RequestCreate() {
+            $.ajax({
+                type: "get",
+                url: '@Url.Action("Create")',
+                data:
+                {
+                   
+                },
+                success: function(data) {
+                    const myJson = JSON.parse(data);
+                    $('#Country').val(myJson.Country)
+                    $("#State").val(myJson.State)
+                    $("#City").val(myJson.City)
+                    $("#ZipCode").val(myJson.ZipCode)
+                    $("#UserAddress").val(myJson.UserAddress)
+                },
+                error: function(result) {
+                    alert(result);
+                }
+            })
+        }
+
+        //Register Create
+
+        var RegisterCreate = function () {
+            
+            $.ajax({
+                type: "post",
+                url: '@Url.Action("Create")',
+                data:
+                {
+                    Country: $('#Country').val(),
+                    State: $('#State').val(),
+                    City: $('#City').val(),
+                    ZipCode: $('#ZipCode').val(),
+                    UserAddress: $('#UserAddress').val(),
+                },
+                success: function (result) {
+                    if (result === true) {
+                        $("#create-modal").modal("hide")
+                      window.location.href = "/address";
+                    }
+                    else {
+                        alert("عملیات موفقیت آمیز نبود!")
+                    }
+                },
+                error: function (result) {
+                   window.location.href = "/address";
+                }
+            })
+        }
+
+    </script>
+    
+    @*Edit*@
+    <script>
+        //Request Edit
+        function RequestEdit(itemId) {
+            $.ajax({
+                type: "get",
+                url: '@Url.Action("Edit")',
+                data:
+                {
+                    id: itemId
+                },
+                success: function(data) {
+                    const myJson = JSON.parse(data);
+                    $('#hiddenId').val(myJson.Id)
+                    $('#CountryEdit').val(myJson.Country)
+                    $("#StateEdit").val(myJson.State)
+                    $("#CityEdit").val(myJson.City)
+                    $("#ZipCodeEdit").val(myJson.ZipCode)
+                    $("#UserAddressEdit").val(myJson.UserAddress)
+                },
+                error: function(result) {
+                    alert(result);
+                }
+            })
+        }
+        //Register Edit
+
+        var RegisterEdit = function () {
+            var modelId = $("#hiddenId").val()
+            $.ajax({
+                type: "post",
+                url: '@Url.Action("Edit")',
+                data:
+                {
+                    id: modelId,
+                    Country: $('#CountryEdit').val(),
+                    State: $('#StateEdit').val(),
+                    City: $('#CityEdit').val(),
+                    ZipCode: $('#ZipCodeEdit').val(),
+                    UserAddress: $('#UserAddressEdit').val(),
+                },
+                success: function (result) {
+                    if (result === true) {
+                        $("#editModal").modal("hide")
+                        window.location.href = "/address";
+                    }
+                    else {
+                        alert("عملیات موفقیت آمیز نبود!")
+                    }
+                },
+                error: function (result) {
+                    window.location.href = "/address";
+                }
+            })
+        }
+
+        //confirm Delete
+
+        function ConfirmDelete(itemId) {
+            document.getElementById("hiddenId").value = itemId
+        }
+
+        var DeleteItem = function () {
+            var itemId = $("#hiddenId").val();
+            $.ajax({
+                type: "post",
+                url: '@Url.Action("Delete")',
+                data:
+                {
+                    id: itemId
+                },
+                success: function (result) {
+                    $("#deleteModal").modal("hide")
+                    window.location.href = "/address";
+                },
+                error: function (result) {
+                    alert(result);
+                }
+            })
+        }
+    </script>
+   
+
+    }

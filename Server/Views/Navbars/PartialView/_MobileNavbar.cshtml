@@ -1,0 +1,164 @@
+﻿@model IEnumerable<ViewModels.ProductCategories.ProductCategoriesNavbarViewModel>
+
+@{
+	ViewModels.AdminViewModels.Users.UserViewModel? foundedOnlineUser =
+		ViewData["foundedOnlineUser"] as ViewModels.AdminViewModels.Users.UserViewModel;
+}
+
+<div class="icon_meni_bar">
+	<a class="d-block d-lg-none">
+		<i class="fas fa-bars ">
+		</i>
+	</a>
+</div>
+<div id="menu_mobile" class="menu_mobile">
+	<div class="header_menu_mobile d-flex align-items-center">
+		<button type="button" class="close close_menu_mobile" aria-label="Close">
+			<span aria-hidden="true">×</span>
+		</button>
+		<div class="area-logo">
+			<a asp-controller="Home" asp-action="Index">
+				<img src="~/assets/img/EmoniLogo.png" class="img-fluid" alt="" />
+			</a>
+		</div>
+	</div>
+	<div class="area_menu_mobile menu-top-menu-container" id="accordian">
+		<ul class="menu-multi-level">
+			<!-- Home -->
+			<li>
+				<a asp-controller="Home" asp-action="Index">
+					خانه
+				</a>
+			</li>
+			<!-- User Account -->
+			@{
+				if (foundedOnlineUser is null)
+				{
+					<li class="menu-item-has-children">
+						<a>
+							اطلاعات کاربری
+						</a>
+						<ul class="sub-menu">
+							<li class="mega-menu-col">
+								<ul>
+									<li>
+										<a asp-controller="Account" asp-action="Login">
+											ورود
+										</a>
+									</li>
+									<li>
+										<a Asp-controller="Account" Asp-action="Register">
+											ثبت نام
+										</a>
+									</li>
+								</ul>
+							</li>
+
+						</ul>
+					</li>
+				}
+				else
+				{
+					<li class="menu-item-has-children">
+						<a>
+							اطلاعات کاربری
+						</a>
+						<ul class="sub-menu">
+							<li class="mega-menu-col">
+								<ul>
+									<li>
+										<a class="dropdown-item" asp-controller="ProfileDetails" asp-action="Index">
+											حساب کاربری
+										</a>
+									</li>
+									<li>
+										<a asp-controller="ProfileDetails" asp-action="Orders">
+											سفارش ها
+										</a>
+									</li>
+									<li>
+										<a asp-controller="Address" asp-action="Index">
+											آدرس ها
+										</a>
+									</li>
+								</ul>
+							</li>
+
+						</ul>
+					</li>
+				}
+			}
+			<!-- About -->
+			<li>
+				<a asp-controller="About" asp-action="Index">
+					درباره ما
+				</a>
+			</li>
+			<!-- Info -->
+			@{
+				if (foundedOnlineUser?.Role == "Doctor")
+				{
+					<li>
+						<a asp-controller="Info" asp-action="Index">
+							اطلاعات علمی
+						</a>
+					</li>
+				}
+			}
+			<!-- Products -->
+			<li class="menu-item-has-children">
+				<a>
+					محصولات
+				</a>
+				<ul class="sub-menu">
+					@foreach (var item in Model)
+					{
+						<li class="mega-menu-col">
+							<a class="title-megamenu-mobile" asp-controller="Products" asp-action="ProductList" asp-route-productCategoryId="@(item.Id)">
+								@(item.Title)
+							</a>
+							<ul>
+								@if (item.ProductsNavbarViewModel is not null && item.ProductsNavbarViewModel.Any())
+								{
+									foreach (var result in item.ProductsNavbarViewModel)
+									{
+										<li>
+											<a asp-controller="Products" asp-action="ProductList" asp-route-id="@(result.ProductId)">
+												@(result.Title)
+											</a>
+										</li>
+									}
+								}
+							</ul>
+						</li>
+					}
+				</ul>
+			</li>
+			<!-- Posts -->
+			<li>
+				<a asp-controller="Blogs" asp-action="BlogsList">
+					بلاگ
+				</a>
+			</li>
+			<!-- Vitual Tour -->
+			<li>
+				<a asp-controller="VirtualTours" asp-action="Index">
+					تور مجازی
+				</a>
+			</li>
+			<!-- Consultant -->
+			<li>
+				<a asp-controller="Consultation" asp-action="Index">
+					مشاوره تخصصی
+
+				</a>
+			</li>
+			<!-- Logout -->
+			<li>
+				<a asp-controller="Account" asp-action="Logout">
+					خروج
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>

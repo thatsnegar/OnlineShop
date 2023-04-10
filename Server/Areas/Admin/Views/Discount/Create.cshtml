@@ -1,0 +1,166 @@
+﻿@model ViewModels.AdminViewModels.Discounts.CreateViewModel
+
+<div class="app-content content">
+	<div class="content-wrapper pb-0">
+		<div class="content-wrapper-before"></div>
+		<div class="content-header row">
+			<div class="content-header-right col-md-8 col-12">
+				<div class="breadcrumbs-top">
+					<div class="breadcrumb-wrapper mr-1">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item">
+								<a asp-area="Admin" asp-controller="Home" asp-action="Index">
+									خانه
+								</a>
+							</li>
+							<li class="breadcrumb-item ">
+								<a asp-area="Admin" asp-controller="Discount" asp-action="Index">
+									تعریف تخفیف
+								</a>
+							</li>
+							<li class="breadcrumb-item active">
+								کد تخفیف
+							</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content-body">
+			<section id="basic-form-layouts">
+				<div class="row match-height">
+					<div class="col-md-12">
+						<div class="card mb-0">
+							<div class="card-header">
+								<h4 class="card-title" id="basic-layout-form">کد تحفیف</h4>
+								<a class="heading-elements-toggle">
+									<i class="la la-ellipsis-v font-medium-3"></i>
+								</a>
+								<div class="heading-elements">
+									<ul class="list-inline mb-0">
+										<li>
+											<a data-action="collapse">
+												<i class="ft-minus"></i>
+											</a>
+										</li>
+										<li>
+											<a data-action="reload">
+												<i class="ft-rotate-cw"></i>
+											</a>
+										</li>
+										<li>
+											<a data-action="expand">
+												<i class="ft-maximize"></i>
+											</a>
+										</li>
+										<li>
+											<a data-action="close">
+												<i class="ft-x"></i>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="card-content collapse show">
+								<div class="card-body">
+									<form class="needs-validation" asp-controller="Discount" asp-action="Create" method="Post">
+										<div asp-validation-summary="ModelOnly"></div>
+										<div class="form-body">
+											<h4 class="form-section">
+												<i class="ft-file-text"></i>
+												اطلاعات تخفیف
+											</h4>
+											<div class="row">
+												@*Title*@
+												<div class="col-md-4">
+													<div class="form-group">
+														<label>
+															عنوان تخفیف:
+														</label>
+														<input type="text" id="Title" class="form-control" asp-for="Title"/>
+														<span asp-validation-for="Title" class="text-danger fontSize14"></span>
+													</div>
+												</div>
+												@*Text*@
+												<div class="col-md-4">
+													<div class="form-group">
+														<label>
+															متن تخفیف:
+														</label>
+														<input type="text" id="Title" class="form-control" asp-for="Text"/>
+													</div>
+												</div>
+												@*DiscountPercentage*@
+												<div class="col-md-4">
+													<div class="form-group">
+														<label>
+															درصد تخفیف:
+														</label>
+														<input type="number" class="form-control" asp-for="DiscountPercentage" placeholder="@Html.DisplayNameFor(m=>m.DiscountPercentage)" />
+														<span class="text-danger fontSize14" asp-validation-for="DiscountPercentage"></span>
+													</div>
+												</div>
+												@*Start Date*@
+												<div class="col-md-4">
+													<div class="form-group">
+														<label for="inputbirth">
+															تاریخ شروع :
+														</label>
+														<div class="input-group mb-3">
+															<span class="input-group-text cursor-pointer" id="dtp1">📅</span>
+															<input name="StartDate" type="text" class="form-control singledate" placeholder="تاریخ شروع تخفیف" id="startDate">
+														</div>
+													</div>
+												</div>
+												@*End Date*@
+												<div class="col-md-4">
+													<div class="form-group">
+														<label for="inputbirth">
+															تاریخ پایان :
+														</label>
+														<div class="input-group mb-3">
+															<span class="input-group-text cursor-pointer" id="dtp2">📅</span>
+															<input name="EndDate" type="text" class="form-control" placeholder="تاریخ پایان تخفیف" id="endDate">
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="form-actions mt-0 pb-0">
+												<a asp-area="Admin" asp-controller="Discount" asp-action="Index" class="btn btn-glowbtn btn-outline-warning btn-min-width mr-1">
+													<i class="ft-corner-down-right"></i>
+													بازگشت
+												</a>
+												<button type="submit" id="submit" class="btn btn-outline-success btn-min-width">
+													<i class="la la-check-square-o"></i>
+													ذخیره
+												</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</div>
+
+@section Scripts
+	{
+		<script src="~/lib/datepicker/js/persianDatepicker.min.js"></script>
+		<script>
+
+		$( document ).ready(function() {
+				$("#startDate, .usage").persianDatepicker({
+				});
+
+				$("#endDate, .usage").persianDatepicker({
+				});
+		});
+		</script>
+		@{
+			await Html.RenderPartialAsync("_ValidationScriptsPartial");
+		}
+    }

@@ -1,0 +1,79 @@
+﻿@model IEnumerable<ViewModels.Products.RelatedProductViewModel>
+
+<section class="mb-2 mb-md-3 mb-lg-4 mb-xl-5">
+	<div class="container container-2xl">
+		<div class="row justify-content-center mb-5">
+			<h2 class="title-site">
+				محصولات مرتبط
+			</h2>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div class="owl-carousel slider_product-related">
+					@if (Model.Any())
+					{
+						foreach (var item in Model)
+						{
+							<div class="wow bounceIn item_slider_product-new" data-wow-duration="2s">
+								<div class="product_cart Related-products">
+									@if (item.HasDiscount)
+									{
+										<div class="off">
+											<span>
+												@(item.DiscountPercentage)% تخفیف
+											</span>
+										</div>
+									}
+									<div class="cart-img-product mb-3">
+										<a asp-controller="Products" asp-action="ProductDetails" asp-route-id="@(item.ProductId)">
+											<div class="d-flex justify-content-center align-items-center h-100">
+												<img src="~/emoniFiles/Products/@(item.ImageProductName)" alt="@(item.ImageProductName)" class="img1-product img-fluid" />
+											</div>
+										</a>
+
+										<div class="area-button-view-product">
+											<a asp-controller="Products" asp-action="ProductDetails" asp-route-id="@(item.ProductId)" class="button-view-product">
+												مشاهده محصول
+											</a>
+											<a href="#" class="add-to-cart">
+												+
+											</a>
+										</div>
+
+									</div>
+									<div class="content_product text-center">
+										@if (item.HasDiscount)
+										{
+											<div class="price_card_product mb-2">
+												<del class="me-1">
+													@(item.Price)
+												</del>
+												@(item.DiscountedPrice)
+												تومان
+											</div>
+										}
+
+										<a href="#">
+											<h3 class="title-product mb-2">
+												@(item.Title)
+											</h3>
+										</a>
+
+										<div class="star_rating">
+											@for (var i = 0; i < item.Rate; i++)
+											{
+												<span class="star-icon star-icon-active">
+													<i class="far fa-star"></i>
+												</span>
+											}
+										</div>
+									</div>
+								</div>
+							</div>
+						}
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

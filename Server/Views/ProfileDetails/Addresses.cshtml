@@ -1,0 +1,285 @@
+﻿@model ViewModels.Addresses.CreateAddressViewModel
+
+@{
+    Layout = "~/Views/Shared/Layout/_ProfileDetails.cshtml";
+}
+
+<div class="col-12 col-xl-9 container-content-account">
+
+    @*Header*@
+    <partial name="~/Views/Shared/PartialViews/ProfileDetails/_ProfileHeader.cshtml" />
+    <div class=" container container-2xl">
+
+        <div class="account-content content-address-account">
+            <div class="header-tab-content-account  mb-4">
+                <div class="dropdown-header">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" style="float: left; background-color: #2b426e;color: #fff;" type="button" id="dropdownMenuButton1" data-bs-toggle="modal" data-bs-target="#create-modal" aria-expanded="false">
+                            آدرس جدید
+                        </button>
+                    </div>
+
+                    <!-- Create a new address -->
+                    <div class="modal fade" id="create-modal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                    </button>
+                                </div>
+                                <div class="modal-body2">
+                                    <div class="area-form-wrap-modal contact mb-5 mb-lg-0">
+                                        <div class="area-form-contact">
+                                            <h3 class="h4 mb-4 title-contact"
+                                                style="text-align: center;">
+                                                آدرس جدید
+                                            </h3>
+                                            <form asp-controller="" asp-action="" method="post" class="row">
+                                                <div asp-validation-summary="ModelOnly"></div>
+                                                <div class="form-group-modal mb-4 col-12 col-md-6">
+                                                    <label asp-for="Country">
+                                                        کشور:
+                                                    </label>
+                                                    <input type="text" asp-for="Country" class="form-control" placeholder="استان را وارد کنید" required />
+                                                    <span asp-validation-for="Country" class="text-danger"></span>
+                                                </div>
+
+                                                <div class="form-group-modal mb-4 col-12 col-md-6">
+                                                    <label asp-for="State">
+                                                        استان:
+                                                    </label>
+                                                    <input type="text" asp-for="State" class="form-control" placeholder="استان را وارد کنید" required />
+                                                    <span asp-validation-for="State" class="text-danger"></span>
+                                                </div>
+
+                                                <div class="form-group-modal mb-4 col-12 col-md-6">
+                                                    <label asp-for="City">
+                                                        شهر:
+                                                    </label>
+                                                    <input type="text" asp-for="City" class="form-control" placeholder="شهر را وارد کنید" required />
+                                                    <span asp-validation-for="City" class="text-danger"></span>
+                                                </div>
+
+                                                <div class="form-group-modal mb-4 col-12 col-md-6">
+                                                    <label asp-for="ZipCode">
+                                                        کدپستی:
+                                                    </label>
+                                                    <input type="text" asp-for="ZipCode" class="form-control" placeholder="کد پستی را وارد کنید" required />
+                                                    <span asp-validation-for="ZipCode" class="text-danger"></span>
+                                                </div>
+
+                                                <div class="form-group-modal mb-4 col-12">
+                                                    <label asp-for="UserAddress">
+                                                        آدرس:
+                                                    </label>
+                                                    <textarea class="form-control" asp-for="UserAddress" id="textarea-form" rows="8" placeholder="آدرس را وارد کنید" style="font-size: 12px;" required>
+                                                    </textarea>
+                                                    <span asp-validation-for="UserAddress" class="text-danger"></span>
+                                                </div>
+
+                                                <div class="form-group-modal-modal-modal-modal-modal-modal-modal-modal-modal mb-4 col-12">
+                                                    <div class="btn-from-login">
+                                                        <button type="submit" class="btn-animate1 btn-multi-step mt-4">
+                                                            ثبت
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- Default form contact -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Create a new address -->
+
+                    <h1 class="title-tabcontent-account">
+                        نشانی ها
+                    </h1>
+                </div>
+                <div class="main-content-account">
+                    <div class="profile-address-container">
+                        <table>
+                            <tr>
+                                <th>کشور</th>
+                                <th>استان</th>
+                                <th>شهر</th>
+                                <th>کدپستی</th>
+                                <th>آدرس</th>
+                                <th>عملیات</th>
+                            </tr>
+                            <tr>
+                                <td>ایران</td>
+                                <td>تهران</td>
+                                <td>تهران</td>
+                                <td>1415121316</td>
+                                <td>خیابان بهشتی کوچه ساوجی نیا پلاک 11</td>
+                                <td>
+                                    <div class="dropdown-table">
+                                        <div class="dropdown">
+                                            <button class="btn dropdown-toggle" type="button"
+                                                    id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                <i class="far fa-ellipsis-v"></i>
+                                            </button>
+                                            <ul class="dropdown-menu"
+                                                aria-labelledby="dropdownMenuButton1">
+                                                <li>
+                                                    <a class="dropdown-item" data-bs-toggle="modal"
+                                                       data-bs-target="#myModal" href=" #">
+                                                        حذف آدرس
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dropdown-item" data-bs-toggle="modal"
+                                                       data-bs-target="#myModal2" href="#">
+                                                        ویرایش
+                                                        آدرس
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="modal fade" id="myModal">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal">
+                                                        </button>
+                                                    </div>
+                                                    <!-- Modal body -->
+                                                    <div class="modal-body">
+                                                        <h2>آیا از حذف اطلاعات خود مطمعن هستید؟</h2>
+                                                    </div>
+                                                    <!-- Modal footer -->
+                                                    <div class="modal-footer"
+                                                         style="text-align: center;">
+                                                        <button type="button"
+                                                                class="btn btn-danger btn-multi-step"
+                                                                data-bs-dismiss="modal"
+                                                                style="justify-content: center;">
+                                                            بله
+                                                        </button>
+                                                        <button type="button"
+                                                                class="btn btn-danger btn-multi-step-prev"
+                                                                data-bs-dismiss="modal"
+                                                                style="justify-content: center;">
+                                                            خیر
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Edit address modal -->
+                                        <div class="modal fade " id="myModal2">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content2">
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal">
+                                                        </button>
+                                                    </div>
+                                                    <!-- Modal body -->
+                                                    <div class="modal-body">
+                                                        <div class="area-form-wrap-modal contact mb-5 mb-lg-0">
+                                                            <div class="area-form-contact">
+                                                                <h3 class="h4 mb-4 title-contact"
+                                                                    style="text-align: center;">
+                                                                    ویرایش آدرس
+                                                                </h3>
+                                                                <form class="row" action="#!">
+                                                                    <!-- Country -->
+                                                                    <div class="form-group-modal mb-4 col-12 col-md-6">
+                                                                        <label for="State">
+                                                                            کشور
+                                                                            :
+                                                                        </label>
+                                                                        <input type="text" required
+                                                                               class="form-control" id=""
+                                                                               placeholder="کشور را وارد کنید">
+                                                                    </div>
+                                                                    <!-- state -->
+                                                                    <div class="form-group-modal mb-4 col-12 col-md-6">
+                                                                        <label for="State">
+                                                                            استان
+                                                                            :
+                                                                        </label>
+                                                                        <input type="text" required
+                                                                               class="form-control" id=""
+                                                                               placeholder="استان را وارد کنید">
+                                                                    </div>
+                                                                    <!-- city -->
+                                                                    <div class="form-group-modal mb-4 col-12 col-md-6">
+                                                                        <label for="City">شهر :</label>
+                                                                        <input type="text" required
+                                                                               class="form-control" id=""
+                                                                               placeholder="شهر را وارد کنید">
+                                                                    </div>
+
+                                                                    <!-- Postal code -->
+                                                                    <div class="form-group-modal mb-4 col-12 col-md-6">
+                                                                        <label for="Postal code">
+                                                                            کدپستی
+                                                                            :
+                                                                        </label><input type="text"
+                                                                                       required
+                                                                                       class="form-control" id=""
+                                                                                       placeholder="کد پستی را وارد کنید">
+                                                                    </div>
+                                                                    <!-- adress -->
+                                                                    <div class="form-group-modal mb-4 col-12">
+                                                                        <label for="adress">
+                                                                            آدرس
+                                                                            :
+                                                                        </label>
+                                                                        <textarea class="form-control"
+                                                                                  required id="textarea-form"
+                                                                                  rows="8"
+                                                                                  placeholder="آدرس را وارد کنید"
+                                                                                  style="font-size: 12px;"></textarea>
+                                                                    </div>
+                                                                    <!-- map -->
+                                                                    <div class="form-group-modal mb-4 col-12">
+                                                                        <div id="map"></div>
+                                                                    </div>
+
+                                                                    <!-- Send button -->
+                                                                    <div class="form-group-modal mb-4 col-12">
+                                                                        <div class="btn-from-login">
+                                                                            <button class="btn-animate1 btn-multi-step mt-4">
+                                                                                ثبت
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </form>
+                                                                <!-- Default form contact -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Modal footer -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section PopperJs
+    {
+    <script src=" https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
+    </script>
+    }

@@ -1,0 +1,29 @@
+﻿<!-- Slider -->
+@await Component.InvokeAsync(name:"SliderComponent")
+
+<!-- ProductCategorySlider -->
+@await Component.InvokeAsync(name:"ProductCategorySliderComponent")
+
+<!-- Slogan -->
+@await Component.InvokeAsync(name: "MainPageBannerComponent")
+
+<!-- Product Slider -->
+@await Component.InvokeAsync(name:"ProductSliderComponent")
+
+<!-- Comparison -->
+@await Component.InvokeAsync(name:"ComparisonComponent")
+
+<!-- Banner -->
+@await Component.InvokeAsync(name: "BannerComponent")
+
+<!-- Blogs -->
+@await Component.InvokeAsync(name: "BlogComponent")
+
+
+<!-- EmoniServices -->
+<partial name="~/Views/Shared/PartialViews/Default/_EmoniServices.cshtml" />
+
+@section Footer{
+	<partial name="~/Views/Shared/PartialViews/Default/_Footer.cshtml" />
+}
+

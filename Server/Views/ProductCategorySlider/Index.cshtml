@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ViewModels.ProductCategorySlider.IndexViewModel>
+@{
+	if (Model is null)
+	{
+		return;
+	}
+}
+
+<section class="mb-2 mb-md-3  mb-lg-4 mb-xl-5">
+	<div class="container container-2xl">
+		<div class="row justify-content-center mb-5">
+			<h2 class="wow fadeInUp title-site fs-4 fw-bold">
+				دسته بندی محصولات
+			</h2>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div class="owl-carousel owl-theme slider_product">
+					@foreach (var item in Model)
+					{
+						if (item.ImageProductCategorySliderName is not null)
+						{
+							<div class="wow bounceIn item_slider_product-new" data-wow-duration="2s">
+								<a href="@item.Url" class="product_cart">
+									<div class="product_cart">
+										<img class="img-fluid img-product-category-slider" src="~/emoniFiles/ProductCategorySliders/@item.ImageProductCategorySliderName" alt="@(item.ImageProductCategorySliderName)" />
+									</div>
+								</a>
+							</div>
+						}
+						else
+						{
+							<text>اسلایدر ثبت شده در پنل مدیریت فاقد عکس می باشد!!!</text>
+						}
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+

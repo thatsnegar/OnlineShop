@@ -1,0 +1,315 @@
+﻿@using Models
+@inject IHttpContextAccessor httpContext
+@{
+	ViewModels.AdminViewModels.Users.UserViewModel? foundedOnlineUser =
+		ViewData["foundedOnlineUser"] as ViewModels.AdminViewModels.Users.UserViewModel;
+}
+
+@{
+	List<OrderDetail> orderDetails = httpContext.HttpContext?.Session.GetJson<List<OrderDetail>>("OrderDetail") ?? new List<OrderDetail>();
+}
+
+<div class="col-3 col-lg-2 order-3 order-lg-3">
+	<div class="area-widget_navbar d-flex align-items-center justify-content-end h-100">
+
+		<partial name="~/Views/Navbars/PartialView/_Message.cshtml" model="@new ViewModels.Messages.UserMessageViewModel()" />
+
+		<partial name="~/Views/Navbars/PartialView/_WishList.cshtml" />
+		
+		@if (orderDetails.Count > 0)
+		{
+			<div class="icon-shooping-cart item_widget_navbar">
+				<a id="shoppingCart">
+					<i class="fal fa-shopping-cart"></i>
+					<span class="badge_count">
+						@(orderDetails.Count)
+					</span>
+				</a>
+				<div class="box-add-to-cart-header">
+					<div class="header-add-to-cart d-flex justify-content-between align-items-center">
+						<div class="count-product-addtocart">
+							<span>
+								تعداد کالا :
+								@{
+									int totalAmount = 0;
+
+									foreach (var item in orderDetails)
+									{
+										totalAmount += item.Count;
+									}
+
+									@(totalAmount)
+								}
+							</span>
+							@foreach (var item in orderDetails)
+							{
+								<span class="badge_count">
+									@(item.Count)
+								</span>
+							}
+						</div>
+					</div>
+					<div class="body-add-to-cart p-4">
+						@foreach (var item in orderDetails)
+						{
+							<div class="row mb-4" id="@item.ProductId">
+								<div class="col-10">
+									<div class="details_product_addtocart">
+										<div class="title_product_addtocart mb-2 d-flex justify-content-start">
+											@(item.ProductName)
+										</div>
+										<div class="d-flex justify-content-between align-items-center">
+											<div class="img_product_addtocart h-100 d-flex align-items-center">
+												<img class="img-fluid" src="~/emoniFiles/Products/@(item.ProductImage)" alt="@(item.ProductImage)" />
+											</div>
+											<div class="details_price_addtocart d-flex align-items-center">
+												<input name="input" value=" @(item.Count)" class="ms-3" disabled>
+												@if (item.ProductHasDiscount)
+												{
+													<div class="price_product_addtocart d-flex align-items-center">
+														<span class="order-2">
+															@(item.ProductDiscountedPrice) تومان
+														</span>
+														<span class="order-1 ms-3">
+															x
+														</span>
+													</div>
+												}
+												else
+												{
+													<div class="price_product_addtocart d-flex align-items-center">
+														<span class="order-2">
+															@(item.ProductPrice) تومان
+														</span>
+														<span class="order-1 ms-3">
+															x
+														</span>
+													</div>
+												}
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-2 d-flex align-items-center justify-content-center">
+									<div class="close_product_addtocart">
+										<a class="d-flex p-1" onclick="ConfirmDeleteCart('@item.ProductId')">
+											<i class="fas fa-trash-alt"></i>
+											<span class="tooltip-site">
+												حذف
+											</span>
+										</a>
+									</div>
+								</div>
+							</div>
+						}
+					</div>
+					<div class="footer_addtocart d-flex flex-column align-items-center justify-content-center">
+						<div class="area_total_modal_addtocart mb-3  d-flex justify-content-between w-100">
+							<span>
+								مجموع کل :
+							</span>
+							<span>
+								@{
+									double sum = 0;
+									foreach (var item in orderDetails)
+									{
+										if (item.ProductHasDiscount)
+										{
+											sum += (item.ProductDiscountedPrice * item.Count);
+										}
+										else
+										{
+											sum += (item.ProductPrice * item.Count);
+										}
+
+									}
+								}
+
+								@(sum.ToString("#,#00"))
+							</span>
+						</div>
+						<a asp-controller="Order" asp-action="OrderDetails" class="btn btn-custom btn-block btn-add-to-cart btn-animate1">
+							مشاهده سبد خرید
+						</a>
+					</div>
+				</div>
+			</div>
+		}
+		else
+		{
+			<div class="icon-shooping-cart item_widget_navbar">
+				<a id="shoppingCart">
+					<i class="fal fa-shopping-cart"></i>
+					<span class="badge_count">
+						0
+					</span>
+				</a>
+				<div class="box-add-to-cart-header">
+					<div class="header-add-to-cart d-flex justify-content-between align-items-center">
+						<div class="count-product-addtocart">
+							<span>
+								تعداد کالا :
+								0
+							</span>
+							<span class="badge_count">
+								0
+							</span>
+						</div>
+					</div>
+					<div class="body-add-to-cart p-4">
+						<img src="~/assets/img/empty-basket.svg" width="200px" />
+						<h4>
+							سبد خرید شما خالی می باشد
+						</h4>
+					</div>
+					<div class="footer_addtocart d-flex flex-column align-items-center justify-content-center">
+						<div class="area_total_modal_addtocart mb-3  d-flex justify-content-between w-100">
+							<span>
+								مجموع کل :
+							</span>
+							<span>
+								0
+							</span>
+						</div>
+						<a asp-controller="Order" asp-action="OrderDetails" class="btn btn-custom btn-block btn-add-to-cart btn-animate1">
+							مشاهده سبد خرید
+						</a>
+					</div>
+				</div>
+			</div>
+		}
+		<div class="d-flex">
+			<div class="area-widget-header-fixed d-block d-lg-none">
+				<div class="widget-header-fixed d-flex justify-content-between align-items-center">
+					@{
+						if (foundedOnlineUser is null)
+						{
+							<div class="icon-search widget-header">
+								<a asp-controller="Account" asp-action="Login" class="d-flex justify-content-center align-items-center">
+									<i class="fal fa-envelope"></i>
+								</a>
+							</div>
+
+							<div class="icon-wishlist widget-header">
+								<a asp-controller="Account" asp-action="Login" class="d-flex justify-content-center align-items-center">
+									<i class="fal fa-heart"></i>
+									<span class="badge_count">0</span>
+								</a>
+							</div>
+						}
+						else
+						{
+							<div class="icon-search widget-header">
+								<a asp-controller="MessagesForCurrentUser" asp-action="UserNotifications" class="d-flex justify-content-center align-items-center">
+									<i class="fal fa-envelope"></i>
+								</a>
+							</div>
+
+							<div class="icon-wishlist widget-header">
+								<a asp-controller="WishListForCurrentUser" asp-action="wishlistsforcurrentuser" class="d-flex justify-content-center align-items-center">
+									<i class="fal fa-heart"></i>
+								</a>
+							</div>
+							<div class="icon-wishlist widget-header">
+								<a asp-controller="WishListForCurrentUser" asp-action="wishlistsforcurrentuser" class="d-flex justify-content-center align-items-center">
+									<i class="fal fa-heart"></i>
+								</a>
+							</div>
+							
+						}
+					}
+
+					@{
+						if (foundedOnlineUser is null)
+						{
+							<div class="account-user widget-header">
+								<a asp-controller="Account" asp-action="Login" class="d-flex justify-content-center align-items-center">
+									<i class="fal fa-user"></i>
+								</a>
+							</div>
+						}
+						else
+						{
+							<div class="account-user widget-header">
+								<a asp-controller="ProfileDetails" asp-action="index" class="d-flex justify-content-center align-items-center">
+									<i class="fal fa-user"></i>
+								</a>
+							</div>
+						}
+					}
+
+
+				</div>
+			</div>
+			<!--Account-->
+			<div class="col-10 topbar-site d-none d-lg-block">
+				<div class="d-flex align-items-end justify-content-end">
+					<div class="user-account d-flex d-none d-md-block" style="margin-left:-40px !important;">
+
+						@{
+							if (foundedOnlineUser is null)
+							{
+								<div class="dropdown" style="margin-left: inherit !important;">
+									<i class="fal fa-user" data-bs-toggle="dropdown"></i>
+									<span data-bs-toggle="dropdown" style="font-size: 20px !important;font-weight: 800 !important;">
+
+									</span>
+
+									<ul class="dropdown-content" aria-labelledby="dropdownMenuButton1" style="right: -120px!important;">
+										<li>
+											<a class="dropdown-item" Asp-controller="Account" Asp-action="Register">
+												<i class="fas fa-user-plus"></i>
+												ثبت نام
+											</a>
+										</li>
+										<li>
+											<a class="dropdown-item" asp-controller="Account" asp-action="Login">
+												<i class="fal fa-sign-in-alt"></i>
+												ورود
+											</a>
+										</li>
+									</ul>
+								</div>
+							}
+							else
+							{
+								<div class="dropdown" style="margin-left: inherit !important;">
+									<i class="fal fa-user" data-bs-toggle="dropdown"></i>
+									
+									<i class="far fa-angle-down" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></i>
+									<ul class="dropdown-content" aria-labelledby="dropdownMenuButton1" style="right: -120px!important; padding-left:0px !important;">
+										<li>
+											<a class="dropdown-item" asp-controller="ProfileDetails" asp-action="Index">
+												<i class="fas fa-user-alt"></i>
+												حساب کاربری
+											</a>
+										</li>
+										<li>
+											<a class="dropdown-item" asp-controller="UserOrders" asp-action="Index">
+												<i class="fas fa-shapes"></i>
+												سفارش ها
+											</a>
+										</li>
+										<li>
+											<a class="dropdown-item" asp-controller="Address" asp-action="Index">
+												<i class="fas fa-location"></i>
+												آدرس ها
+											</a>
+										</li>
+										<li>
+											<a class="dropdown-item" asp-controller="Account" asp-action="Logout">
+												<i class="fa fa-portal-exit"></i>
+												خروج
+											</a>
+										</li>
+									</ul>
+								</div>
+							}
+						}
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

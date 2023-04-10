@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ViewModels.Sliders.IndexViewModel>
+@if (Model is not null)
+{
+    <section class="mb-5"style="margin-top:1%;">
+        <div class="container container-4xl"style="padding-left:0px !important; padding-right:0px !important;">
+            <div class="owl-carousel owl-theme slider_baner-homepage" id="slider_header">
+
+                @foreach (var item in Model)
+                {
+                    if (item.ImageSliderName is not null)
+                    {
+                        <div class="item_slider-baner-homepage slider-baner-image" style="background-image:url('./../emoniFiles/sliders/@item.ImageSliderName')">
+                            <div class="content-slider ">
+                                <h2>
+                                    @Html.Raw(item.Description)
+                                </h2>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <text>اسلایدر ثبت شده در پنل مدیریت فاقد عکس می باشد!!!</text>
+                    }
+                }
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <section class="mb-5 ">
+        <div class="owl-carousel slider_baner-homepage" id="slider_header">
+            <div class="item_slider-baner-homepage slider-baner-image" style="background-color:#ffffff">
+                <div class="content-slider ">
+                    <h2 class="text-dark">
+                        !لطفا اطلاعات لازم را در پنل کاربری وارد نمایید
+                    </h2>
+                    <p class="description-slider d-none d-sm-block">
+                        Emoni
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+}

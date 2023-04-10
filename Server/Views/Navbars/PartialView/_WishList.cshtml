@@ -1,0 +1,23 @@
+﻿@{
+    ViewModels.AdminViewModels.Users.UserViewModel? foundedOnlineUser =
+                        ViewData["foundedOnlineUser"] as ViewModels.AdminViewModels.Users.UserViewModel;
+}
+
+@{
+    if (foundedOnlineUser?.Role == "User" || foundedOnlineUser?.Role == "Doctor")
+    {
+        <div class="icon-wishlist item_widget_navbar d-none d-lg-block">
+            <a asp-controller="WishListForCurrentUser" asp-action="WishListsForCurrentUser">
+                <i class="fal fa-heart"></i>
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="icon-wishlist item_widget_navbar d-none d-lg-block">
+            <a asp-controller="Account" asp-action="Login">
+                <i class="fal fa-heart"></i>
+            </a>
+        </div>
+    }
+}

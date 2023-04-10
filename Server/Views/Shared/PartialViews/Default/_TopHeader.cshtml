@@ -1,0 +1,97 @@
+﻿@{
+    ViewModels.AdminViewModels.Users.UserViewModel? foundedOnlineUser =
+        ViewData["foundedOnlineUser"] as ViewModels.AdminViewModels.Users.UserViewModel;
+}
+
+<div class="topbar-site d-none d-lg-block">
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <div class="d-flex align-items-center ">
+                    <div class="email">
+                        <a href="mailto:contact@servin.com">
+                            <span>contact@servin.com</span>
+                            <i class="far fa-envelope"></i>
+                        </a>
+                    </div>
+                    <div class="phone">
+                        <a asp-controller="Contacts" asp-action="Index">
+                            <i class="fal fa-phone-alt" style="color:rgb(6 141 27 / 64%);"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="d-flex align-items-center justify-content-end">
+                    <div class="user-account d-none d-md-block">
+
+                        @{
+                            if (foundedOnlineUser is null)
+                            {
+                                <div class="dropdown">
+                                    <i class="fal fa-user" data-bs-toggle="dropdown"></i>
+                                    <span data-bs-toggle="dropdown" style="font-size: 15px !important;font-weight: 400 !important;">
+                                        حساب کاربری
+                                    </span>
+                                    
+                                    <ul class="dropdown-content" aria-labelledby="dropdownMenuButton1">
+                                        <li>
+                                            <a class="dropdown-item" Asp-controller="Account" Asp-action="Register">
+                                                <i class="fas fa-user-plus"></i>
+                                                ثبت نام
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" asp-controller="Account" asp-action="Login">
+                                                <i class="fal fa-sign-in-alt"></i>
+                                                ورود
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="dropdown">
+                                    <i class="fal fa-user" data-bs-toggle="dropdown"></i>
+                                    <span data-bs-toggle="dropdown">
+                                        @(foundedOnlineUser.Username)
+                                    </span>
+                                    <i class="far fa-angle-down" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                    <ul class="dropdown-content" aria-labelledby="dropdownMenuButton1">
+                                        <li>
+                                            <a class="dropdown-item" asp-controller="ProfileDetails" asp-action="Index">
+                                                <i class="fas fa-user-alt"></i>
+                                                حساب کاربری
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" asp-controller="UserOrders" asp-action="Index">
+                                                <i class="fas fa-shapes"></i>
+                                                سفارش ها
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" asp-controller="Address" asp-action="Index">
+                                                <i class="fas fa-location"></i>
+                                                آدرس ها
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" asp-controller="Account" asp-action="Logout">
+                                                <i class="fa fa-portal-exit"></i>
+                                                خروج
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

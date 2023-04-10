@@ -1,0 +1,116 @@
+﻿@model IEnumerable<Models.Message>
+@{
+	Layout = "~/Views/Shared/Layout/_ProfileDetails.cshtml";
+}
+
+<div class="col-12 col-xl-9 container-content-account">
+	<partial name="~/Views/Shared/PartialViews/ProfileDetails/_ProfileHeader.cshtml" />
+	<div class=" container container-2xl">
+		<div class="account-content content-address-account">
+			<div class="header-tab-content-account  mb-4">
+				<div class="dropdown-header">
+					<h1 class="title-tabcontent-account">
+						پیام ها
+					</h1>
+				</div>
+				<div class="table-message">
+					<table>
+						<tr>
+
+							<th>اطلاع رسانی</th>
+							<th>نمایش پیام</th>
+
+						</tr>
+						@if (Model.Any())
+						{
+							var index = 1;
+
+							foreach (var item in Model)
+							{
+								string target = $"#target{index}";
+								string idTarget = $"target{index}";
+
+								<tr>
+									<td>
+										<span id="dropdownMenuButton" >
+											<i class="fas fa-envelope"></i>
+											@(item.Title)
+										</span>
+
+										<div class="modal fade" id="@(idTarget)">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="btn-close" data-bs-dismiss="modal">
+														</button>
+													</div>
+													<div class="modal-body table-message-modalbody">
+														<div class="area-form-wrap-modal contact mb-5 mb-lg-0">
+															<div class="area-form-contact">
+																<h3 class="h4 mb-4 title-contact" style="text-align: center;">
+																	@(item.Summary)
+																</h3>
+																<div class="modal-body">
+																	@Html.Raw(item.Text)
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</td>
+
+									<td>
+										<i class="fas fa-eye" data-bs-toggle="modal" data-bs-target="@(target)" aria-expanded="false">
+										</i>
+									</td>
+								</tr>
+
+								index++;
+							}
+						}
+					</table>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+
+<input type="hidden" value="" id="hiddenId" />
+						
+@section PopperJs
+	{
+	<script src=" https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"
+		integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
+	</script>
+    }
+
+	@section Scripts{
+	<script>
+		function ConfirmDelete(itemId) {
+			document.getElementById("hiddenId").value = itemId;
+		}
+
+		var DeleteItem = function() {
+			var itemId = $("#hiddenId").val();
+
+			$.ajax({
+				type: "POST",
+				url: "/ProfileDetails/Delete",
+				data: { id: itemId },
+				success: function(result) {
+					$("#deleteModal").modal("hide");
+					location.href = "/ProfileDetails/UserNotifications";
+				},
+				error: function(result) {
+					alert(result);
+				}
+			})
+		}
+	</script>
+    }

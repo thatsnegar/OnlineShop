@@ -1,0 +1,171 @@
+﻿@model ViewModels.AdminViewModels.VirtualTours.EditViewModel
+
+@section Styles
+	{
+	<link rel="stylesheet" type="text/css" href="~/admin/app-assets/css-rtl/core/colors/palette-gradient.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="~/admin/assets/css/uploadFile.css" />
+}
+
+<div class="app-content content">
+	<div class="content-wrapper pb-0">
+		<div class="content-wrapper-before"></div>
+		<div class="content-header row">
+			<div class="content-header-right col-md-8 col-12">
+				<div class="breadcrumbs-top">
+					<div class="breadcrumb-wrapper mr-1">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item">
+								<a asp-area="Admin" asp-controller="Home" asp-action="Index">
+									خانه
+								</a>
+							</li>
+							<li class="breadcrumb-item ">
+								<a asp-area="Admin" asp-controller="VirtualTour" asp-action="Index">
+									مدیریت اسلایدر
+								</a>
+							</li>
+							<li class="breadcrumb-item active ">
+								ویرایش اسلایدر
+							</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content-body">
+			<section id="basic-form-layouts">
+				<div class="row match-height">
+					<div class="col-md-12">
+						<div class="card mb-0">
+							<div class="card-header">
+								<h4 class="card-title" id="basic-layout-form">
+									اضافه کردن ویدئو
+								</h4>
+								<a class="heading-elements-toggle">
+									<i class="la la-ellipsis-v font-medium-3"></i>
+								</a>
+								<div class="heading-elements">
+									<ul class="list-inline mb-0">
+										<li>
+											<a data-action="collapse">
+												<i class="ft-minus"></i>
+											</a>
+										</li>
+										<li>
+											<a data-action="reload">
+												<i class="ft-rotate-cw"></i>
+											</a>
+										</li>
+										<li>
+											<a data-action="expand">
+												<i class="ft-maximize"></i>
+											</a>
+										</li>
+										<li>
+											<a data-action="close">
+												<i class="ft-x"></i>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="card-content collapse show">
+								<div class="card-body">
+
+									<form class="needs-validation" asp-area="Admin" asp-controller="VirtualTour" asp-action="Edit" enctype="multipart/form-data" method="Post">
+										<div asp-validation-summary="ModelOnly"></div>
+
+										<input type="hidden" id="hiddenId" value=@Model.Id />
+										<div class="form-body">
+
+											<h4 class="form-section">
+												<i class="ft-file-text"></i>
+												اطلاعات اسلایدر
+											</h4>
+											@*Title*@
+											<div class="row">
+												<div class="col-md-4">
+													<div class="form-group">
+														<label asp-for="Title"></label>
+														<input type="text" id="title" asp-for="Title" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.Title)" required />
+														<span asp-validation-for="Title" class="text-danger fontsize14"></span>
+													</div>
+												</div>
+											</div>
+
+											<hr />
+
+											<div class="row">
+												@*Link*@
+												<div class="col-md-4">
+													<div class="form-group">
+														<label asp-for="Link"></label>
+														<input type="text" id="Link" asp-for="Link" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.Link)" required />
+														<span asp-validation-for="Link" class="text-danger fontsize14"></span>
+													</div>
+												</div>
+
+												@*VideoId*@
+												<div class="col-md-4">
+													<div class="form-group">
+														<label asp-for="VideoId"></label>
+														<input type="text" id="VideoId" asp-for="VideoId" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.VideoId)" required />
+														<span asp-validation-for="VideoId" class="text-danger fontsize14"></span>
+													</div>
+												</div>
+											</div>
+
+											<hr />
+
+											@*Description*@
+											<div class="row">
+												<div class="col-md-8">
+													<div class="form-group">
+														<label asp-for="Description"></label>
+														<textarea id="content" asp-for="Description" rows="17" cols="70"
+																  data-val-maxlength-max="5000"
+																  data-val-maxlength="The field Description must be a string or array type with a maximum length of '5000'."
+																  placeholder="@Html.DisplayNameFor(m=>m.Description)">
+														</textarea>
+													</div>
+												</div>
+											</div>
+
+											<hr />
+
+											<div class="form-actions mt-0 pb-0">
+												<a asp-area="Admin" asp-controller="VirtualTour" asp-action="Index" class="btn btn-glowbtn btn-outline-warning btn-min-width mr-1">
+													<i class="ft-corner-down-right"></i>
+													بازگشت
+												</a>
+												<button type="submit" class="btn btn-outline-success btn-min-width" id="position-bottom-left" value="">
+													<i class="la la-check-square-o"></i> 
+													ذخیره
+												</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- // Basic form layout section end -->
+		</div>
+	</div>
+</div>
+
+@section Scripts
+	{
+	<script src="~/ckeditor/ckeditor.js"></script>
+	<script>
+		CKEDITOR.replace('content');
+	</script>
+
+	@{
+		await Html.RenderPartialAsync("~/Areas/Admin/Views/Shared/_ValidationScriptsPartial.cshtml");
+	}
+    }
+

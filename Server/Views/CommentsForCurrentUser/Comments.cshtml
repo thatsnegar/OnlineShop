@@ -1,0 +1,73 @@
+﻿@model IEnumerable<ViewModels.ProfileDetails.UserCommentsViewModel>
+
+@{
+    Layout = "~/Views/Shared/Layout/_ProfileDetails.cshtml";
+}
+
+<div class="col-12 col-xl-9 container-content-account">
+
+    @*Header*@
+    <partial name="~/Views/Shared/PartialViews/ProfileDetails/_ProfileHeader.cshtml" />
+
+    <div class="account-content content-comment-account">
+        <div class="header-tab-content-account  mb-4">
+            <h1 class="title-tabcontent-account mb-3 mb-sm-0">
+                دیدگاهها
+            </h1>
+        </div>
+        <div class="main-content-account">
+            <div class="box-comments">
+                @if (Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <div class="item-comment d-flex justify-content-between mb-4">
+                            <div class="profile-commentsproduct me-3">
+                                <div class="row">
+                                    <a asp-controller="Products" asp-action="Details" asp-route-productId="@(item.ProductId)">
+                                        <img src="~/emoniFiles/Products/@(item.ProductImage)">
+                                    </a>
+                                </div>
+                                <div class="row">
+                                    <p class="mb-4">
+                                        @(item.Text)
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="comments-product-content">
+                                <div class="comments-product-headerContent  mb-3">
+                                    @*Rate*@
+                                    <div class="star_rating-item-comment d-flex ">
+                                        <div class="star_rating me-3 ">
+                                            @for (var i = 0; i < item.Rate; i++)
+                                            {
+                                                <span class="star-icon star-icon-active">
+                                                    <i class="far fa-star"></i>
+                                                </span>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        @if (item.IsConfirm)
+                                        {
+                                            <div class="profile-comments-status-approved me-3">
+                                                تایید شده
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="profile-comments-status-unapproved me-3">
+                                                تایید نشده
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

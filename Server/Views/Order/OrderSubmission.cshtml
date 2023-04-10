@@ -1,0 +1,362 @@
+﻿@model ViewModels.Order.OrderSubmissionViewModel
+
+@{
+	if (Model.OrderDetails is null)
+	{
+		return;
+	}
+}
+<section class="mb-5 pb-sm-2 pb-md-3  pb-lg-4 pb-xl-5">
+	@await Component.InvokeAsync(name:"BreadCrumbsComponent")
+	<h1 class="text-center mb-3">
+		ثبت خرید
+	</h1>
+	<nav aria-label="breadcrumb" class="mb-4 mb-lg-3">
+		<ol class="breadcrumb breadcrumb-singleProduct ">
+			<li class="breadcrumb-item">
+				<a asp-controller="Home" asp-action="Index">
+					خانه
+				</a>
+			</li>
+			<li class="breadcrumb-item active">
+				ثبت خرید
+			</li>
+		</ol>
+	</nav>
+</section>
+
+<main class="content-checkout">
+	<div class="row justify-content-center">
+		<div class="col-sm-10 col-md-9 col-lg-8  col-xl-6">
+			<h4 class="mb-4 heading-style2">
+				سفارشات شما
+			</h4>
+			<div class="area-order-review">
+				<div class="table-wrapper-review-order mb-4">
+					<table class="table mb-0">
+						<thead>
+							<tr>
+								<th class="product-ordersubmission">
+									محصول
+								</th>
+								<th>
+									تعداد
+								</th>
+								<th>
+									قیمت محصول
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							@if (Model.OrderDetails.Count > 0)
+							{
+								foreach (var item in Model.OrderDetails!)
+								{
+									<tr>
+										<td>
+											@(item.ProductName)
+										</td>
+										<td>
+											@(item.Count)
+										</td>
+										@if (item.ProductHasDiscount)
+										{
+											<td>
+												@(item.ProductDiscountedPrice)
+											</td>
+										}
+										else
+										{
+											<td>
+												@(item.ProductPrice)
+											</td>
+										}
+									</tr>
+								}
+							}
+						</tbody>
+						<tfoot>
+
+							<tr>
+								<th>
+									هزینه ارسال
+								</th>
+
+								<td id="deliveryCost">
+								</td>
+							</tr>
+							<tr>
+								<th>
+									میزان تخفیف
+								</th>
+								<td id="discountPercent">
+									@Model.DiscountPercentage
+								</td>
+							</tr>
+							<tr>
+								<th>
+									جمع
+								</th>
+								<td class="product-subtotal" id="totalPrice">
+									@{
+										double? totalAmount = 0;
+
+										foreach (var item in Model.OrderDetails!)
+										{
+											if (item.ProductHasDiscount)
+											{
+												totalAmount += (item.Count * item.ProductDiscountedPrice);
+											}
+											else
+											{
+												totalAmount += (item.Count * item.ProductPrice);
+											}
+										}
+									}
+									@{
+										if (Model.DiscountPercentage > 0)
+										{
+											totalAmount = (totalAmount - Model.DiscountPercentage);
+										}
+									}
+									@(totalAmount)
+								</td>
+							</tr>
+							<tr>
+								<td colspan="6" class="actions w-100">
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+				<form class="needs-validation" asp-controller="Order" asp-action="OrderSubmission" method="Post">
+					<div asp-validation-summary="ModelOnly"></div>
+					<input type="hidden" asp-for="@(Model.OrderDetails)" value="@(Model.OrderDetails)" />
+					<div class="payment_method">
+
+						<div class="footer-table-cart d-flex flex-column flex-md-row align-items-center justify-content-between mt-5 mb-5">
+							<div class="area-coupon me-0  me-md-2 mb-4 mb-md-0">
+								<div class="coupon d-flex mb-0 align-items-center">
+									<label class="col-md-3" for="input-coupon">
+										کد تخفیف:
+									</label>
+									<input type="text" class="form-control me-2 col-md-4" id="inputCoupon" asp-for="@(Model.DiscountText)">
+									<input type="hidden" class="form-control me-2" id="discountPercentage" value="@Model.DiscountPercentage" asp-for="@Model.DiscountPercentage">
+									<div class="col-md-4">
+										<a class="btn-animate1 me-0 me-md-2 mt-3 mt-sm-0" id="cupponeButton" onclick="addDiscount()">
+											اعمال کد تخفیف
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<h4 class="mb-4 heading-style1">
+							نحوه ارسال
+						</h4>
+						<div class="payment_option">
+							<div class="form-check mb-3">
+								<label class="checkbox-container form-check-label" for="inlineRadio4">
+									ارسال با پیک ( فقط تهران)
+									<input class="form-check-input" type="radio" asp-for="@(Model.SendWay)" id="inlineRadio4" value="ارسال با پیک">
+								</label>
+							</div>
+							<div class="form-check mb-3">
+								<label class="checkbox-container form-check-label" for="inlineRadio3">
+									ارسال با پست
+									<input class="form-check-input" type="radio" asp-for="@(Model.SendWay)" id="inlineRadio3" value="ارسال با پست">
+								</label>
+							</div>
+
+							<hr />
+
+						</div>
+						<h4 class="mb-4 heading-style1">
+							انتخاب شیوه پرداخت
+						</h4>
+						<div class="payment_option">
+							<div class="form-check mb-3">
+								<label class="checkbox-container form-check-label" for="inlineRadio2">
+									پرداخت آنلاین:
+								</label>
+								<br/>
+								<input class="online-payment me-2" type="radio" id="javascript" value="زرین پال" checked>
+								<img class="zarinpall-img" src="~/assets/img/favicon-2.jpg" />
+								<label for="زرین پال">
+									زرین پال
+								</label>
+							</div>
+
+							<hr>
+
+						</div>
+						<h4 class="mb-4 heading-style1">
+							انتخاب آدرس
+						</h4>
+						<div class="payment_option">
+							<div class="form-check mb-3" style="display:flex;flex-direction: column;">
+								@{
+									bool isSubmit = true;
+
+									IList<ViewModels.Addresses.IndexViewModel>? addresses =
+									ViewData["Addresses"] as IList<ViewModels.Addresses.IndexViewModel>;
+
+									if (addresses is not null && addresses.Any())
+									{
+										foreach (var address in addresses)
+										{
+															<label class="checkbox-container-adress form-check-label" for="inlineRadio1">
+																<input class="form-check-input" type="radio" asp-for="@(Model.AddressId)" id="inlineRadio1" value="@(address.Id)" checked>
+																@(address.UserAddress) - @(address.ZipCode)
+															</label>
+										}
+									}
+									else
+									{
+														<label class="checkbox-container-adress form-check-label">
+															<a asp-controller="Address" asp-action="Index">
+																ثبت آدرس
+															</a>
+															آدرسی ثبت نشده است لطفا آدرس خود را ثبت نمایید
+														</label>
+
+										isSubmit = false;
+									}
+								}
+							</div>
+						</div>
+						<div class="area-additional-fields">
+							<h4 class="mb-3 mt-4 heading-style1">
+								توضیحات
+							</h4>
+							<div class="form-group">
+								<textarea asp-for="Description" class="form-control" id="textarea-form" rows="3" placeholder="یاداشت های سفارش">
+								</textarea>
+							</div>
+						</div>
+					</div>
+					<div class="area-btn-animate-S2 mt-5">
+						@if (!isSubmit)
+						{
+							<button type="reset" class="btn-animate1" disabled>
+								پرداخت
+							</button>
+						}
+						else
+						{
+							<button type="submit" class="btn-animate1">
+								پرداخت
+							</button>
+						}
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</main>
+@section Scripts
+	{
+	@*Discount*@
+	<script>
+
+		function addDiscount() {
+
+			const discountText = $("#inputCoupon").val();
+
+			let discountPercentage = 0;
+
+			$.ajax({
+				type: 'post',
+				url: '@Url.Action("GetCupponePercentByItsName")',
+				data: {
+
+					discountText: discountText
+				},
+				success: function(discountPercentage) {
+
+					var totalAmount = document.querySelector('#totalPrice').innerHTML
+
+					var totalAmountInt = parseInt(totalAmount)
+
+					var discount = (totalAmountInt * discountPercentage) / 100
+
+					var total = totalAmount
+
+					document.querySelector('#discountPercent').innerHTML = discount
+
+					var totalCost = document.querySelector('#totalPrice').innerHTML = total - discount
+
+					document.getElementById("discountPercentage").value = discountPercentage
+
+					var deliveryCost = document.querySelector("#deliveryCost").innerHTML
+
+					var deliveryCostInt = parseInt(deliveryCost)
+
+					const button = document.getElementById("cupponeButton")
+
+					button.hidden = true
+
+					//button.classList.remove("btn-animate1")
+
+					//button.classList.add("cupponeButton")
+				},
+				error: function(ex) {
+					alert('Failed to retrieve discountPercentage.' + ex);
+				}
+			});
+			return false;
+		}
+	</script>
+
+	<script>
+		let result = document.querySelector('#deliveryCost');
+
+		
+		window.localStorage.setItem("total", document.getElementById("totalPrice").innerHTML);
+
+		const totalInLocal = JSON.parse(window.localStorage.getItem("total"))
+
+		document.body.addEventListener('change', function(e) {
+
+
+			let target = e.target;
+			let message;
+			switch (target.id) {
+
+				case 'inlineRadio4':
+
+					var deliveryCost = 15000
+
+					var deliveryCostInt = parseInt(deliveryCost)
+
+					document.querySelector("#deliveryCost").innerHTML = deliveryCostInt
+
+					var totalAmount = totalInLocal
+
+					var totalAmountInt = parseInt(totalAmount)
+
+					var totalCost = document.querySelector('#totalPrice').innerHTML = totalAmountInt + deliveryCostInt
+
+
+
+					break;
+
+				case 'inlineRadio3':
+
+					var deliveryCost = 10000
+
+					var deliveryCostInt = parseInt(deliveryCost)
+
+					document.querySelector("#deliveryCost").innerHTML = deliveryCostInt
+
+					var totalAmount = totalInLocal
+
+					var totalAmountInt = parseInt(totalAmount)
+
+					var totalCost = document.querySelector('#totalPrice').innerHTML = totalAmountInt + deliveryCostInt
+
+					break;
+			}
+			result.textContent = deliveryCost;
+		});
+	</script>
+	}

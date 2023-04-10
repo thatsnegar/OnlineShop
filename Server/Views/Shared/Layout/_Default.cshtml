@@ -1,0 +1,71 @@
+﻿@inject Microsoft.Extensions.Options.IOptions<ViewModels.Settings.Domain> adminSettingsOptions
+
+@{
+	var adminSettings =
+		adminSettingsOptions.Value;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>
+		Emoni
+	</title>
+	<link rel="icon" type="image/x-icon" href="/favicon.ico">
+	<!-- Styles -->
+	<partial name="~/Views/Shared/PartialViews/Default/_Styles.cshtml" />
+	@RenderSection(name: "Styles", required: false)
+</head>
+<body id="body-homepage">
+
+	<header>
+		<!-- TopHeader -->
+		@*<partial name="~/Views/Shared/PartialViews/Default/_TopHeader.cshtml" />*@
+
+		<!-- navbar -->
+		@await Component.InvokeAsync(name: "NavbarComponent")
+	</header>
+	<partial name="PartialViews/_DisplayToastMessages" />
+	<partial name="PartialViews/_DisplayPageMessages" />
+	@RenderBody()
+
+	<!-- Footer -->
+	@RenderSection(name: "Footer", required: false)
+
+	<!-- scroll -->
+	<a class="scrollTo scroll-To-top" href=".topbar-site"></a>
+
+	<!-- Scripts -->
+	<partial name="~/Views/Shared/PartialViews/Default/_Scripts.cshtml" />
+	@RenderSection(name: "Scripts", required: false)
+
+	<script>
+		function ConfirmDeleteCart(itemProductId) 
+		{
+			$.ajax
+			({
+				type: "POST",
+				url: "@(adminSettings.DomainName)order/delete",
+				data: { id: itemProductId },
+				success: function(result) {
+					$("#deleteModal").modal("hide");
+					$("#row_" + itemProductId).remove();
+					location.reload();
+				},
+				error: function(result) {
+					alert(result);
+				}
+			})
+		}
+</script>
+
+<script>
+$('#shoppingCart').on('click', function(){
+    $('.box-add-to-cart-header').toggle('cart-woocommerce-toogle');
+});
+</script>
+
+</body>
+</html>

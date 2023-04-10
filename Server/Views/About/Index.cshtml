@@ -1,0 +1,116 @@
+﻿@model ViewModels.About.IndexViewModel
+
+@*Bread Crumb*@
+<section class="mb-5 pb-sm-2 pb-md-3  pb-lg-4 pb-xl-5">
+    <div class="container container-4xl">
+         @await Component.InvokeAsync(name:"BreadCrumbsComponent")
+            <h1 class="text-center mb-3">
+                درباره ما
+            </h1>
+            <nav aria-label="breadcrumb" class="mb-4 mb-lg-3">
+                <ol class="breadcrumb breadcrumb-singleProduct ">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Home" asp-action="Index">
+                            خانه
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        درباره ما
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<main class="content">
+    <section class="mb-5 pb-sm-2 pb-md-3  pb-lg-4 pb-xl-5">
+        <div class="container container-2xl">
+            <div class="row">
+                <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+                    <div class="area-img-about-us">
+                        <img src="~/emoniFiles/Abouts/@(Model.AboutImageName)" alt="@(Model.AboutImageName)" class="img-fluid w-100">
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 d-flex align-items-center">
+                    <div class="text-about-us">
+                        <h2 class="title-style2" style="visibility: visible; animation-name: fadeInUp;font-size: 2rem !important;">
+                            @(Model.Title)
+                        </h2>
+                        <p>
+                            @(Html.Raw(value: Model.Text))
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="mb-5 pb-sm-2 pb-md-3  pb-lg-4 pb-xl-5">
+        <div class="area-services-about">
+            <div class="container container-2xl">
+                <div class="area-title-about mb-5">
+                    <h2 class="title-style2" style="visibility: visible; animation-name: fadeInUp;">
+                        @(Model.SubTitle)
+                    </h2>
+                    <p>
+                        @(Html.Raw(value: Model.Slogan))
+                    </p>
+                </div>
+                <div class="row">
+                    <div class="col-12  col-sm-6 col-lg-4 ">
+                        <div class="box-icon-about">
+                            <div class="card ">
+                                <div class="card-header">
+                                    <h5 class="card-title">
+                                        @(Model.GoalTitle)
+                                    </h5>
+                                </div>
+                                <div class="card-body-about p-0">
+                                    <p class="card-text">
+                                        @(Html.Raw(value: Model.GoalDescription))
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12  col-sm-6 col-lg-4">
+                        <div class="box-icon-about">
+                            <div class="card ">
+                                <div class="card-header">
+                                    <h5 class="card-title">
+                                        @(Model.MissionTitle)
+                                    </h5>
+                                </div>
+                                <div class="card-body-about p-0">
+                                    <p class="card-text">
+                                        @(Html.Raw(value: Model.MissionDescription))
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12  col-sm-6 col-lg-4 ">
+                        <div class="box-icon-about" id="box-icon-about-three">
+                            <div class="card ">
+                                <div class="card-header">
+                                    <h5 class="card-title">
+                                        @(Model.VisionTitle)
+                                    </h5>
+                                </div>
+                                <div class="card-body-about p-0">
+                                    <p class="card-text">
+                                        @(Html.Raw(value: Model.VisionDescription))
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+@section Footer{
+    <partial name="~/Views/Shared/PartialViews/Default/_Footer.cshtml" />
+}

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<ViewModels.ProductSlider.IndexViewModel>
+@{
+	if (Model is null)
+	{
+		return;
+	}
+}
+<section class="mb-2 mb-md-3  mb-lg-4 mb-xl-5">
+	<div class="container container-2xl">
+		<div class="row justify-content-center mb-5">
+			<h2 class="wow fadeInUp title-site fs-4 fw-bold">
+				محصولات امونی
+			</h2>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div class="owl-carousel owl-theme slider_product2">
+					@foreach (var item in Model)
+					{
+						<div class="wow bounceIn item_slider_product-new" data-wow-duration="2s">
+							<div class="product_cart">
+								@if (@item.HasDiscount)
+								{
+									<div class="off">
+										<span>
+											30% تخفیف
+										</span>
+									</div>
+								}
+								<div class="cart-img-product mb-3">
+									@if (@item.ImageProductName is not null)
+									{
+										<a asp-controller="Products" asp-action="Details" asp-route-productId="@(item.ProductId)">
+											<div class="d-flex justify-content-center align-items-center h-100">
+												<img src="~/emoniFiles/Products/@(item.ImageProductName)" class="img1-product img-fluid" alt="@(item.ImageProductName)" />
+											</div>
+										</a>
+									}
+									else
+									{
+										<h2 class="text-danger">
+											هیچ تصویری برای این محصول یافت نشد!
+										</h2>
+									}
+									<div class="area-button-view-product">
+										<a asp-controller="Products" asp-action="Details" asp-route-productId="@(item.ProductId)" class="button-view-product">
+											مشاهده محصول
+										</a>
+										<a asp-controller="Order" asp-action="AddToShoppingCart" asp-route-id="@(item.ProductId)" class="add-to-cart">
+											+
+										</a>
+									</div>
+								</div>
+								<div class="content_product text-center">
+									@if (@item.HasDiscount)
+									{
+										<div class="price_card_product mb-2">
+											<del class="me-1">
+												@(item.Price)
+											</del>
+											@(item.DiscountedPrice)
+											تومان
+										</div>
+									}
+									else
+									{
+										<div class="price_card_product mb-2">
+											@(item.Price)
+											تومان
+										</div>
+									}
+									<a asp-controller="Products" asp-action="Details" asp-route-productId="@(item.ProductId)">
+										<h3 class="title-product mb-2">
+											@item.Title
+										</h3>
+									</a>
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+

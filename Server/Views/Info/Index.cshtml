@@ -1,0 +1,122 @@
+﻿@model IEnumerable<ViewModels.ScientificInfo.IndexViewModel>
+
+@{
+    ViewModels.AdminViewModels.Users.UserViewModel? foundedCurrentUser =
+        ViewData["foundedOnlineUser"] as ViewModels.AdminViewModels.Users.UserViewModel;
+
+}
+
+<body class="blog blog-three-column">
+	<section class="pb-sm-2 pb-lg-4 pb-xl-5">
+		<div class="container container-4xl">
+			@*BreadCrumb*@
+			@await Component.InvokeAsync(name:"BreadCrumbsComponent")
+			<h1 class="text-center mb-3">اطلاعات علمی</h1>
+			<nav aria-label="breadcrumb" class="mb-4 mb-lg-3">
+				<ol class="breadcrumb breadcrumb-singleProduct ">
+					<li class="breadcrumb-item">
+						<a asp-action="Index" asp-controller="Home">
+							خانه
+						</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a asp-action="Index" asp-controller="Info">
+							اطلاعات علمی
+						</a>
+					</li>
+					<li class="breadcrumb-item active">اطلاعات علمی</li>
+				</ol>
+			</nav>
+		</div>
+		</div>
+	</section>
+
+	<main class="content">
+		<div class="container container-2xl">
+			<div class="row justify-content-center">
+				<div class="row justify-content-center mb-5">
+					<h2 class="wow fadeInUp title-site">
+						اطلاعات علمی
+					</h2>
+				</div>
+				@*Video List*@
+				<div class="row pdf mb-5">
+					@if (Model.Any())
+					{
+						foreach (var item in Model)
+						{
+							<div class="col-lg-3 col-md-3 col-sm-12 mb-5">
+								<div class="card-info">
+									<div class="face face1">
+										<div class="content">
+											<div class="icon">
+												<a class="info-donlowd" href="/emoniFiles/ScientificInfos/@(item.File.Name)" download>
+													<i class="fas fa-folder pdf-icon" data-toggle="tooltip" data-placement="top" title="@(item.Title)"></i>
+												</a>
+												<h3 class="header-face">
+													@(item.Text)
+												</h3>
+												<h4 class="header-face-size">
+													@(item.File.Size)
+												</h4>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						}
+					}
+				</div>
+			</div>
+			@*Pagination info*@
+			@if (ViewBag.TotalPages > 1)
+			{
+				<ul class="pagination page-numbers d-flex justify-content-center order-2 order-md-1 mt-4">
+					@if (ViewBag.PageNumber <= 1)
+					{
+						<li class="page-item disabled">
+							<a class="page-link" href="#" tabindex="-1">
+								<i class="fas fa-chevron-right"></i>
+							</a>
+						</li>
+					}
+					else
+					{
+						<li class="page-item disabled">
+							<a class="page-link" href="#" tabindex="-1">
+								<i class="fas fa-chevron-right"></i>
+							</a>
+						</li>
+					}
+
+					@for (var index = 1; index <= (ViewBag.TotalPages); index++)
+					{
+						<li class="page-item @(((int)ViewBag.PageNumber==index)?"active":"")"><a class="page-link" asp-controller="Info" asp-action="Index" asp-route-pageNumber="@index">1</a></li>
+					}
+
+					@if (ViewBag.PageNumber >= ViewBag.TotalPages)
+					{
+						<li class="page-item">
+							<a class="page-link" href="#" aria-label="Next">
+								<i class="fas fa-chevron-left"></i>
+							</a>
+						</li>
+					}
+					else
+					{
+						<li class="page-item">
+							<a class="page-link" href="#" aria-label="Next">
+								<i class="fas fa-chevron-left"></i>
+							</a>
+						</li>
+					}
+				</ul>
+			}
+
+		</div>
+	</main>
+</body>
+
+@section Footer{
+	<partial name="~/Views/Shared/PartialViews/Default/_Footer.cshtml" />
+}

@@ -1,0 +1,49 @@
+﻿@model ViewModels.Messages.UserMessageViewModel
+
+@inject DAL.IUnitOfwork unitOfWork
+
+@{
+
+	var foundedMessages =
+				await unitOfWork.Messages.GetAllMessageIndexViewAsync();
+
+	var count = foundedMessages.Count();
+
+	ViewModels.AdminViewModels.Users.UserViewModel? foundedOnlineUser =
+							ViewData["foundedOnlineUser"] as ViewModels.AdminViewModels.Users.UserViewModel;
+}
+
+
+
+
+@{
+	if (foundedOnlineUser is not null)
+	{
+		<div class="icon-search item_widget_navbar d-none d-lg-block">
+			<a asp-controller="MessagesForCurrentUser" asp-action="UserNotifications" class="d-flex justify-content-center align-items-center">
+				<i class="fal fa-envelope"></i>
+				<span class="badge_count-message">
+					@count
+				</span>
+			</a>
+		</div>
+		if(foundedOnlineUser.Role == "Admin")
+		{
+			<div class="icon-panel item_widget_navbar d-none d-lg-block">
+				<a asp-area="Admin" asp-controller="Home" asp-action="Index" class="d-flex justify-content-center align-items-center" style="margin-right: -60px;">
+					<i class="fal fa-border-all"></i>
+				</a>
+			</div>
+		}
+	}
+	else
+	{
+		<div class="icon-search item_widget_navbar d-none d-lg-block">
+			<a asp-controller="Account" asp-action="Login" class="d-flex justify-content-center align-items-center">
+				<i class="fal fa-envelope"></i>
+			</a>
+		</div>
+	}
+}
+
+

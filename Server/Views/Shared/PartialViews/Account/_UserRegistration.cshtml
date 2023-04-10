@@ -1,0 +1,94 @@
+﻿@model ViewModels.Accounts.UserRegistrationViewModel
+
+<form asp-controller="Account" asp-action="RegisterUser" method="Post">
+	<div asp-validation-summary="ModelOnly"></div>
+	@*<partial name="_CaptchaInput"/>*@
+	<div class="form-group">
+		<label asp-for="Username">
+			@Resources.Tables.User.Username
+			<span class="text-danger">
+				*
+			</span>
+		</label>
+		<input asp-for="Username" type="text" class="form-control">
+		<span asp-validation-for="Username" class="text-danger fontSize14"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="PhoneNumber">
+			@Resources.Tables.User.PhoneNumber
+			<span class="text-danger">
+				*
+			</span>
+		</label>
+		<input asp-for="PhoneNumber" type="number" class="form-control">
+		<span asp-validation-for="PhoneNumber" class="text-danger fontSize14"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="EmailAddress">
+			@Resources.Tables.User.EmailAddress
+			<span class="text-danger">
+				*
+			</span>
+		</label>
+		<input asp-for="EmailAddress" type="text" class="form-control">
+		<span asp-validation-for="EmailAddress" class="text-danger fontSize14"></span>
+	</div>
+	<div class="form-group">
+		<label>
+			جنسیت
+		</label>
+		<select class="select2-size-xs form-control" asp-for="Gender">
+			<option value="null">--انتخاب جنسیت--</option>
+			<option value="@(Domain.Enums.Gender.Male)">مرد</option>
+			<option value="@(Domain.Enums.Gender.Female)">زن</option>
+		</select>
+		<div class="invalid-feedback">
+			<span asp-validation-for="Gender"></span>
+		</div>
+	</div>
+	<div class="form-group mb-3">
+		<label asp-for="Password">
+			@Resources.Tables.User.Password
+			<span class="text-danger">
+				*
+			</span>
+		</label>
+		<input asp-for="Password" type="password" class="form-control uoser-password">
+		<span asp-validation-for="Password" class="text-danger fontSize14"></span>
+		<div class="form-check form-check-custom my-3 my-sm-0">
+			<label class="checkbox-container" for="register-password-user-copy">
+				نمایش رمز عبور
+				<input type="checkbox" id="register-password-user-copy" onclick="showPassword5() ">
+				<span class="checkmark"></span>
+			</label>
+		</div>
+	</div>
+	<div class="form-group mb-3">
+		<label asp-for="RePassword">
+			@Resources.Tables.User.RePassword
+			<span class="text-danger">
+				*
+			</span>
+		</label>
+		<input asp-for="RePassword" type="password" class="form-control user-password-copy">
+		<span asp-validation-for="RePassword" class="text-danger fontSize14"></span>
+		<div class="form-check form-check-custom my-3 my-sm-0">
+			<label class="checkbox-container" for="register-passworduser">
+				نمایش رمز عبور
+				<input type="checkbox" id="register-passworduser" onclick="showPassword6() ">
+				<span class="checkmark"></span>
+			</label>
+		</div>
+	</div>
+	<div class="btn-from-login">
+		<button type="submit" class="btn-animate1 mt-4">
+			ثبت نام
+		</button>
+	</div>
+	<div class="form-note mt-4">
+		حساب کاربری دارید؟
+		<a asp-controller="Account" asp-action="Login">
+			ورود
+		</a>
+	</div>
+</form>

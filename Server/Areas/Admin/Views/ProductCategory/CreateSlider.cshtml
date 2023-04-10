@@ -1,0 +1,221 @@
+﻿@model ViewModels.AdminViewModels.ProductCategories.CreateSliderViewModel
+
+@section Styles
+	{
+	<link rel="stylesheet" type="text/css" href="~/admin/app-assets/css-rtl/core/colors/palette-gradient.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="~/admin/assets/css/uploadFile.css" />
+    }
+
+<div class="app-content content">
+	<div class="content-wrapper pb-0">
+		<div class="content-wrapper-before"></div>
+		<div class="content-header row">
+			<div class="content-header-right col-md-8 col-12">
+				<div class="breadcrumbs-top">
+					<div class="breadcrumb-wrapper mr-1">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item">
+								<a asp-area="Admin" asp-controller="Home" asp-action="Index">
+									خانه
+								</a>
+							</li>
+							<li class="breadcrumb-item ">
+								<a asp-area="Admin" asp-controller="productCategory" asp-action="Index">
+									اسلایدر محصولات
+								</a>
+							</li>
+							<li class="breadcrumb-item active">
+								محصولات
+							</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content-body">
+			<!-- Basic form layout section start -->
+			<section id="basic-form-layouts">
+				<div class="row match-height">
+					<div class="col-md-12">
+						<div class="card mb-0">
+							<div class="card-header">
+								<h4 class="card-title" id="basic-layout-form">اضافه کردن محصول</h4>
+								<a class="heading-elements-toggle">
+									<i class="la la-ellipsis-v font-medium-3"></i>
+								</a>
+								<div class="heading-elements">
+									<ul class="list-inline mb-0">
+										<li>
+											<a data-action="collapse">
+												<i class="ft-minus"></i>
+											</a>
+										</li>
+										<li>
+											<a data-action="reload">
+												<i class="ft-rotate-cw"></i>
+											</a>
+										</li>
+										<li>
+											<a data-action="expand">
+												<i class="ft-maximize"></i>
+											</a>
+										</li>
+										<li>
+											<a data-action="close">
+												<i class="ft-x"></i>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="card-content collapse show">
+								<div class="card-body">
+
+									<form class="needs-validation" asp-controller="ProductCategory" asp-action="CreateSlider" enctype="multipart/form-data" method="Post">
+										<div asp-validation-summary="ModelOnly"></div>
+										<div class="form-body">
+											<h4 class="form-section">
+												<i class="ft-file-text"></i>
+												اطلاعات محصول
+											</h4>
+											<div class="row">
+												@*Product Category*@
+												<div class="col-md-4">
+													<div class="form-group">
+														<label>
+															دسته بندی محصول
+														</label>
+														<select class="select2-size-xs form-control" name="ProductCategoryId" id="productCategoryId" asp-items="ViewBag.ProductCategories">
+															<option value="">--انتخاب دسته بندی محصول--</option>
+														</select>
+													</div>
+												</div>
+
+												@*Title*@
+												<div class="col-md-4">
+													<div class="form-group">
+														<label>
+															لینک صفحه دسته بندی محصول
+														</label>
+														<input type="url" id="Title" class="form-control" asp-for="Url" placeholder="@Html.DisplayNameFor(m=>m.Url)" />
+														<span asp-validation-for="Url" class="text-danger fontSize14"></span>
+													</div>
+												</div>
+											</div>
+											<hr />
+											@*Upload File*@
+											<div class="row pb-2">
+												<div class="col-sm-2 imageUp">
+													<div class="imagePreview"></div>
+													<label class="btn btn-primary">
+														Upload File
+														<input type="file" class="uploadFile image" name="File" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
+													</label>
+												</div>
+											</div>
+
+											<hr />
+
+											<div class="form-actions mt-0 pb-0">
+												<a asp-area="Admin" asp-controller="ProductCategory" asp-action="GetAllSliders" class="btn btn-glowbtn btn-outline-warning btn-min-width mr-1">
+													<i class="ft-corner-down-right"></i>
+													بازگشت
+												</a>
+												<button type="submit" id="submit" class="btn btn-outline-success btn-min-width">
+													<i class="la la-check-square-o"></i>
+													ذخیره
+												</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+
+
+		@section Scripts
+			{
+			@*Upload File*@
+			<script>
+				$(function () {
+					$(document).on("change", ".uploadFile", function () {
+						var uploadFile = $(this)
+
+						console.log(this.result)
+
+						var files = !!this.files ? this.files : []
+
+						if (!files.length || !window.FileReader)
+							return; // no file selected, or no FileReader support
+
+						if (/^image/.test(files[0].type)) // only image file
+						{
+							var reader = new FileReader() // instance of the FileReader
+
+							reader.readAsDataURL(files[0]) // read the local file
+
+							reader.onloadend = function () // set image data as background of div
+							{
+								//alert(uploadFile.closest(".upimage").find('.imagePreview').length);
+								uploadFile.closest(".imageUp").find('.imagePreview').css("background-image", "url(" + this.result + ")");
+							}
+						}
+
+					});
+				});
+
+			</script>
+
+			@*Get Main Category and its Product Categories*@
+			@*
+		<script>
+		$(document).ready(function() {
+		$("#mainCategoryTitle").change(function() {
+
+		// It's Important
+		$("#productCategoryId").empty();
+
+		var mainCategoryTitle = $("#mainCategoryTitle").val();
+
+		$.ajax({
+		type: 'post',
+		url: '@Url.Action("GetProductCategoriesByMainCategoryTitleForSlider")',
+		data: {
+
+		mainCategoryTitle: mainCategoryTitle
+		},
+		success: function(productCategories) {
+		if (productCategories === "") {
+		alert('Main Category does not include any product category to create slider!!!')
+		}
+		else {
+		var array = JSON.parse(productCategories);
+
+		array.forEach(function(item) {
+		$("#productCategoryId").append('<option value="'
+		+ item.Id + '">'
+		+ item.Title + '</option>');
+		})
+		}
+		},
+		error: function(ex) {
+		alert('Failed to retrieve Product Categories.' + ex);
+		}
+		});
+		})
+		})
+		</script>
+		*@
+
+			@{
+				await Html.RenderPartialAsync("~/Areas/Admin/Views/Shared/_ValidationScriptsPartial.cshtml");
+			}
+		}
+
+	</div>
+</div>

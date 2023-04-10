@@ -1,0 +1,101 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Admin\Data\**" />
+    <Compile Remove="Areas\Admin\Models\**" />
+    <Compile Remove="Areas\Admin\Views\OrderDetails\**" />
+    <Content Remove="Areas\Admin\Data\**" />
+    <Content Remove="Areas\Admin\Models\**" />
+    <Content Remove="Areas\Admin\Views\OrderDetails\**" />
+    <EmbeddedResource Remove="Areas\Admin\Data\**" />
+    <EmbeddedResource Remove="Areas\Admin\Models\**" />
+    <EmbeddedResource Remove="Areas\Admin\Views\OrderDetails\**" />
+    <None Remove="Areas\Admin\Data\**" />
+    <None Remove="Areas\Admin\Models\**" />
+    <None Remove="Areas\Admin\Views\OrderDetails\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Services\Services.csproj" />
+    <ProjectReference Include="..\Shared\Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Messages\" />
+    <Folder Include="wwwroot\emoniFiles\UploasdFiles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Account\ForgotPassword.cshtml" />
+    <None Include="Views\Account\Login.cshtml" />
+    <None Include="Views\Account\Register.cshtml" />
+    <None Include="Views\Account\ResetPassword.cshtml" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\.gitignore" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\.npmignore" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\css\font-awesome.css.map" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\less\animated.less" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\less\bordered-pulled.less" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\less\core.less" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\less\fixed-width.less" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\less\font-awesome.less" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\less\icons.less" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\less\larger.less" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\less\list.less" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\less\mixins.less" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\less\path.less" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\less\rotated-flipped.less" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\less\stacked.less" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\less\variables.less" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\scss\font-awesome.scss" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\scss\_animated.scss" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\scss\_bordered-pulled.scss" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\scss\_core.scss" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\scss\_fixed-width.scss" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\scss\_icons.scss" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\scss\_larger.scss" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\scss\_list.scss" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\scss\_mixins.scss" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\scss\_path.scss" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\scss\_rotated-flipped.scss" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\scss\_stacked.scss" />
+    <None Include="wwwroot\lib\datepicker\css\fontawesome\scss\_variables.scss" />
+    <None Include="wwwroot\lib\datepicker\js\ajaxmin.bat" />
+    <None Include="wwwroot\lib\datepicker\js\angular.min.js" />
+    <None Include="wwwroot\lib\datepicker\js\jquery-1.10.1.min.js" />
+    <None Include="wwwroot\lib\datepicker\js\persianDatepicker.js" />
+    <None Include="wwwroot\lib\datepicker\js\persianDatepicker.min.js" />
+    <None Include="wwwroot\lib\datepicker\js\prism.js" />
+    <None Include="wwwroot\lib\datepicker\js\prism.min.js" />
+    <None Include="wwwroot\lib\datepicker\js\vertical-responsive-menu.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GoogleReCaptcha.V3" Version="1.3.1" />
+    <PackageReference Include="HtmlSanitizer" Version="7.1.542" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.8" />
+    <PackageReference Include="Parbad" Version="3.8.3" />
+    <PackageReference Include="Parbad.AspNetCore" Version="1.2.0" />
+    <PackageReference Include="Parbad.Storage.Cache" Version="1.2.0" />
+  </ItemGroup>
+
+</Project>

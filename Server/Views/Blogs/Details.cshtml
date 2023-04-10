@@ -1,0 +1,61 @@
+﻿@model ViewModels.Blogs.DetailViewModel
+
+<!-- Bread Crumbs -->
+<section class="mb-5 pb-sm-2 pb-md-3  pb-lg-4 pb-xl-5">
+    <div class="container container-4xl">
+         @await Component.InvokeAsync(name:"BreadCrumbsComponent")
+            <h1 class="text-center mb-3">
+                @Model.Title
+            </h1>
+            <nav aria-label="breadcrumb" class="mb-4 mb-lg-3">
+                <ol class="breadcrumb breadcrumb-singleProduct ">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Home" asp-action="Index">
+                            خانه
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Blogs" asp-action="BlogsList">
+                            وبلاگ
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        @Model.Title
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    
+</section>
+
+<main class="content">
+    <div class="container container-4xl">
+        <div class="row">
+            <div class="col-12 col-lg-9 post-single-left ">
+                <article class="post-content single">
+                    <h1 class="title-post">
+                        @(Model.Title)
+                    </h1>
+                    <div class="meta-post single d-flex mb-4">
+                        <div class="date-post item-meta-post  me-3">
+                            <a href="#" class="data-link">
+                                @(Model.InsertDateTime.ToShamsiWithoutTime())
+                            </a>
+                        </div>
+                    </div>
+                    <div class="DetailsPost">
+                        @(Html.Raw(value: Model.Text))
+                    </div>
+                </article>
+            </div>
+
+            <div class="col-12 col-lg-3">
+                @await Component.InvokeAsync(name: "RecentBlogComponent")
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Footer{
+    <partial name="~/Views/Shared/PartialViews/Default/_Footer.cshtml" />
+}

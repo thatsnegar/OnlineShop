@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>
+		Emoni
+	</title>
+	<!-- Styles -->
+	<partial name="~/Views/Shared/PartialViews/ProfileDetails/_Styles.cshtml" />
+	@RenderSection("Styles", required: false)
+</head>
+<body class="contact bg-overlay-account">
+	<main class="content">
+		<section class="mb-5 pb-sm-2 pb-md-3  pb-lg-4 pb-xl-5">
+			<div class="container container-Page-account">
+				<div class="row">
+
+					<partial name="PartialViews/_DisplayToastMessages" />
+					<partial name="PartialViews/_DisplayPageMessages" />
+					<partial name="~/Views/Shared/PartialViews/ProfileDetails/_RightSidebar.cshtml" />
+
+					@RenderBody()
+
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<!-- scroll -->
+	<a class="scrollTo scroll-To-top " href=".topbar-site"></a>
+	<!-- Scripts -->
+	<script src="~/assets/js/jquery-3.6.0.min.js"></script>
+	@RenderSection("PopperJs", required: false)
+	<partial name="~/Views/Shared/PartialViews/ProfileDetails/_Scripts.cshtml" />
+	@RenderSection("Scripts", required: false)
+</body>
+</html>

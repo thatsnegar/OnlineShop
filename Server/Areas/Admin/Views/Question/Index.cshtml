@@ -1,0 +1,541 @@
+﻿@model IEnumerable<ViewModels.AdminViewModels.Questions.IndexViewModel>
+
+@section Styles
+	{
+	<link rel="stylesheet" type="text/css" href="~/admin/app-assets/vendors/css/tables/datatable/datatables.min.css">
+	<link rel="stylesheet" href="~/admin/assets/css/uploadFile.css" />
+
+}
+
+	<div class="app-content content">
+		<div class="content-wrapper">
+			<div class="content-wrapper-before"></div>
+			<div class="content-header row">
+				<div class="content-header-right col-md-8 col-12">
+					<div class="breadcrumbs-top">
+
+						<div class="breadcrumb-wrapper mr-1">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a asp-area="Admin" asp-controller="Home" asp-action="Index">
+										خانه
+									</a>
+								</li>
+								<li class="breadcrumb-item active ">
+									مدیریت پرسش ها
+								</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+				<div class="content-header-left col-md-4 col-12 mb-2">
+					<div class="float-md-right">
+						<div class="see-site">
+							<a href="#" class=" see-site-btn" data-toggle="modal" data-keyboard="false" data-target="#keyboard2">
+								<i class="ft-monitor"></i>
+							</a>
+							<div class="see-site-title">
+								مشاهده سایت
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="content-body">
+				<!-- DOM - jQuery events table -->
+				<button class="btn btn-primary" type="button" id="loading" disabled>
+					<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+					بارگذاری...
+				</button>
+				<section id="dom">
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-header">
+									<h4 class="card-title">
+										پرسش ها
+									</h4>
+									<a class="heading-elements-toggle">
+										<i class="la la-ellipsis-v font-medium-3"></i>
+									</a>
+									<div class="heading-elements">
+										<ul class="list-inline mb-0">
+											<li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+											<li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+											<li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+											<li><a data-action="close"><i class="ft-x"></i></a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="card-content collapse show">
+									<div class="card-body card-dashboard">
+										<div class="add-holder">
+											<a asp-area="Admin" asp-controller="Question" asp-action="Create" class="any-add btn btn-min-width mr-1 mb-2">
+												اضافه کردن سوال
+											</a>
+										</div>
+										<div class="table-responsive">
+											<table class="table table-striped table-bordered dom-jQuery-events" id="mainCategoryTable">
+												<thead>
+													<tr>
+														<th>
+															ترتیب نمایش
+														</th>
+														<th>
+															متن سوال
+														</th>
+														<th>
+															تاریخ ثبت
+														</th>
+														<th>
+															تاریخ ویرایش
+														</th>
+														<th>
+															عملیات
+														</th>
+													</tr>
+												</thead>
+												<tbody>
+													@if (Model != null)
+												{
+													int index = 0;
+
+													foreach (var item in Model)
+													{
+
+														<tr id="row_@item.Id">
+															<td>
+																@Html.DisplayFor(modelItem => item.DisplayOrder)
+															</td>
+															<td>
+																@Html.DisplayFor(modelItem => item.QuestionTitle)
+															</td>
+															<td>
+																@Html.DisplayFor(modelItem => item.InsertDateTime)
+															</td>
+															@{
+																if (item.IsEditted == false)
+																{
+																	<td>
+																		-
+																	</td>
+																}
+																else
+																{
+																	<td>
+																		@Html.DisplayFor(modelItem => item.UpdateDateTime)
+																	</td>
+																}
+															}
+															<td>
+																<div class="custom-setting">
+																	<a asp-area="Admin" asp-controller="Question" asp-action="Edit" asp-route-Id="@(item.Id)">
+																		<i class="ft-edit modal-icon " data-toggle="tooltip" data-placement="top" title="" data-original-title="ویرایش">
+																		</i>
+																	</a>
+																	<a onclick="ConfirmDelete('@item.Id')" data-toggle="modal" data-keyboard="false" data-target="#deleteModal">
+																		<i class="ft-trash modal-icon-remove" data-toggle="tooltip" data-placement="top" title="" data-original-title="حذف"></i>
+
+																	</a>
+																	<a onclick="RequestSaveAnswer('@item.Id')" data-toggle="modal" data-keyboard="false" data-target="#saveAnswerModal">
+																		<i class="ft-plus-circle modal-icon-plus" data-toggle="tooltip" data-placement="top" title="" data-original-title="اضافه کردن پاسخ"></i>
+																	</a>
+																	<a onclick="RequestShowAnswer('@item.Id')" data-toggle="modal" data-keyboard="false" data-target="#showAnswersModal">
+																		<i class="ft-eye modal-icon-eye" data-toggle="tooltip" data-placement="top" title="" data-original-title="نمایش پاسخ "></i>
+																	</a>
+																</div>
+															</td>
+														</tr>
+													}
+												}
+											</tbody>
+										</table>
+										<div class="iframe-content">
+											<div class="modal fade text-left" id="keyboard2" tabindex="-1" role="dialog" aria-labelledby="basicModalLabel3" aria-hidden="true">
+												<div class="modal-dialog modal-dialog-centered iframe-dialog" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h4 class="modal-title" id="basicModalLabel3">
+																نمایش سایت
+															</h4>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<div class="iframe-container">
+																<iframe src="https://localhost:44397/AboutUs/AboutUs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" loading="lazy" allowfullscreen></iframe>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- DOM - jQuery events table -->
+		</div>
+	</div>
+</div>
+
+<input type="hidden" id="hiddenId" />
+
+<!-- Delete Modal -->
+<div class="modal fade text-left" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="basicModalLabel3" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="icon">
+					<i class="ft-alert-triangle"></i>
+				</div>
+				<div class="text">
+					<p>
+						آیا از حذف این آیتم اطمینان دارید ؟
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-warning round btn-min-width" data-dismiss="modal">
+					بستن
+				</button>
+				<button onclick="DeleteItem()" class="btn btn-danger round btn-min-width">
+					حذف
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Delete Modal -->
+<!--Save Answer Modal-->
+<div class="modal fade text-left" id="saveAnswerModal" tabindex="-1" role="dialog" aria-labelledby="basicModalLabel3" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="basicModalLabel3">
+					جواب
+				</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body row justify-content-center">
+				<div class="col-md-10">
+					<div class="form-group">
+						<label>ترتیب نمایش</label>
+						<input type="number" id="displayOrder" class="form-control" required />
+						<div class="invalid-feedback">
+							<span></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-10">
+					<div class="form-group">
+						<label> انتخاب دسته بندی :</label>
+						<select class="select2-size-xs form-control" id="productCategoryId" asp-items="ViewBag.ProductCategories">
+							<option value="null">--انتخاب دسته بندی--</option>
+						</select>
+					</div>
+					<span></span>
+				</div>
+				<div class="col-md-10">
+					<div class="form-group">
+						<label> انتخاب محصول:</label>
+						<select class="select2-size-xs form-control" id="productId">
+							<option value="null">--انتخاب محصول--</option>
+						</select>
+					</div>
+					<span></span>
+				</div>
+				<div class="col-md-10">
+					<div class="form-group">
+						<label>جواب</label>
+						<input type="text" id="answerText" class="form-control" required />
+						<div class="invalid-feedback">
+							<span></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-warning round btn-min-width" data-dismiss="modal">
+					بستن
+				</button>
+				<button onclick="SaveAnswer()" class="btn btn-success round btn-min-width">
+					ذخیره تغییرات
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--Answer Modal-->
+<!--Show Answer Modal-->
+<div class="modal fade text-left" id="showAnswersModal" tabindex="-1" role="dialog" aria-labelledby="basicModalLabel3" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="basicModalLabel3">
+					لیست پاسخ ها
+				</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="table-responsive">
+					<table class="table table-bordered table-striped table-sm" id="answerTable">
+						<thead>
+							<tr>
+								<th>ترتیب نمایش</th>
+								<th>عنوان محصول</th>
+								<th>متن جواب</th>
+								<th>عملیات</th>
+							</tr>
+						</thead>
+						<tbody id="answerListId">
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-warning round btn-min-width" data-dismiss="modal">
+					بستن
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--Answer Modal-->
+@section Scripts
+	{
+	<script src="~/admin/app-assets/vendors/js/tables/datatable/datatables.min.js" type="text/javascript"></script>
+	<script src="~/admin/app-assets/vendors/js/tables/datatable/dataTables.buttons.min.js" type="text/javascript"></script>
+	<script src="~/admin/app-assets/js/scripts/tables/datatables/datatable-advanced.min.js" type="text/javascript"></script>
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	
+	<script>
+		const editUrl = "/admin/Question/edit"
+		const deleteUrl = "/admin/Question/delete"
+		const saveAnswerUrl = "/admin/Question/SaveAnswerResult"
+		const showAnswerUrl = "/admin/Question/ShowAnswersList"
+		const deleteAnswerUrl = "/admin/Question/DeleteAnswer"
+
+		//Edit
+		function RequestEdit(itemId) {
+			$.ajax({
+				type: "get",
+				url: editUrl,
+				data:
+				{
+					id: itemId
+				},
+				success: function(data) {
+					const myJson = JSON.parse(data);
+					$('#hiddenId').val(myJson.Id)
+					$('#text').val(myJson.Text)
+				},
+				error: function(result) {
+					alert(result);
+				}
+			})
+		}
+
+		var RegisterEdit = function() {
+			var itemId = $("#hiddenId").val()
+			var foundedTitleValue = $('#text').val()
+			if (foundedTitleValue === "") {
+				alert("Title is required!")
+			}
+			$.ajax({
+				type: "post",
+				url: editUrl,
+				data:
+				{
+					id: itemId,
+					Text: $('#text').val(),
+				},
+				success: function(result) {
+					if (result === true) {
+						$("#editModal").modal("hide")
+						location.reload()
+					}
+					else {
+						alert("Title is Required!!!")
+					}
+				},
+				error: function(result) {
+					window.location.href = "/admin/Question";
+				}
+
+
+			})
+		}
+
+		//Confirm Delete
+		function ConfirmDelete(itemId) {
+			document.getElementById("hiddenId").value = itemId
+		}
+
+		var DeleteItem = function() {
+			var itemId = $("#hiddenId").val();
+			$.ajax({
+				type: "post",
+				url: deleteUrl,
+				data:
+				{
+					id: itemId
+				},
+				success: function(result) {
+					$("#deleteModal").modal("hide")
+					window.location.href = "/admin/Question/Index";
+				},
+				error: function(result) {
+					alert(result);
+				}
+			})
+		}
+
+		//Save Answer
+		function RequestSaveAnswer(itemId) {
+			document.getElementById("hiddenId").value = itemId
+		}
+
+		var SaveAnswer = function() {
+			$.ajax({
+				type: "post",
+				url: saveAnswerUrl,
+				data:
+				{
+					questionId: $("#hiddenId").val(),
+					answerText: $('#answerText').val(),
+					productId: $('#productId').val(),
+					displayOrder: $('#displayOrder').val(),
+				},
+				success: function(result) {
+					if (result === true) {
+						$("#answerModal").modal("hide")
+						window.location.href = "/admin/Question/Index";
+					}
+					else {
+						alert("عملیات موفقیت آمیز نبود!")
+					}
+				},
+				error: function(result) {
+					window.location.href = "/admin/Question";
+				}
+			})
+		}
+
+		// Show Answer
+		function RequestShowAnswer(itemId) {
+			$("#answerListId").empty();
+			$.ajax({
+				type: "post",
+				url: showAnswerUrl,
+				data:
+				{
+					questionId: itemId
+				},
+				success: function(data) {
+					const answers = JSON.parse(data);
+					$("#answerListId").empty();
+					$.each(answers, function(i, answer) {
+						i += 1
+						$("#answerListId")
+							.append(`<tr>
+							<td>${answer.DisplayOrder}</td>
+							<td>${answer.ProductTitle}</td>
+							<td>${answer.AnswerText}</td>
+							<td><a onclick="DeleteAnswer('${answer.AnswerId}','${answer.QuestionId}')"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+							</tr>`)
+					});
+				},
+				error: function(result) {
+					alert(result);
+				}
+			})
+		}
+
+		// Delete Answer
+		function DeleteAnswer(answerId, questionId) {
+			$.ajax({
+				type: "post",
+				url: deleteAnswerUrl,
+				data:
+				{
+					answerId: answerId,
+					questionId: questionId
+				},
+				success: function(data) {
+					const answers = JSON.parse(data);
+					$("#answerListId").empty();
+					$.each(answers, function(i, answer) {
+						i += 1
+						$("#answerListId").append(`<tr>
+						<td>${answer.DisplayOrder}</td>
+						<td>${answer.ProductTitle}</td>
+						<td>${answer.AnswerText}</td>
+						<td><a onclick="DeleteAnswer('${answer.AnswerId}','${answer.QuestionId}')"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+						</tr>`)
+					});
+				},
+				error: function(result) {
+					alert(result);
+				}
+			})
+		}
+
+	</script>
+
+	<script>
+		$(document).ready(function() {
+			$("#productCategoryId").change(function() {
+
+				$("#productId").empty();
+
+				var productCategoryId = $("#productCategoryId").val();
+
+				if (productCategoryId !== "null") {
+					$.ajax({
+						type: 'post',
+						url: '@Url.Action("GetAllProductsByProductCategoryId")',
+						data: {
+
+							productCategoryId: productCategoryId
+						},
+						success: function(products) {
+							var array = JSON.parse(products);
+
+							array.forEach(function(item) {
+								$("#productId").append('<option value="'
+									+ item.Id + '">'
+									+ item.Title + '</option>');
+							})
+						},
+						error: function(ex) {
+							alert('Failed to retrieve Products.' + ex);
+						}
+					});
+				}
+
+				return false;
+			})
+		})
+	</script>
+
+	
+}
+

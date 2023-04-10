@@ -1,0 +1,21 @@
+﻿@model ViewModels.Image.MainPageBannerViewMode
+@{
+	if (Model is null)
+	{
+		return;
+	}
+}
+
+<a asp-controller="Consultation" asp-action="Index">
+	<section class="mb-5">
+		<div class=" container container-4xl">
+			<div class="area-sale-cover d-flex align-items-center" style=" background: #fff url('/EmoniFiles/Images/@(Model.MainPageBannerName)') no-repeat left center;">
+				<div class="wow zoomInDown content-sale-cover" data-wow-duration="2s">
+					<h2 class="mb-4 mb-md-5">@(Model.FirstSlogan)</h2>
+					<h2 class="mb-4 mb-md-5">@(Model.SecondSlogan)</h2>
+					<h2 class="mb-4 mb-md-5">@(Model.ThirdSlogan)</h2>
+				</div>
+			</div>
+		</div>
+	</section>
+</a>

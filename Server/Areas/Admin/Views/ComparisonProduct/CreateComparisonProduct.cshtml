@@ -1,0 +1,288 @@
+﻿@model ViewModels.AdminViewModels.Comparisons.CreateComparisonProductViewModel
+
+@section Styles
+	{
+	<link rel="stylesheet" type="text/css" href="~/admin/app-assets/css-rtl/core/colors/palette-gradient.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="~/admin/assets/css/uploadFile.css" />
+}
+	<div class="app-content content">
+		<div class="content-wrapper pb-0">
+			<div class="content-wrapper-before"></div>
+			<div class="content-header row">
+				<div class="content-header-right col-md-8 col-12">
+					<div class="breadcrumbs-top">
+						<div class="breadcrumb-wrapper mr-1">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a>
+										خانه
+									</a>
+								</li>
+								<li class="breadcrumb-item ">
+									<a>
+										مدیریت قبل و بعد
+									</a>
+								</li>
+								<li class="breadcrumb-item active ">
+									اضافه کردن اطلاعات مقایسه
+								</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+				<div class="content-header-left col-md-4 col-12 mb-2">
+					<div class="float-md-right">
+						<div class="see-site">
+							<a href="#" class=" see-site-btn" data-toggle="modal" data-keyboard="false" data-target="#keyboard2">
+								<i class="ft-monitor"></i>
+							</a>
+							<div class="see-site-title">
+								مشاهده سایت
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="iframe-content">
+					<div class="modal fade text-left" id="keyboard2" tabindex="-1" role="dialog" aria-labelledby="basicmodallabel3" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered iframe-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title" id="basicmodallabel3">نمایش سایت</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-label="close">
+									</button>
+								</div>
+								<div class="modal-body">
+									<div class="iframe-container">
+										<iframe src="https://www.fidarafzar.ir/web-design.html" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" loading="lazy" allowfullscreen></iframe>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="content-body">
+				<!-- Basic form layout section start -->
+				<section id="basic-form-layouts">
+					<div class="row match-height">
+						<div class="col-md-12">
+							<div class="card mb-0">
+								<div class="card-header">
+
+									<a class="heading-elements-toggle">
+										<i class="la la-ellipsis-v font-medium-3"></i>
+									</a>
+									<div class="heading-elements">
+										<ul class="list-inline mb-0">
+											<li>
+												<a data-action="collapse">
+													<i class="ft-minus"></i>
+												</a>
+											</li>
+											<li>
+												<a data-action="reload">
+													<i class="ft-rotate-cw"></i>
+												</a>
+											</li>
+											<li>
+												<a data-action="expand">
+													<i class="ft-maximize"></i>
+												</a>
+											</li>
+											<li>
+												<a data-action="close">
+													<i class="ft-x"></i>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="card-content collapse show">
+									<div class="card-body">
+
+										<form class="needs-validation" asp-controller="ComparisonProduct" asp-action="CreateComparisonProduct" enctype="multipart/form-data" method="Post">
+											<div asp-validation-summary="All"></div>
+
+											<div class="form-body">
+
+												<h4 class="form-section">
+													<i class="ft-file-text"></i>
+													اطلاعات مقایسه
+												</h4>
+
+												<!-- Input Slider -->
+												<div class="row">
+													<div class="col-md-4">
+														<div class="form-group">
+															<label asp-for="Title"></label>
+															<input asp-for="Title" type="text" id="Title" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.Title)"/>
+														</div>
+													</div>
+
+													@*Upload File*@
+													<div class="col-md-2 imageUp">
+														<label>
+															@(Resources.Tables.ProductComparison.PathThumbnailImage)
+														</label>
+														<div class="imagePreview"></div>
+														<label class="btn btn-primary">
+															Upload File
+															<input type="file" class="uploadFile image" name="ThumbnailImageProduct" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
+														</label>
+													</div>
+												</div>
+
+												<hr />
+
+												@*Description*@
+												<div class="row">
+													<div class="col-md-4">
+														<div class="form-group">
+															<label asp-for="Description">
+																@(Resources.Tables.ProductComparison.Description)
+															</label>
+															<textarea asp-for="Description" type="text" id="Title" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.Description)"></textarea>
+														</div>
+													</div>
+												</div>
+
+												<hr />
+
+												@*Upload File*@
+												<div class="row pb-2">
+													<div class="col-md-2 secondImageUp">
+														<label>
+															@(Resources.Tables.ProductComparison.PathBeforeImage)
+														</label>
+														<div class="secondImagePreview"></div>
+														<label class="btn btn-primary">
+															Upload File
+															<input type="file" class="secondUploadFile image" name="BeforeImageProduct" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
+														</label>
+													</div>
+												</div>
+
+												<hr />
+
+												@*Upload File*@
+												<div class="row pb-2">
+													<div class="col-md-2 thirdImageUp">
+														<label>
+															@(Resources.Tables.ProductComparison.PathAfterImage)
+														</label>
+														<div class="thirdImagePreview"></div>
+														<label class="btn btn-primary">
+															Upload File
+															<input type="file" class="thirdUploadFile image" name="AfterImageProduct" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
+														</label>
+													</div>
+												</div>
+
+												<div class="form-actions mt-0 pb-0">
+													<a asp-area="Admin" asp-controller="ComparisonProduct" asp-action="GetAllComparisionProducts" class="btn btn-glowbtn btn-outline-warning btn-min-width mr-1">
+														<i class="ft-corner-down-right"></i> بازگشت
+													</a>
+													<button id="submit" class="btn btn-outline-success btn-min-width">
+														<i class="la la-check-square-o"></i> ذخیره
+													</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+
+	@section Scripts
+	{
+	@*Upload File*@
+	<script>
+		$(function() {
+			$(document).on("change", ".uploadFile", function() {
+				let uploadFile = $(this)
+
+				let files = !!this.files ? this.files : []
+
+				if (!files.length || !window.FileReader)
+					return; // no file selected, or no FileReader support
+
+				if (/^image/.test(files[0].type)) // only image file
+				{
+					let reader = new FileReader() // instance of the FileReader
+
+					reader.readAsDataURL(files[0]) // read the local file
+
+					reader.onloadend = function() // set image data as background of div
+					{
+						//alert(uploadFile.closest(".upimage").find('.imagePreview').length);
+						uploadFile.closest(".imageUp").find('.imagePreview').css("background-image", "url(" + this.result + ")");
+					}
+				}
+
+			});
+		});
+
+		$(function() {
+			$(document).on("change", ".secondUploadFile", function() {
+				let uploadFile = $(this)
+
+				let files = !!this.files ? this.files : []
+
+				if (!files.length || !window.FileReader)
+					return; // no file selected, or no FileReader support
+
+				if (/^image/.test(files[0].type)) // only image file
+				{
+					let reader = new FileReader() // instance of the FileReader
+
+					reader.readAsDataURL(files[0]) // read the local file
+
+					reader.onloadend = function() // set image data as background of div
+					{
+						//alert(uploadFile.closest(".upimage").find('.imagePreview').length);
+						uploadFile.closest(".secondImageUp").find('.secondImagePreview').css("background-image", "url(" + this.result + ")");
+					}
+				}
+
+			});
+		});
+
+		$(function() {
+			$(document).on("change", ".thirdUploadFile", function() {
+				let uploadFile = $(this)
+
+				let files = !!this.files ? this.files : []
+
+				if (!files.length || !window.FileReader)
+					return; // no file selected, or no FileReader support
+
+				if (/^image/.test(files[0].type)) // only image file
+				{
+					let reader = new FileReader() // instance of the FileReader
+
+					reader.readAsDataURL(files[0]) // read the local file
+
+					reader.onloadend = function() // set image data as background of div
+					{
+						//alert(uploadFile.closest(".upimage").find('.imagePreview').length);
+						uploadFile.closest(".thirdImageUp").find('.thirdImagePreview').css("background-image", "url(" + this.result + ")");
+					}
+				}
+
+			});
+		});
+
+	</script>
+
+	@{
+		await Html.RenderPartialAsync("~/Areas/Admin/Views/Shared/_ValidationScriptsPartial.cshtml");
+	}
+    }
+
+

@@ -1,0 +1,323 @@
+﻿@model ViewModels.Products.DetailViewModel
+
+@{
+
+    var commentViewModel = new ViewModels.Comment.CommentsViewModel
+            {
+                UserId = Model.UserId,
+                ProductId = Model.ProductId
+            };
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/assets/css/swiper.min.css" />
+    <link rel="stylesheet" href="~/assets/css/easyzoom.css" />
+    <link rel="stylesheet" href="~/assets/css/main.css" />
+}
+
+    @*Bread Crumbs*@
+    <section class="mb-5 pb-sm-2 pb-md-3  pb-lg-4 pb-xl-5">
+        <div class="container container-4xl">
+            @await Component.InvokeAsync(name:"BreadCrumbsComponent")
+                <h1 class="text-center mb-3">
+                    جزییات محصول
+                </h1>
+                <nav aria-label="breadcrumb" class="mb-4 mb-lg-3">
+                    <ol class="breadcrumb breadcrumb-singleProduct ">
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Home" asp-action="Index">
+                                خانه
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a aasp-controller="Products" asp-action="productList" asp-route-productCategoryId="@Model.ProductCategoryId">
+                                محصولات
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            جزییات محصول
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+
+    <main class="content">
+        <section class="mb-5 pb-sm-2 pb-md-3  pb-lg-4 pb-xl-5">
+            <div class="container ">
+                <div class="row">
+                    @*Product Details Carousel and zoom*@
+                    <div class="col-12 col-md-6 col-lg-6 mb-4 mb-sm-5 mb-lg-0">
+                        <div class="product__carousel">
+                            <div class="gallery-parent">
+                                @*SwiperJs and EasyZoom plugins start *@
+                                <div class="swiper-container gallery-top">
+                                    <div class="swiper-wrapper">
+                                        @if (Model.ProductImages is not null && Model.ProductImages.Any())
+                                    {
+                                        foreach (var item in Model.ProductImages)
+                                        {
+                                            <div class="swiper-slide easyzoom easyzoom--overlay">
+                                                <a href="~/emoniFiles/Products/@(item.Name)">
+                                                    <img src="~/emoniFiles/Products/@(item.Name)"
+                                                 alt="@item.Name" width="1000" height="1000" />
+                                                </a>
+                                            </div>
+
+                                        }
+                                    }
+                                </div>
+
+                                @*Add Arrows*@
+                                <div class="swiper-button-prev swiper-button-white"></div>
+                                <div class="swiper-button-next swiper-button-white"></div>
+
+                            </div>
+
+                            <div class="swiper-container gallery-thumbs">
+                                <div class="swiper-wrapper">
+                                    @if (Model.ProductImages is not null && Model.ProductImages.Any())
+                                    {
+                                        foreach (var item in Model.ProductImages)
+                                        {
+                                            <div class="swiper-slide">
+                                                <img src="~/emoniFiles/Products/@(item.Name)" alt="@(item.Name)" />
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                @*Product Details Descriptions*@
+                <div class="col-12 col-md-6 col-lg-6 ">
+                    <div class="contentproduct-sigle area-details-product ">
+                        <h3 class="product-title mb-3">
+                            <a href="#">
+                                @Model.Title
+                            </a>
+                        </h3>
+                        <div class="d-sm-flex justify-content-between align-items-center  mb-3">
+                            @if (Model.HasDiscount)
+                            {
+                                <div class="area-price-Product d-flex mb-2 mb-sm-0">
+                                    <span class="me-2">
+                                      قیمت
+                                    </span>
+                                    <del class="price-discount me-3 ">
+                                        @Model.Price تومان
+                                    </del>
+                                    <p class="price mb-0">
+                                        @Model.DiscountedPrice تومان
+                                    </p>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="area-price-Product d-flex mb-2 mb-sm-0">
+                                    <span class="me-2">
+                                        @Model.Price تومان
+                                    </span>
+                                </div>
+                            }
+                            @*Rate*@
+                            <a class="d-flex">
+                                <div class="star_rating me-3">
+                                    @for (var i = 0; i < Model.Rate; i++)
+                                    {
+                                        <span class="star-icon star-icon-active">
+                                            <i class="far fa-star"></i>
+                                        </span>
+                                    }
+                                </div>
+                            </a>
+                        </div>
+                        <p class="mb-3">
+                            @Html.Raw(Model.Description)
+                        </p>
+                        <hr />
+                        <div class="area-inputNumber-singlproduct d-flex align-items-center mt-4">
+                            <a class="btn-animate1" asp-controller="Order" asp-action="AddToShoppingCart" asp-route-id="@(Model.ProductId)">
+                                افزودن به سبد خرید
+                                <i class="fal fa-cart-arrow-down ms-3"></i>
+                            </a>
+                        </div>
+                        <hr />
+
+                        <ul class="category-single-product">
+                            <li>
+                                <span>
+                                    دسته بندی:
+                                </span>
+                                <a href="#">
+                                    @Model.ProductCategoryTitle
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="area-widget-Tablistproduct my-4">
+                            <span>
+                                افزودن به علاقه مندی ها
+                            </span>
+                            <a class="link-wishlist me-3" onclick="addToWishList('@Model.ProductId')">
+                                @if (Model.IsInWishList)
+                                {
+                                    <i class="fal fa-heart ms-2 turnRed" id="heart"></i>
+                                }
+                                else
+                                {
+                                    <i class="fal fa-heart ms-2" id="heart"></i>
+                                }
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="mb-5 pb-sm-2 pb-md-3  pb-lg-4 pb-xl-5">
+        <div class="container container-2xl">
+            <div class="row">
+                <div class="col-12">
+                    <ul class="nav nav-tabs nav-tabs-singleProduct" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active" id="description-tab" data-bs-toggle="pill" data-bs-target="#description-product" type="button" role="tab" aria-controls="home" aria-selected="true">
+                                توضیحات
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" id="additional-information-tab" data-bs-toggle="pill" data-bs-target="#additional-informationProduct" type="button" role="tab" aria-controls="profile" aria-selected="false">
+                                اطلاعات اضافی
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button onclick=GetComments('@Model.ProductId') class="nav-link" id="reviews-product-tab" data-bs-toggle="pill" data-bs-target="#reviews-product" type="button" role="tab" aria-controls="contact" aria-selected="false">
+                                نظرات
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="tab-content tab-content-singleProduct" id="myTabContent">
+                        <div class="tab-pane fade show active" id="description-product" role="tabpanel"
+                             aria-labelledby="description-tab">
+                            <p>
+                                @Html.Raw(Model.Description)
+                            </p>
+
+                        </div>
+                        <div class="tab-pane fade" id="additional-informationProduct" role="tabpanel"
+                             aria-labelledby="additional-information-tab">
+                            <table class="table table-bordered table-additional-informationProduct">
+                                <tbody>
+                                    @Html.Raw(Model.Specification)
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane fade" id="reviews-product" role="tabpanel" aria-labelledby="reviews-product-tab">
+                            @*show comments*@
+                            @await Component.InvokeAsync(name: "GetCommentsComponent", arguments:@Model.ProductId)
+                            <div class="area-form-wrap single-product">
+                                <div class="area-form-reviews">
+                                    <h3 class="h4 mb-4 heading-style1 mt-5">
+                                        ارسال نظرات
+                                    </h3>
+                                    @*Add Comment*@
+                                    <partial name="~/Views/Shared/PartialViews/Comments/_AddComment.cshtml" model="commentViewModel" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+@section Footer{
+    <partial name="~/Views/Shared/PartialViews/Default/_Footer.cshtml" />
+}
+
+    @*Related Products*@
+    @await Component.InvokeAsync(name: "RelatedProductComponent", arguments: @Model.ProductCategoryTitle)
+
+    @section Scripts {
+    <script src="~/assets/js/swiper.min.js"></script>
+    <script src="~/assets/js/easyzoom.js"></script>
+    <script src="~/assets/js/seazy.js"></script>
+    <script src="~/assets/js/jquery.elevatezoom.js"></script>
+    <script>
+        function addToWishList(modelProductId) {
+            $.ajax
+                ({
+                    type: 'post',
+                    url: '@Url.Action("AddToWishList")',
+                    data:
+                    {
+                        id: modelProductId
+                    },
+                    success: function(data) {
+                        var element = document.getElementById("heart")
+
+                        if (element.classList.contains('turnRed'))
+                            element.classList.remove('turnRed')
+                        else
+                            element.classList.add('turnRed')
+                    },
+                    error: function(err) {
+                        alert("!عملیات موفق نبود")
+                    }
+                });
+        };
+    </script>
+
+    <script>
+        function sumDisLike(itemCommentId) {
+            $.ajax
+                ({
+                    type: 'post',
+                    url: '@Url.Action("IncreaseDisLikenumber")',
+                    data:
+                    {
+                        commentId: itemCommentId
+                    },
+                    success: function(numberDisLike) {
+                        let disLike = `${itemCommentId}disLike`;
+                        document.getElementById(disLike).innerHTML = numberDisLike;
+                    },
+                    error: function(err) {
+                        alert("!عملیات موفق نبود")
+                    }
+                });
+        };
+
+        function sumLike(itemCommentId) {
+            $.ajax
+                ({
+                    type: 'post',
+                    url: '@Url.Action("IncreaseLikenumber")',
+                    data:
+                    {
+                        commentId: itemCommentId
+                    },
+                    success: function(numberLike) {
+                        let like = `${itemCommentId}like`
+                        var x = document.getElementById(like)
+                        x.innerHTML = numberLike
+                    },
+                    error: function(err) {
+                        alert("!عملیات موفق نبود")
+                    }
+                });
+        };
+
+    </script>
+    @{
+        await Html.RenderPartialAsync("~/Areas/Admin/Views/Shared/_ValidationScriptsPartial.cshtml");
+    }
+    }

@@ -1,0 +1,131 @@
+﻿@model ViewModels.Users.UserViewModel
+
+@{
+    ViewModels.AdminViewModels.Users.UserViewModel? foundedCurrentUser =
+        ViewData["foundedOnlineUser"] as ViewModels.AdminViewModels.Users.UserViewModel;
+
+    Layout = "~/Views/Shared/Layout/_ProfileDetails.cshtml";
+
+
+}
+
+<div class="col-12 col-xl-9 container-content-account">
+
+    @*Header*@
+    <partial name="~/Views/Shared/PartialViews/ProfileDetails/_ProfileHeader.cshtml" />
+    <div class=" container container-2xl">
+        <div class="account-content content-details-account">
+            <div class="header-tab-content-account d-flex justify-content-between align-items-center mb-4">
+                <h1 class="title-tabcontent-account">
+                    اطلاعات حساب
+                </h1>
+            </div>
+            <div class="main-content-account">
+                <div class="area-form-wrap">
+                    <form asp-controller="ProfileDetails" asp-action="Index" method="Post">
+                        <div asp-validation-summary="ModelOnly"></div>
+                        <div class="row">
+                            @*Full Name*@
+                            <div class="form-group col-md-6 mb-4">
+                                <label for="inputname">
+                                    نام و نام خانوادگی:
+                                </label>
+                                <input asp-for="FullName" type="text" class="form-control" id="inputname" placeholder="">
+                            </div>
+                            <div class="form-group custom_select col-md-6 mb-4">
+                                <label for="inputState">جنسیت :</label>
+                                <select class="form-control" id="inputState" asp-for="Gender">
+                                    <option value="@(Domain.Enums.Gender.Male)">مرد</option>
+                                    <option value="@(Domain.Enums.Gender.Female)">زن</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6 mb-4">
+                                <label for="inputname">
+                                   تلفن ثابت  :
+                                </label>
+                                <input asp-for="CellPhoneNumber" type="tel" class="form-control" id="inputname" placeholder="">
+                            </div>
+                            <div class="form-group col-md-6 mb-4">
+                                <label for="inputname">
+                                    تلفن  همراه :
+                                </label>
+                                <input asp-for="PhoneNumber" type="tel" class="form-control" id="inputname" placeholder="">
+                            </div>
+                            @{
+                                if (foundedCurrentUser?.Role == "Doctor")
+                                {
+                                    <div class="form-group col-md-6 mb-4">
+                                        <label for="inputname">
+                                            تخصص :
+                                        </label>
+                                        <input asp-for="Especialty" type="text" class="form-control" id="inputname" placeholder="">
+                                    </div>
+                                    <div class="form-group col-md-6 mb-4">
+                                        <label for="inputname">
+                                            شماره نظام پزشکی :
+                                        </label>
+                                        <input asp-for="MENumber" type="number" class="form-control" id="inputname" placeholder="">
+                                    </div>
+                                }
+                            }
+                            <div class="form-group col-md-6 mb-4">
+                                <label for="inputEmail4">
+                                    آدرس ایمیل :
+                                </label>
+                                <input asp-for="EmailAddress" type="email" class="form-control" id="inputEmail4" placeholder="">
+                            </div>
+                            <div class="form-group col-md-6 mb-4">
+                                <label for="inputbirth">
+                                    تاریخ تولد :
+                                </label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text cursor-pointer" id="dtp1">📅</span>
+                                    <input asp-for="BirthDate" type="text" class="form-control" placeholder="Date Picker Text" data-name="dtp1-text" id="birthDate">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 mb-4">
+                                <label for="inputcodemely">
+                                    کدملی :
+                                </label>
+                                <input asp-for="NationalCode" type="number" class="form-control" id="inputcodemely" placeholder="">
+                            </div>
+                        </div>
+                        <div class="text-center mt-5">
+                            <div class="area-btn-save">
+                                <button type="submit" class="btn-style2">
+                                    ذخیره تغییرات
+                                    <i class="far fa-sd-card ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+    {
+    <script src="~/assets/js/mds.bs.datetimepicker.js"></script>
+    <script>
+        $(document).ready(function() {
+            const dtp1Instance = new mds.MdsPersianDateTimePicker(
+                document.getElementById('birthDate'),
+                {
+                    targetTextSelector: '[data-name="dtp1-text"]',
+                    targetDateSelector: '[data-name="dtp1-date"]',
+                    textFormat : 'yyyy/MM/dd',
+                }
+            );
+        });
+    </script>
+ }
+
+    @section PopperJs
+    {
+    <script src=" https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
+    </script>
+    }

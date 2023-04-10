@@ -1,0 +1,88 @@
+﻿@model IEnumerable<ViewModels.ProductCategories.ProductCategoriesNavbarViewModel>
+
+@{
+	ViewModels.AdminViewModels.Users.UserViewModel? foundedOnlineUser =
+		ViewData["foundedOnlineUser"] as ViewModels.AdminViewModels.Users.UserViewModel;
+}
+
+<!-- navbar -->
+<nav class="serv-navbar">
+	<div class="container">
+		<div class="row" style="position: relative;">
+			<!-- Logo -->
+			<div class="col-4 col-lg-2 order-2 order-lg-1 d-flex justify-content-center justify-content-lg-start">
+				<div class="area-logo">
+					<a asp-controller="Home" asp-action="Index">
+						<img src="~/assets/img/EmoniLogo.png" class="img-fluid" alt="" />
+					</a>
+				</div>
+			</div>
+
+			<div class="col-4 col-lg-8 order-1 order-lg-2 d-flex align-items-center col-main_menu">
+				<div class="main_menu h-100 d-none d-lg-block">
+
+					<!-- Desktop Menu -->
+					<ul class="d-flex h-100 align-items-center ">
+						<!-- Home -->
+						<li>
+							<a asp-controller="Home" asp-action="Index">
+								خانه
+							</a>
+						</li>
+
+						<!-- About -->
+						<li>
+							<a asp-controller="About" asp-action="Index">
+								درباره ما
+							</a>
+						</li>
+
+						<!-- info -->
+						<li>
+							@{
+								if (foundedOnlineUser?.Role == "Doctor")
+								{
+									<a asp-controller="Info" asp-action="Index">
+										اطلاعات علمی
+									</a>
+								}
+							}
+
+						</li>
+
+						<!-- Products -->
+						<partial name="~/Views/Navbars/PartialView/_DesktopNavbar.cshtml" model="@Model" />
+
+						<!-- Posts -->
+						<li>
+							<a asp-controller="Blogs" asp-action="BlogsList">
+								بلاگ
+							</a>
+						</li>
+
+						<!-- Virtual Tour -->
+						<li>
+							<a asp-controller="VirtualTours" asp-action="Index">
+								تور مجازی
+							</a>
+						</li>
+
+						<!-- Consulation -->
+						<li>
+							<a asp-controller="Consultation" asp-action="Index">
+								مشاوره تخصصی
+							</a>
+
+						</li>
+					</ul>
+				</div>
+
+				<!-- Mobile Menu -->
+				<partial name="~/Views/Navbars/PartialView/_MobileNavbar.cshtml" model="@Model" />
+			</div>
+			<!-- Order Details-->
+			<partial name="~/Views/Navbars/PartialView/_OrderDetails.cshtml" />
+		</div>
+	</div>
+</nav>
+<!-- navbar -->

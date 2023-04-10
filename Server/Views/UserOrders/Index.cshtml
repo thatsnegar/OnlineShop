@@ -1,0 +1,169 @@
+﻿@model IEnumerable< ViewModels.Order.UserOrdersViewModel>
+
+@{
+	Layout = "~/Views/Shared/Layout/_ProfileDetails.cshtml";
+}
+
+<div class="col-12 col-xl-9 container-content-account">
+	@*Header*@
+	<partial name="~/Views/Shared/PartialViews/ProfileDetails/_ProfileHeader.cshtml" />
+	<div class=" container container-2xl">
+		<div class="account-content content-Orders-account">
+			<div class="header-tab-content-account  mb-4">
+				<h1 class="title-tabcontent-account mb-3 mb-sm-0">
+					آخرین سفارش ها
+				</h1>
+			</div>
+			@{
+				int i = 1;
+				foreach (var item in Model)
+				{
+					<div class="main-content-account">
+						<div id="accordionone" class="area-Orders-account ">
+							<div class="card card-Orders-account mb-3">
+								<div class="card-header">
+									<a class="header-content-orders d-sm-flex align-items-center justify-content-between" data-bs-toggle="collapse" data-bs-target="#@($"collapse{i}")" aria-expanded="true" aria-controls="@($"collapse{i}")" id="@($"heading{i}")">
+										<div class="id-product-order item-header-orders">
+											@(item.TracingCode)
+										</div>
+										<div class="date-order item-header-orders">
+											<i class="fal fa-clock me-1"></i>
+											@(item.InsertDateTime.ToShamsiWithoutTime())
+										</div>
+										<div class="stutus-order stutus-order-blue item-header-orders">
+
+											@{
+												switch (item.OrderStatus.ToString())
+												{
+													case "Delivered":
+													{
+														<div class="stutus-order stutus-order-success item-header-orders">
+															تحویل داده شده
+														</div>
+
+														break;
+													}
+													case "UnderProcess":
+													{
+														<div class="stutus-order stutus-order-blue item-header-orders">
+															درحال پردازش
+														</div>
+														break;
+													}
+													case "Cancled":
+													{
+														<div class="stutus-order stutus-order-danger item-header-orders">
+															لغو شده
+														</div>
+														break;
+													}
+												}
+											}
+										</div>
+									</a>
+								</div>
+
+								@foreach (var thing in item.OrderDetails)
+								{
+									<div id="@($"collapse{i}")" class="collapse collapse-content-orders show" aria-labelledby="@($"heading{i}")" data-parent="#@($"accordion{i}")">
+										<div class="card-body">
+											<div class="area-content-orders d-sm-flex align-items-center justify-content-between mb-4 mb-sm-3">
+												<div class="area-ditails_product-orders d-flex align-items-center flex-sm-row">
+													<img src="~/emoniFiles/Products/@(thing.ProductImage)" class="mb-3 mb-sm-0">
+													<div class="ditails_product-orders ms-3  text-center">
+														<a href="#" class="nameproduct-orders mb-1">
+															@(thing.ProductName)
+														</a>
+													</div>
+												</div>
+												<div class="d-flex flex-row justify-content-center align-items-center ">
+													تعداد:
+													<span>
+														@(thing.Count)
+													</span>
+												</div>
+												<div class="d-flex flex-row justify-content-center align-items-center">
+													جمع کل:
+													<span>
+														@{
+															double? totalAmount = 0;
+															if (thing.ProductHasDiscount)
+															{
+																totalAmount += (thing.Count * thing.ProductDiscountedPrice);
+															}
+															else
+															{
+																totalAmount += (thing.Count * thing.ProductPrice);
+															}
+														}
+														@(totalAmount)
+													</span>
+												</div>
+												@if (item?.DiscountPercentage > 0)
+												{
+													<div class="d-flex flex-row justify-content-center align-items-center">
+														میزان تخفیف:
+														<span>
+															%@(item?.DiscountPercentage)
+														</span>
+													</div>
+
+													<div class="d-flex flex-row justify-content-center align-items-center">
+														جمع کل با احتساب  تخفیف:
+														<span>
+															@{
+																double? discount = 0;
+
+																discount = (totalAmount * item?.DiscountPercentage) / 100;
+
+																totalAmount = (totalAmount - discount);
+															}
+															@(totalAmount)
+														</span>
+													</div>
+												}
+											</div>
+
+
+											<div class="area-details-bottom-orders d-sm-flex justify-content-between align-items-center text-center border-top py-4">
+												<div class="details-bottom-content-orders details-bottom-content me-3">
+													<span>
+														قیمت کل محصولات :
+													</span>
+													<span>
+														@(totalAmount)
+													</span>
+												</div>
+												<div class="details-bottom-content-orders details-bottom-content me-3">
+													<span>
+														حمل و نقل:
+													</span>
+													<span>
+														15000 تومان
+													</span>
+												</div>
+												<div class="details-bottom-content-orders details-bottom-content me-3">
+													<span>
+														کل:
+													</span>
+													<span>
+														@(totalAmount + 15000) تومان
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								}
+							</div>
+						</div>
+					</div>
+					i++;
+				}
+			}
+		</div>
+	</div>
+</div>
+
+@section Scripts{
+	<script src=" https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+}

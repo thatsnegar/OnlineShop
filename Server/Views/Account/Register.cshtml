@@ -1,0 +1,78 @@
+﻿
+@{
+    Layout = "~/Views/Shared/Layout/_Account.cshtml";
+}
+
+<main class="content">
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+    </div>
+    <section class="mb-5 pb-sm-2 pb-md-3  pb-lg-4 pb-xl-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class=" multi-step-login col-sm-10 col-md-9 col-lg-8  col-xl-6 mt-5">
+                    <div class="register login-register-wrap">
+                        <div class="area-form-register area-form-login-register  p-3 p-sm-4 p-md-5 ">
+                            @*SignUp Tab *@
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                                            data-bs-target="#home" type="button" role="tab" aria-controls="home"
+                                            aria-selected="true">
+                                        ثبت نام کاربران
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                            data-bs-target="#profile" type="button" role="tab" aria-controls="profile"
+                                            aria-selected="false">
+                                        ثبت نام پزشکان
+                                    </button>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="home" role="tabpanel"
+                                     aria-labelledby="home-tab">
+                                    @*General signup form *@
+                                    <partial name="~/Views/Shared/PartialViews/Account/_UserRegistration.cshtml" model="@new ViewModels.Accounts.UserRegistrationViewModel()"/>
+                                </div>
+                                @*signup form Doctor*@
+                                <div class="tab-pane fade" id="profile" role="tabpanel"
+                                     aria-labelledby="profile-tab">
+                                    <partial name="~/Views/Shared/PartialViews/Account/_DoctorsRegistration.cshtml" model="@new ViewModels.Accounts.DoctorsRegistrationViewModel()" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer-login">
+                            <div class="area-socialIcon socialIcon-bg-secondary d-flex justify-content-center">
+                                <a href="http://www.facebook.com" class="icon facebook">
+                                    <span class="tooltip-site">Facebook</span>
+                                </a>
+                                <a href="http://www.github.com" class="icon instegram">
+                                    <span class="tooltip-site">instegram</span>
+                                </a>
+                                <a href="http://www.dribble.com" class="icon linkedin">
+                                    <span class="tooltip-site">linkedin</span>
+                                </a>
+                                <a href="http://www.twitter.com" class="icon twitter">
+                                    <span class="tooltip-site">Twitter</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+@section Scripts
+    {
+    @*<partial name="~/Views/Shared/PartialViews/Default/_CaptchaScripts.cshtml" />*@
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
+

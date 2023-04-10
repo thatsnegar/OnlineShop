@@ -1,0 +1,157 @@
+﻿@section Styles{
+    <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+/>
+    <style>
+        .swiper 
+        {
+            width: 400px;
+            height: 400px;
+        }
+
+        .swiper-container{
+                        width: 400px;
+            height: 400px;
+        }
+
+    </style>
+}
+
+<div class="swiper">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide">
+            <img src="~/emoniFiles/Products/img15-2022-09-24-01-44-26-7318.jpg" alt="img15-2022-09-24-01-44-26-7318.jpg" width="100%" height="100%" />
+        </div>
+        <div class="swiper-slide">
+            <img src="~/emoniFiles/Products/img2-2022-09-24-01-44-26-7226.jpg" alt="img2-2022-09-24-01-44-26-7226" width="100%" height="100%" />
+        </div>
+        <div class="swiper-slide">
+            <img src="~/emoniFiles/Products/img3-2022-09-24-02-07-51-8611.jpg" alt="img3-2022-09-24-02-07-51-8611.jpg" width="100%" height="100%" />
+        </div>
+    </div>
+    <!-- If we need pagination -->
+    <div class="swiper-pagination"></div>
+
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+
+    <!-- If we need scrollbar -->
+    <div class="swiper-scrollbar"></div>
+</div>
+
+<hr />
+
+<div class="swiper">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide">
+            <img src="~/emoniFiles/Products/img15-2022-09-24-01-44-26-7318.jpg" alt="img15-2022-09-24-01-44-26-7318.jpg" width="100%" height="100%" />
+        </div>
+        <div class="swiper-slide">
+            <img src="~/emoniFiles/Products/img2-2022-09-24-01-44-26-7226.jpg" alt="img2-2022-09-24-01-44-26-7226.jpg" width="100%" height="100%" />
+        </div>
+        <div class="swiper-slide">
+            <img src="~/emoniFiles/Products/img3-2022-09-24-02-07-51-8611.jpg" alt="img3-2022-09-24-02-07-51-8611.jpg" width="100%" height="100%" />
+        </div>
+    </div>
+    <!-- If we need pagination -->
+    <div class="swiper-pagination"></div>
+
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+
+    <!-- If we need scrollbar -->
+    <div class="swiper-scrollbar"></div>
+</div>
+
+<hr />
+
+@*<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <div class="swiper-zoom-container">
+            <img src="~/emoniFiles/Products/img15-2022-09-24-01-44-26-7318.jpg" alt="img15-2022-09-24-01-44-26-7318.jpg" width="100%" height="100%" />
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="swiper-zoom-container">
+            <img src="~/emoniFiles/Products/img2-2022-09-24-01-44-26-7226.jpg" alt="img2-2022-09-24-01-44-26-7226.jpg" width="100%" height="100%" />
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="swiper-zoom-container">
+            <img src="~/emoniFiles/Products/img3-2022-09-24-02-07-51-8611.jpg" alt="img3-2022-09-24-02-07-51-8611.jpg" width="100%" height="100%" />
+            </div>
+        </div>
+        <div class="swiper-slide">Plain slide with text</div>
+        <div class="swiper-slide">
+            <!-- Override maxRatio parameter -->
+            <div class="swiper-zoom-container" data-swiper-zoom="5">
+                <img src="path/to/image1.jpg">
+            </div>
+        </div>
+    </div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+</div>*@
+
+@section Scripts{
+    <script src="~/assets/js/swiper.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.swiper', {
+          zoom: {
+            maxRatio: 3,
+          },
+          // Optional parameters
+          direction: 'horizontal',
+          loop: true,
+
+          // If we need pagination
+          pagination: {
+            el: '.swiper-pagination',
+          },
+
+          // Navigation arrows
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+
+          // And if we need scrollbar
+          scrollbar: {
+            el: '.swiper-scrollbar',
+          },
+        });
+
+        //var swiper = new Swiper('.swiper-container', {
+        //  zoom: {
+        //    maxRatio: 5,
+        //  },
+        //  navigation: {
+        //    nextEl: '.swiper-button-next',
+        //    prevEl: '.swiper-button-prev',
+        //   }
+        //});
+
+        var swiperSlide = document.getElementsByClassName('swiper-slide')
+        for(var index = 0; index< swiperSlide.length; index++){
+        swiperSlide[index].addEventListener('mouseover',function(e)
+        {
+            swiper.zoom.in();
+        })
+
+        swiperSlide[index].addEventListener('mouseout',function(e){
+            swiper.zoom.out();
+        })
+        }
+    </script>
+}

@@ -1,0 +1,133 @@
+﻿@model ViewModels.AdminViewModels.ScientificInfo.CreateViewModel
+
+<div class="app-content content">
+	<div class="content-wrapper pb-0">
+		<div class="content-wrapper-before"></div>
+		<div class="content-header row">
+			<div class="content-header-right col-md-8 col-12">
+				<div class="breadcrumbs-top">
+					<div class="breadcrumb-wrapper mr-1">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item">
+								<a asp-area="Admin" asp-controller="Home" asp-action="Index">
+									خانه
+								</a>
+							</li>
+							<li class="breadcrumb-item ">
+								<a asp-area="Admin" asp-controller="ScientificInfo" asp-action="Index">
+									مدیریت اطلاعات علمی
+								</a>
+							</li>
+							<li class="breadcrumb-item active ">
+								اضافه کردن مقاله
+							</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content-body">
+			<section id="basic-form-layouts">
+				<div class="row match-height">
+					<div class="col-md-12">
+						<div class="card mb-0">
+							<div class="card-header">
+								<h4 class="card-title" id="basic-layout-form">
+									اضافه کردن مقاله
+								</h4>
+								<a class="heading-elements-toggle">
+									<i class="la la-ellipsis-v font-medium-3"></i>
+								</a>
+								<div class="heading-elements">
+									<ul class="list-inline mb-0">
+										<li>
+											<a data-action="collapse">
+												<i class="ft-minus"></i>
+											</a>
+										</li>
+										<li>
+											<a data-action="reload">
+												<i class="ft-rotate-cw"></i>
+											</a>
+										</li>
+										<li>
+											<a data-action="expand">
+												<i class="ft-maximize"></i>
+											</a>
+										</li>
+										<li>
+											<a data-action="close">
+												<i class="ft-x"></i>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="card-content collapse show">
+								<div class="card-body">
+									<form asp-area="Admin" asp-controller="ScientificInfos" asp-action="Create" enctype="multipart/form-data" method="Post">
+										<div asp-validation-summary="ModelOnly"></div>
+
+										<div class="form-body">
+											<h4 class="form-section">
+												<i class="ft-file-text"></i>
+												اطلاعات علمی
+											</h4>
+											<div class="row">
+												@*Title*@
+												<div class="col-md-4">
+													<div class="form-group">
+														<label asp-for="Title"></label>
+														<input asp-for="Title" type="text" id="Title" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.Title)" required />
+														<span asp-validation-for="Title" class="text-danger fontsize14"></span>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												@*Text*@
+												<div class="col-md-8">
+													<div class="form-group">
+														<label asp-for="Text"></label>
+														<input type="text" asp-for="Text" id="Text" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.Text)" />
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												@*file*@
+												<div class="col-md-4">
+													<div class="form-group">
+														<label>قراردادن فایل:</label>
+														<input type="file" asp-for="ScientificInfoFile" required />
+													</div>
+												</div>
+											</div>
+										</div>
+										<hr />
+										<div class="form-actions mt-0 pb-0">
+											<a asp-area="Admin" asp-controller="ScientificInfo" asp-action="Index" class="btn btn-glowbtn btn-outline-warning btn-min-width mr-1">
+												<i class="ft-corner-down-right"></i>
+												بازگشت
+											</a>
+											<button id="submit" class="btn btn-outline-success btn-min-width" value="upload">
+												<i class="la la-check-square-o"></i>
+												ذخیره
+											</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</div>
+
+@section Scripts
+	{
+	@{
+		await Html.RenderPartialAsync("~/Areas/Admin/Views/Shared/_ValidationScriptsPartial.cshtml");
+	}
+    }
+

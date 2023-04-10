@@ -1,0 +1,13 @@
+﻿@model IEnumerable<ViewModels.Products.DetailViewModel>
+
+<div class="star_rating">
+    @foreach (var item in Model)
+    {
+        for (var i = 0; i < item.Rate; i++)
+        {
+            <span class="star-icon star-icon-active">
+                <i class="far fa-star"></i>
+            </span>
+        }
+    }
+</div>

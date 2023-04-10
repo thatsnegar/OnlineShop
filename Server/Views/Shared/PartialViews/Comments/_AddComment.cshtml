@@ -1,0 +1,28 @@
+﻿@model ViewModels.Comment.CommentsViewModel
+
+<form asp-controller="Products" asp-action="AddComment" method="post" class="row form-reviews">
+    <div asp-validation-summary="ModelOnly"></div>
+    <input type="hidden" asp-for="ProductId" />
+    <input type="hidden" asp-for="UserId" />
+    <div class="starrating risingstar d-flex justify-content-start  mb-4">
+        <input asp-for="Rate" type="radio" id="star5" value="5" />
+        <label for="star5" title="5 star"></label>
+        <input type="radio" id="star4" asp-for="Rate" value="4" />
+        <label for="star4" title="4 star"></label>
+        <input type="radio" id="star3" asp-for="Rate" value="3" />
+        <label for="star3" title="3 star"></label>
+        <input type="radio" id="star2" asp-for="Rate" value="2" />
+        <label for="star2" title="2 star"></label>
+        <input type="radio" id="star1" asp-for="Rate" value="1" />
+        <label for="star1" title="1 star"></label>
+    </div>
+    <div class="form-group mb-4 col-12">
+        <textarea asp-for="Text" required class="form-control" id="textarea-form" rows="6" placeholder="نظر شما *"></textarea>
+        <span asp-validation-for="Text" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-6">
+        <button type="submit" class="btn-animate1">
+            ارسال نظر
+        </button>
+    </div>
+</form>

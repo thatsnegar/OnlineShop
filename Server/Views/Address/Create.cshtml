@@ -1,0 +1,77 @@
+﻿@model ViewModels.Addresses.CreateAddressViewModel
+
+
+<div class="modal fade" id="create-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal">
+                </button>
+            </div>
+            
+            <div class="modal-body2">
+                <div class="area-form-wrap-modal contact mb-5 mb-lg-0">
+                    <div class="area-form-contact">
+                        <h3 class="h4 mb-4 title-contact"
+                            style="text-align: center;">
+                            آدرس جدید
+                        </h3>
+                        <form asp-controller="Address" asp-action="Create" method="post" class="row">
+                            <div asp-validation-summary="ModelOnly"></div>
+                            <div class="form-group-modal mb-4 col-12 col-md-6">
+                                <label asp-for="Country">
+                                    کشور:
+                                </label>
+                                <input type="text" asp-for="Country" class="form-control" placeholder="استان را وارد کنید" required />
+                                <span asp-validation-for="Country" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group-modal mb-4 col-12 col-md-6">
+                                <label asp-for="State">
+                                    استان:
+                                </label>
+                                <input type="text" asp-for="State" class="form-control" placeholder="استان را وارد کنید" required />
+                                <span asp-validation-for="State" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group-modal mb-4 col-12 col-md-6">
+                                <label asp-for="City">
+                                    شهر:
+                                </label>
+                                <input type="text" asp-for="City" class="form-control" placeholder="شهر را وارد کنید" required />
+                                <span asp-validation-for="City" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group-modal mb-4 col-12 col-md-6">
+                                <label asp-for="ZipCode">
+                                    کدپستی:
+                                </label>
+                                <input type="text" asp-for="ZipCode" class="form-control" placeholder="کد پستی را وارد کنید" required />
+                                <span asp-validation-for="ZipCode" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group-modal mb-4 col-12">
+                                <label asp-for="UserAddress">
+                                    آدرس:
+                                </label>
+                                <textarea class="form-control" asp-for="UserAddress" id="textarea-form" rows="8" placeholder="آدرس را وارد کنید" style="font-size: 12px;" required>
+                                </textarea>
+                                <span asp-validation-for="UserAddress" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group-modal-modal-modal-modal-modal-modal-modal-modal-modal mb-4 col-12">
+                                <div class="btn-from-login">
+                                    <button type="submit" class="btn-animate1 btn-multi-step mt-4">
+                                        ثبت
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Default form contact -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

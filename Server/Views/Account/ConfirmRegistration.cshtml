@@ -1,0 +1,62 @@
+﻿@model ViewModels.Accounts.ConfirmRegistrationViewModel
+
+@{
+    ViewBag.Title = "تایید حساب کاربری";
+
+    Layout = "~/Views/Shared/Layout/_Account.cshtml";
+}
+
+<main class="forget-pasword align-items-center justify-content-center">
+    <section class="login">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="multi-step-login col col-md-9 col-lg-8 col-xl-6 mt-3">
+                    <div class="login login-register-wrap">
+                        <div class="area-form-login area-form-login-register p-3 p-sm-4 p-md-5 ">
+                            <div class="header-login">
+                                <img src="~/assets/img/logo (1).png" alt="">
+                            </div>
+                            <form asp-controller="Account" asp-action="ConfirmRegistration" method="Post">
+                                <div asp-validation-summary="ModelOnly"></div>
+                                <input type="hidden" asp-for="UserId" />
+                                <input type="hidden" asp-for="VerificationCode" />
+                                @*One "tab" for each step in the form*@
+                                <div class="tab">
+                                    <h3>
+                                        تایید حساب کاربری
+                                    </h3>
+                                    <label>
+                                        تلفن همراه
+                                    </label>
+                                    <input asp-for="PhoneNumber" type="number" class="form-control" placeholder="" required>
+                                    <input type="hidden" asp-validation-for="PhoneNumber" />
+
+                                    <div style="overflow:auto;text-align: center;align-items: center;">
+                                        <div style="align-items: center;justify-content: center;display: flex;">
+                                            <button type="submit" class="btn-multi-step">
+                                                ادامه
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*Circles which indicates the steps of the form*@
+                                <div style="text-align:center;margin-top:40px;">
+                                    <span class="step"></span>
+                                    <span class="step"></span>
+                                    <span class="step"></span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
