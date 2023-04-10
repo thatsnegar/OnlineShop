@@ -130,109 +130,6 @@ namespace DAL.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("Models.Answer", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DisplayOrder")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("InsertDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsEdited")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("QuestionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("QuestionId");
-
-                    b.ToTable("Answers");
-                });
-
-            modelBuilder.Entity("Models.Banner", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("InsertDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsEdited")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Title")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Banners");
-                });
-
-            modelBuilder.Entity("Models.Blog", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("InsertDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsEdited")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("ShowInIndex")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Summary")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Blogs");
-                });
-
             modelBuilder.Entity("Models.Comment", b =>
                 {
                     b.Property<Guid>("Id")
@@ -278,80 +175,6 @@ namespace DAL.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("Models.ComparisonProduct", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("InsertDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsEdited")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ComparisonProducts");
-                });
-
-            modelBuilder.Entity("Models.Contact", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("FullName")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<DateTime>("InsertDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsEdited")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsHandled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Issue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Message")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
-
-                    b.Property<bool>("SendEmail")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Contacts");
                 });
 
             modelBuilder.Entity("Models.Discount", b =>
@@ -414,15 +237,6 @@ namespace DAL.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<Guid?>("BannerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("BlogId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ComParisonProductId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("ContentType")
                         .HasColumnType("nvarchar(max)");
 
@@ -463,9 +277,6 @@ namespace DAL.Migrations
                     b.Property<Guid?>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ScientificInfoId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<long>("Size")
                         .HasColumnType("bigint");
 
@@ -484,16 +295,6 @@ namespace DAL.Migrations
                         .IsUnique()
                         .HasFilter("[AboutId] IS NOT NULL");
 
-                    b.HasIndex("BannerId")
-                        .IsUnique()
-                        .HasFilter("[BannerId] IS NOT NULL");
-
-                    b.HasIndex("BlogId")
-                        .IsUnique()
-                        .HasFilter("[BlogId] IS NOT NULL");
-
-                    b.HasIndex("ComParisonProductId");
-
                     b.HasIndex("ImageId")
                         .IsUnique()
                         .HasFilter("[ImageId] IS NOT NULL");
@@ -503,10 +304,6 @@ namespace DAL.Migrations
                         .HasFilter("[ProductCategoryId] IS NOT NULL");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("ScientificInfoId")
-                        .IsUnique()
-                        .HasFilter("[ScientificInfoId] IS NOT NULL");
 
                     b.HasIndex("SliderId")
                         .IsUnique()
@@ -551,44 +348,6 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Images");
-                });
-
-            modelBuilder.Entity("Models.Message", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("InsertDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsEdited")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsShow")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Summary")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("Models.Order", b =>
@@ -852,38 +611,6 @@ namespace DAL.Migrations
                     b.ToTable("ProductCategories");
                 });
 
-            modelBuilder.Entity("Models.Question", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DisplayOrder")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("InsertDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsEdited")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Questions");
-                });
-
             modelBuilder.Entity("Models.Role", b =>
                 {
                     b.Property<Guid>("Id")
@@ -912,41 +639,13 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("61707dc4-66e6-47f5-ac32-a464da195ffe"),
+                            Id = new Guid("0ae7cb6b-883a-489c-8b79-0d077fc852a2"),
                             DeleteDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            InsertDateTime = new DateTime(2023, 1, 7, 17, 9, 18, 224, DateTimeKind.Local).AddTicks(8441),
+                            InsertDateTime = new DateTime(2023, 4, 10, 3, 26, 16, 666, DateTimeKind.Local).AddTicks(3109),
                             IsEdited = false,
                             Name = "Developer",
-                            UpdateDateTime = new DateTime(2023, 1, 7, 17, 9, 18, 224, DateTimeKind.Local).AddTicks(8476)
+                            UpdateDateTime = new DateTime(2023, 4, 10, 3, 26, 16, 666, DateTimeKind.Local).AddTicks(3150)
                         });
-                });
-
-            modelBuilder.Entity("Models.ScientificInfo", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("InsertDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsEdited")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ScientificInfos");
                 });
 
             modelBuilder.Entity("Models.SequenceNumber", b =>
@@ -979,23 +678,23 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("dc9bcd3f-a308-4e20-9f23-78f3dca40330"),
+                            Id = new Guid("c5ddacd6-780e-46f3-8731-1027fd402b83"),
                             DeleteDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            InsertDateTime = new DateTime(2023, 1, 7, 17, 9, 18, 224, DateTimeKind.Local).AddTicks(9011),
+                            InsertDateTime = new DateTime(2023, 4, 10, 3, 26, 16, 666, DateTimeKind.Local).AddTicks(4319),
                             IsEdited = false,
                             Name = "TracingCode",
                             Number = 1,
-                            UpdateDateTime = new DateTime(2023, 1, 7, 17, 9, 18, 224, DateTimeKind.Local).AddTicks(9014)
+                            UpdateDateTime = new DateTime(2023, 4, 10, 3, 26, 16, 666, DateTimeKind.Local).AddTicks(4325)
                         },
                         new
                         {
-                            Id = new Guid("cf121c18-02c8-471a-b85b-f5d4b4024b4a"),
+                            Id = new Guid("e641b38a-fcb1-4b7c-8b27-e2212d575a2d"),
                             DeleteDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            InsertDateTime = new DateTime(2023, 1, 7, 17, 9, 18, 224, DateTimeKind.Local).AddTicks(9043),
+                            InsertDateTime = new DateTime(2023, 4, 10, 3, 26, 16, 666, DateTimeKind.Local).AddTicks(4353),
                             IsEdited = false,
                             Name = "RegisterDiscount",
                             Number = 1,
-                            UpdateDateTime = new DateTime(2023, 1, 7, 17, 9, 18, 224, DateTimeKind.Local).AddTicks(9045)
+                            UpdateDateTime = new DateTime(2023, 4, 10, 3, 26, 16, 666, DateTimeKind.Local).AddTicks(4355)
                         });
                 });
 
@@ -1108,17 +807,17 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7123c7dd-432a-4d09-9efa-3a12b8b2e180"),
+                            Id = new Guid("237acfc2-2002-4365-bba2-cdfdbe8fca09"),
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeleteDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailAddress = "info@fidarafzar.ir",
                             Gender = 2,
-                            InsertDateTime = new DateTime(2023, 1, 7, 17, 9, 18, 224, DateTimeKind.Local).AddTicks(8680),
+                            InsertDateTime = new DateTime(2023, 4, 10, 3, 26, 16, 666, DateTimeKind.Local).AddTicks(3394),
                             IsActive = true,
                             IsEdited = false,
                             Password = "069d28fa7cad5da31006c8a765c831a69ac1866ff32fae5ef3f9c8ae19118b86",
-                            RoleId = new Guid("61707dc4-66e6-47f5-ac32-a464da195ffe"),
-                            UpdateDateTime = new DateTime(2023, 1, 7, 17, 9, 18, 224, DateTimeKind.Local).AddTicks(8683),
+                            RoleId = new Guid("0ae7cb6b-883a-489c-8b79-0d077fc852a2"),
+                            UpdateDateTime = new DateTime(2023, 4, 10, 3, 26, 16, 666, DateTimeKind.Local).AddTicks(3399),
                             Username = "developer"
                         });
                 });
@@ -1209,42 +908,6 @@ namespace DAL.Migrations
                     b.ToTable("UserLogins");
                 });
 
-            modelBuilder.Entity("Models.VirtualTour", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("InsertDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsEdited")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Link")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<string>("Title")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("VideoId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("VirtualTours");
-                });
-
             modelBuilder.Entity("Models.WishListProduct", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1284,7 +947,7 @@ namespace DAL.Migrations
                         .HasForeignKey("Models.Address", "OrderSubmissionId");
 
                     b.HasOne("Models.User", "User")
-                        .WithMany("Addresses")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1292,21 +955,6 @@ namespace DAL.Migrations
                     b.Navigation("OrderSubmission");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Models.Answer", b =>
-                {
-                    b.HasOne("Models.Product", "Product")
-                        .WithMany("Answers")
-                        .HasForeignKey("ProductId");
-
-                    b.HasOne("Models.Question", "Question")
-                        .WithMany("Answers")
-                        .HasForeignKey("QuestionId");
-
-                    b.Navigation("Product");
-
-                    b.Navigation("Question");
                 });
 
             modelBuilder.Entity("Models.Comment", b =>
@@ -1331,7 +979,7 @@ namespace DAL.Migrations
             modelBuilder.Entity("Models.Discount", b =>
                 {
                     b.HasOne("Models.User", "User")
-                        .WithMany("Discounts")
+                        .WithMany()
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
@@ -1342,18 +990,6 @@ namespace DAL.Migrations
                     b.HasOne("Models.About", "About")
                         .WithOne("File")
                         .HasForeignKey("Models.File", "AboutId");
-
-                    b.HasOne("Models.Banner", "Banner")
-                        .WithOne("File")
-                        .HasForeignKey("Models.File", "BannerId");
-
-                    b.HasOne("Models.Blog", "Blog")
-                        .WithOne("File")
-                        .HasForeignKey("Models.File", "BlogId");
-
-                    b.HasOne("Models.ComparisonProduct", "ComparisonProduct")
-                        .WithMany("Files")
-                        .HasForeignKey("ComParisonProductId");
 
                     b.HasOne("Models.Image", "Image")
                         .WithOne("File")
@@ -1367,10 +1003,6 @@ namespace DAL.Migrations
                         .WithMany("Files")
                         .HasForeignKey("ProductId");
 
-                    b.HasOne("Models.ScientificInfo", "ScientificInfo")
-                        .WithOne("File")
-                        .HasForeignKey("Models.File", "ScientificInfoId");
-
                     b.HasOne("Models.Slider", "Slider")
                         .WithOne("File")
                         .HasForeignKey("Models.File", "SliderId");
@@ -1381,19 +1013,11 @@ namespace DAL.Migrations
 
                     b.Navigation("About");
 
-                    b.Navigation("Banner");
-
-                    b.Navigation("Blog");
-
-                    b.Navigation("ComparisonProduct");
-
                     b.Navigation("Image");
 
                     b.Navigation("Product");
 
                     b.Navigation("ProductCategory");
-
-                    b.Navigation("ScientificInfo");
 
                     b.Navigation("Slider");
 
@@ -1496,22 +1120,6 @@ namespace DAL.Migrations
                     b.Navigation("File");
                 });
 
-            modelBuilder.Entity("Models.Banner", b =>
-                {
-                    b.Navigation("File");
-                });
-
-            modelBuilder.Entity("Models.Blog", b =>
-                {
-                    b.Navigation("File")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Models.ComparisonProduct", b =>
-                {
-                    b.Navigation("Files");
-                });
-
             modelBuilder.Entity("Models.Image", b =>
                 {
                     b.Navigation("File");
@@ -1529,8 +1137,6 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("Models.Product", b =>
                 {
-                    b.Navigation("Answers");
-
                     b.Navigation("Comments");
 
                     b.Navigation("Files");
@@ -1549,19 +1155,9 @@ namespace DAL.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("Models.Question", b =>
-                {
-                    b.Navigation("Answers");
-                });
-
             modelBuilder.Entity("Models.Role", b =>
                 {
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Models.ScientificInfo", b =>
-                {
-                    b.Navigation("File");
                 });
 
             modelBuilder.Entity("Models.Slider", b =>
@@ -1572,10 +1168,6 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("Models.User", b =>
                 {
-                    b.Navigation("Addresses");
-
-                    b.Navigation("Discounts");
-
                     b.Navigation("File");
 
                     b.Navigation("Orders");

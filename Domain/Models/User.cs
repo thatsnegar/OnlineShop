@@ -133,21 +133,9 @@ namespace Models
 		// ********** 
 		#endregion
 
-		#region Relation one to many with Address
-		//**********
-		public virtual List<Address>? Addresses { get; set; }
-		//**********
-		#endregion
-
 		#region Relation one to many with Orders
 		// ********** 
 		public virtual System.Collections.Generic.IList<Models.Order>? Orders { get; set; }
-		// ********** 
-		#endregion
-
-		#region Relation one to many with Discount
-		// ********** 
-		public virtual System.Collections.Generic.IList<Models.Discount>? Discounts { get; set; }
 		// ********** 
 		#endregion
 

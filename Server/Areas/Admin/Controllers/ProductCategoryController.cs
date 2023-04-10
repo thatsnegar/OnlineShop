@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Server.Areas.Admin.Controllers
 {
-	[Microsoft.AspNetCore.Authorization.Authorize(Roles = "Admin, Developer")]
+	[Microsoft.AspNetCore.Authorization.Authorize]
 
 	public class ProductCategoryController : Infrastructure.BaseControllerWithDataBase
 	{

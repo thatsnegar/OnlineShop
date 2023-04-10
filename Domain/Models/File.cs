@@ -62,14 +62,6 @@ namespace Models
 		public bool IsThumbnailImage { get; set; }
 		//**********
 
-		#region Relation one to one with Blog
-		// **********
-		[ForeignKey(nameof(Blog))]
-		public Guid? BlogId { get; set; }
-
-		public virtual Blog? Blog { get; set; }
-		// **********
-		#endregion
 
 		#region Relation one to one with User
 		// **********
@@ -98,15 +90,6 @@ namespace Models
 		// **********
 		#endregion
 
-		#region Relation one to one with Banner
-		// **********
-		[ForeignKey(nameof(Banner))]
-		public Guid? BannerId { get; set; }
-
-		public virtual Banner? Banner { get; set; }
-		// **********
-		#endregion
-
 		#region Relation one to one with slider
 		// **********
 		[ForeignKey(nameof(Slider))]
@@ -123,24 +106,6 @@ namespace Models
 
 		public virtual Product? Product { get; set; }
 		//**********
-		#endregion
-
-		#region Relation one To many with ComparisonProduct
-		//**********
-		[ForeignKey(nameof(ComparisonProduct))]
-		public Guid? ComParisonProductId { get; set; }
-
-		public virtual ComparisonProduct? ComparisonProduct { get; set; }
-		//**********
-		#endregion
-
-		#region Relation one to one with ScientificInfo
-		// **********
-		[ForeignKey(nameof(ScientificInfo))]
-		public Guid? ScientificInfoId { get; set; }
-
-		public virtual ScientificInfo? ScientificInfo { get; set; }
-		// **********
 		#endregion
 
 		#region Relation one to one with ProductCategory

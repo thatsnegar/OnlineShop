@@ -66,9 +66,6 @@ namespace ViewModels.AdminViewModels.Products
         [Display(
             ResourceType = typeof(Resources.Tables.Product),
             Name = nameof(Resources.Tables.Product.Description))]
-        [Required(
-            ErrorMessageResourceType = typeof(Resources.Messages.ErrorMessages),
-            ErrorMessageResourceName = nameof(Resources.Messages.ErrorMessages.Required))]
         public string? Description { get; set; }
         //**********
 

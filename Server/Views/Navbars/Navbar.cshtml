@@ -13,7 +13,7 @@
 			<div class="col-4 col-lg-2 order-2 order-lg-1 d-flex justify-content-center justify-content-lg-start">
 				<div class="area-logo">
 					<a asp-controller="Home" asp-action="Index">
-						<img src="~/assets/img/EmoniLogo.png" class="img-fluid" alt="" />
+						<img src="~/assets/img/Fidar-purple.png" style="width:40%;" />
 					</a>
 				</div>
 			</div>
@@ -30,6 +30,9 @@
 							</a>
 						</li>
 
+						<!-- Products -->
+						<partial name="~/Views/Navbars/PartialView/_DesktopNavbar.cshtml" model="@Model" />
+
 						<!-- About -->
 						<li>
 							<a asp-controller="About" asp-action="Index">
@@ -37,43 +40,6 @@
 							</a>
 						</li>
 
-						<!-- info -->
-						<li>
-							@{
-								if (foundedOnlineUser?.Role == "Doctor")
-								{
-									<a asp-controller="Info" asp-action="Index">
-										اطلاعات علمی
-									</a>
-								}
-							}
-
-						</li>
-
-						<!-- Products -->
-						<partial name="~/Views/Navbars/PartialView/_DesktopNavbar.cshtml" model="@Model" />
-
-						<!-- Posts -->
-						<li>
-							<a asp-controller="Blogs" asp-action="BlogsList">
-								بلاگ
-							</a>
-						</li>
-
-						<!-- Virtual Tour -->
-						<li>
-							<a asp-controller="VirtualTours" asp-action="Index">
-								تور مجازی
-							</a>
-						</li>
-
-						<!-- Consulation -->
-						<li>
-							<a asp-controller="Consultation" asp-action="Index">
-								مشاوره تخصصی
-							</a>
-
-						</li>
 					</ul>
 				</div>
 

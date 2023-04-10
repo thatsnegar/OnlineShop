@@ -1,12 +1,10 @@
-﻿using Models;
-using Shared;
-using ViewModels.Accounts;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authentication;
+using Shared;
 
 namespace Commercial_Application.Controllers
 {
-	public class AccountController : Infrastructure.BaseControllerWithDatabase
+    public class AccountController : Infrastructure.BaseControllerWithDatabase
 	{
 		public AccountController(DAL.IUnitOfwork unitOfWork) : base(unitOfWork: unitOfWork)
 		{
@@ -36,40 +34,49 @@ namespace Commercial_Application.Controllers
         {
             try
             {
+                //if (!await CaptchaValidator.IsCaptchaPassedAsync(token: viewModel.Captcha))
+                //{
+                //    ViewData["ErrorMessage"] =
+                //        Resources.Messages.ErrorMessages.CaptchaErrorMessage;
+
+                //    return View(model: viewModel);
+                //}
+
                 if (!ModelState.IsValid)
                     return View(model: viewModel);
 
                 var foundedUser =
-                    await UnitOfWork.Users.GetUserByUsernameAsync(username: viewModel.UserName);
+                    await UnitOfWork.Users.GetUserByUsernameAsync(username: viewModel.UserName!);
 
                 if (foundedUser is null)
                 {
-                    AddMessage(type: Infrastructure.Messages.MessageType.ToastError, message: Resources.Messages.ErrorMessages.ErrorMessage3020_3030);
+                    //AddMessage(type: Infrastructure.Messages.MessageType.ToastError, message: Resources.Messages.ErrorMessages.ErrorMessage3020_3030);
 
                     return View(model: viewModel);
                 }
 
+                // Note: Password should be in HASH!
                 var hashedPassword =
-                   viewModel.Password!.Encode();
+                    viewModel.Password!.Encode();
 
                 if (!foundedUser.IsActive || (string.Compare(foundedUser.Password, hashedPassword, ignoreCase: false) != 0))
                 {
                     if (!foundedUser.IsActive)
                     {
-                        AddMessage(type: Infrastructure.Messages.MessageType.ToastError, message: Resources.Messages.ErrorMessages.ErrorMessage3050);
+                        //AddMessage(type: Infrastructure.Messages.MessageType.ToastError, message: Resources.Messages.ErrorMessages.ErrorMessage3050);
 
                         return View(model: viewModel);
                     }
 
                     if ((string.Compare(foundedUser.Password, hashedPassword, ignoreCase: false) != 0))
                     {
-                        AddMessage(type: Infrastructure.Messages.MessageType.ToastError, message: Resources.Messages.ErrorMessages.ErrorMessage3020_3030);
+                        //AddMessage(type: Infrastructure.Messages.MessageType.ToastError, message: Resources.Messages.ErrorMessages.ErrorMessage3020_3030);
 
                         return View(model: viewModel);
                     }
                 }
 
-                // Add Claims For Personel
+                // Add Claims For User
                 var claims =
                     new System.Collections.Generic.List<System.Security.Claims.Claim>();
 
@@ -78,7 +85,7 @@ namespace Commercial_Application.Controllers
                 // **************************************************
                 //claim =
                 //    new System.Security.Claims.Claim
-                //    (type: System.Security.Claims.ClaimTypes.Role, value: foundedUser.Role);
+                //    (type: System.Security.Claims.ClaimTypes.Role, value: foundedUser.Role.Name);
 
                 //claims.Add(item: claim);
                 // **************************************************
@@ -129,20 +136,19 @@ namespace Commercial_Application.Controllers
 
                 if (string.IsNullOrWhiteSpace(viewModel.ReturnUrl))
                 {
-                    AddMessage(type: Infrastructure.Messages.MessageType.ToastSuccess, message: "ورود با موفقیت انجام شد!");
+                    //AddMessage(type: Infrastructure.Messages.MessageType.ToastSuccess, message: "Login Completed Successfully!");
 
                     return RedirectToAction(actionName: "Index", controllerName: "Home");
                 }
                 else
                 {
-                    AddMessage(type: Infrastructure.Messages.MessageType.ToastSuccess, message: "ورود با موفقیت انجام شد!");
+                    //AddMessage(type: Infrastructure.Messages.MessageType.ToastSuccess, message: "Login Completed Successfully!");
 
                     return Redirect(url: viewModel.ReturnUrl);
                 }
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

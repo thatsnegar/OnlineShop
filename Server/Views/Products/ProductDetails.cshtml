@@ -1,13 +1,5 @@
 ﻿@model ViewModels.Products.DetailViewModel
 
-@{
-
-    var commentViewModel = new ViewModels.Comment.CommentsViewModel
-            {
-                UserId = Model.UserId,
-                ProductId = Model.ProductId
-            };
-}
 
 @section Styles {
     <link rel="stylesheet" href="~/assets/css/swiper.min.css" />
@@ -218,19 +210,6 @@
                                     @Html.Raw(Model.Specification)
                                 </tbody>
                             </table>
-                        </div>
-                        <div class="tab-pane fade" id="reviews-product" role="tabpanel" aria-labelledby="reviews-product-tab">
-                            @*show comments*@
-                            @await Component.InvokeAsync(name: "GetCommentsComponent", arguments:@Model.ProductId)
-                            <div class="area-form-wrap single-product">
-                                <div class="area-form-reviews">
-                                    <h3 class="h4 mb-4 heading-style1 mt-5">
-                                        ارسال نظرات
-                                    </h3>
-                                    @*Add Comment*@
-                                    <partial name="~/Views/Shared/PartialViews/Comments/_AddComment.cshtml" model="commentViewModel" />
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

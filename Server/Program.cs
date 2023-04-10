@@ -78,7 +78,6 @@ builder.Services.AddTransient<DAL.IUnitOfwork, DAL.UnitOfwork>(sp =>
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<Services.IFilesService, Services.FileService>();
-builder.Services.AddScoped<Services.IEmailService, Services.EmailService>();
 builder.Services.AddScoped<Services.SMS.ISmsService, Services.SMS.SmsService>();
 builder.Services.AddHttpClient<GoogleReCaptcha.V3.Interface.ICaptchaValidator, GoogleReCaptcha.V3.GoogleReCaptchaValidator>();
 builder.Services.AddParbad()

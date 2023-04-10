@@ -7,31 +7,7 @@
 		// **********
 
 		// **********
-		IAnswerRepository Answers { get; }
-		// **********
-
-		// **********
-		IBannerRepository Banners { get; }
-		// **********
-
-		// **********
-		IBlogRepository Blogs { get; }
-		// **********
-
-		// **********
-		ICommentRepository Comments { get; }
-		// **********
-
-		// **********
-		IContactRepository Contacts { get; }
-		// **********
-
-		// **********
 		IFileRepository Files { get; }
-		// **********
-
-		// **********
-		IMessageRepository Messages { get; }
 		// **********
 
 		// **********
@@ -40,10 +16,6 @@
 
 		// **********
 		IProductCategoryRepository ProductCategories { get; }
-		// **********
-
-		// **********
-		IQuestionRepository Questions { get; }
 		// **********
 
 		// **********
@@ -60,10 +32,6 @@
 
 		// **********
 		IWishListProductRepository WishListProducts { get; }
-		// **********
-
-		// **********
-		IVirtualTourRepository VirtualTours { get; }
 		// **********
 
 		// **********
@@ -91,19 +59,11 @@
 		// **********
 
 		// **********
-		IScientificInfoRepository ScientificInfos { get; }
-		// **********
-
-		// **********
 		IDiscountRepository Discounts { get; }
 		// **********
 
 		// **********
 		IUserDiscountRepository UserDiscounts { get; }
-		// **********
-
-		// **********
-		IComparisonProductRepository ComparisonProducts { get; }
 		// **********
 	}
 }

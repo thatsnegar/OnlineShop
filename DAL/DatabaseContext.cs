@@ -14,25 +14,16 @@ namespace DAL
 		}
 
 
-		DbSet<Models.Answer> Answers { get; set; }
-
-		DbSet<Models.Banner> Banners { get; set; }
-
-		DbSet<Models.Blog> Blogs { get; set; }
-
 		DbSet<Models.Comment> Comments { get; set; }
 
-		DbSet<Models.Contact> Contacts { get; set; }
 
 		DbSet<Models.File> Files { get; set; }
 
-		DbSet<Models.Message> Messages { get; set; }
 
 		DbSet<Models.Product> Products { get; set; }
 
 		DbSet<Models.ProductCategory> ProductCategories { get; set; }
 
-		DbSet<Models.Question> Questions { get; set; }
 
 		DbSet<Models.Role> Roles { get; set; }
 
@@ -41,8 +32,6 @@ namespace DAL
 		DbSet<Models.User> Users { get; set; }
 
 		DbSet<Models.WishListProduct> WishListProducts { get; set; }
-
-		DbSet<Models.VirtualTour> VirtualTours { get; set; }
 
 		DbSet<Models.UserLogin> UserLogins { get; set; }
 
@@ -56,7 +45,6 @@ namespace DAL
 
 		DbSet<Models.Order> Orders { get; set; }
 
-		DbSet<Models.ScientificInfo> ScientificInfos { get; set; }
 
 		DbSet<Models.SequenceNumber> SequenceNumbers { get; set; }
 
@@ -64,7 +52,6 @@ namespace DAL
 
 		DbSet<Models.UserDiscount> UserDiscounts { get; set; }
 
-		DbSet<Models.ComparisonProduct> ComparisonProducts { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
@@ -75,13 +62,13 @@ namespace DAL
 		{
 			#region Seed Data
 			// ***********
-			var role =
-				new Models.Role()
-				{
-					Name = "Developer",
-				};
+			//var role =
+			//	new Models.Role()
+			//	{
+			//		Name = "Developer",
+			//	};
 
-			modelBuilder.Entity<Models.Role>().HasData(data: role);
+			//modelBuilder.Entity<Models.Role>().HasData(data: role);
 
 			string password = "Fidar@123";
 
@@ -90,10 +77,9 @@ namespace DAL
 				{
 					IsActive = true,
 					Gender = Domain.Enums.Gender.Female,
-					Username = "developer",
+					Username = "Admin",
 					EmailAddress = "info@fidarafzar.ir",
 					Password = password.Encode(),
-					RoleId = role.Id,
 				};
 
 			modelBuilder.Entity<Models.User>().HasData(data: user);

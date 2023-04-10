@@ -125,12 +125,6 @@ namespace Models
         //**********
         #endregion
 
-        #region Relation one to Many with Answer
-        // **********
-        public virtual List<Answer>? Answers { get; set; }
-        // **********
-        #endregion
-
         #region Relation One To Many with Order Detail
         //**********
         public virtual List<OrderDetail>? OrderDetails { get; set; }

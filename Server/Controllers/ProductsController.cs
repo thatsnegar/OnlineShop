@@ -3,7 +3,6 @@ using Models;
 using Shared;
 using Ganss.XSS;
 using Infrastructure;
-using ViewModels.Comment;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Server.Controllers
@@ -63,6 +62,7 @@ namespace Server.Controllers
 					viewModels.AddRange(collection: foundedProducts.Select(item => new ViewModels.Products.ProductViewModel
 					{
 						ProductId = item.Id,
+						ProducCategorytId = item.ProductCategoryId,
 						HasDiscount = item.HasDiscount,
 						DiscountedPrice = item.DiscountedPrice,
 						DiscountPercentage = item.DiscountPercentage,
@@ -71,7 +71,7 @@ namespace Server.Controllers
 						Title = item.Title,
 						ImageProductName = item.Files?.Where(current => current.IsMainFile.Equals(true)).FirstOrDefault()?.Name,
 						Description = item.Description,
-					}));
+					})); ;
 
 					return View(model: viewModels);
 				}
@@ -124,7 +124,7 @@ namespace Server.Controllers
 				int rate = 0;
 				int averageRate = 0;
 
-				if (foundedProduct.Comments.Where(curent => curent.Isconfirm.Equals(true)).Any()) 
+				if (foundedProduct.Comments.Where(curent => curent.Isconfirm.Equals(true)).Any())
 				{
 					if (foundedProduct.Comments is not null && foundedProduct.Comments.Any())
 					{
@@ -234,123 +234,8 @@ namespace Server.Controllers
 				throw;
 			}
 		}
-
-		#endregion
-
-		// **************************************************
-		// **************************************************
-		#region AddComment
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> AddComment(CommentsViewModel vieModel)
-		{
-			try
-			{
-				if (!ModelState.IsValid)
-					return View(model: vieModel);
-
-				var foundedCurrentUser = GetCurrentUser();
-
-				ViewData["foundedOnlineUser"] = foundedCurrentUser;
-
-				if (foundedCurrentUser is not null)
-				{
-					var sanitize = new HtmlSanitizer();
-
-					var model = new Comment
-					{
-						Text = sanitize.Sanitize(vieModel.Text),
-						Rate = vieModel.Rate,
-						ProductId = vieModel.ProductId,
-						UserId = foundedCurrentUser.Id,
-					};
-
-					await UnitOfWork.Comments.InsertAsync(entity: model);
-					await UnitOfWork.SaveAsync();
-
-					return RedirectToAction(controllerName: "Products", actionName: "ProductDetails", routeValues: new { id = model.ProductId });
-				}
-				else
-					return RedirectToAction(controllerName: "Account", actionName: "Login");
-			}
-			catch (Exception)
-			{
-				Logger.LogCritical("No comments were found!");
-
-				//Logger    
-				throw;
-			}
-		}
-		#endregion
-
-		// **************************************************
-		// **************************************************
-		#region Increase Like number 
-		[HttpPost]
-		public JsonResult IncreaseLikenumber(string commentId)
-		{
-			try
-			{
-				int result = 0;
-
-				var foundedComment =
-					 UnitOfWork.Comments.GetById(id: System.Guid.Parse(commentId));
-
-				if (foundedComment is null)
-					return Json(data: result);
-				else
-				{
-					foundedComment.LikeNumbers += 1;
-
-					UnitOfWork.Comments.Update(entity: foundedComment);
-					UnitOfWork.Save();
-
-					result = foundedComment.LikeNumbers;
-
-					return Json(data: result);
-				}
-			}
-			catch (Exception)
-			{
-
-				throw;
-			}
-		}
-		#endregion
-
-		// **************************************************
-		// **************************************************
-		#region DisLike Number
-		[HttpPost]
-		public JsonResult IncreaseDisLikenumber(string commentId)
-		{
-			try
-			{
-				int result = 0;
-
-				var foundedComment =
-					 UnitOfWork.Comments.GetById(id: System.Guid.Parse(commentId));
-
-				if (foundedComment is null)
-					return Json(data: result);
-				else
-				{
-					foundedComment.DisLikeNumbers += 1;
-
-					UnitOfWork.Comments.Update(entity: foundedComment);
-					UnitOfWork.Save();
-
-					result = foundedComment.DisLikeNumbers;
-
-					return Json(data: result);
-				}
-			}
-			catch (Exception)
-			{
-
-				throw;
-			}
-		}
 	}
 }
-#endregion
+		#endregion
+		// **************************************************
+		// **************************************************

@@ -15,10 +15,14 @@ namespace ViewModels.Products
 
         //**********
         public Guid ProductId { get; set; }
-        //**********
+		//**********
 
-        //**********
-        [Display(
+		//**********
+		public Guid ProducCategorytId { get; set; }
+		//**********
+
+		//**********
+		[Display(
          ResourceType = typeof(Resources.Tables.Product),
          Name = nameof(Resources.Tables.Product.HasDiscount))]
         public bool HasDiscount { get; set; }

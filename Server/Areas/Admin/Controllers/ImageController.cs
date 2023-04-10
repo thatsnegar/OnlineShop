@@ -4,7 +4,7 @@ using ViewModels.AdminViewModels.Image;
 
 namespace Server.Areas.Admin.Controllers
 {
-	[Microsoft.AspNetCore.Authorization.Authorize(Roles = "Admin, Developer")]
+	[Microsoft.AspNetCore.Authorization.Authorize]
 
 	public class ImageController : Infrastructure.BaseControllerWithDataBase
 	{

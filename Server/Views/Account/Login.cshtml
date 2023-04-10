@@ -3,39 +3,11 @@
 @{
     Layout = "~/Views/Shared/Layout/_Account.cshtml";
 
-    string activeUser = "";
-
-    string activeDoctor = "";
-
-    string activeUserNav = "";
-
-    string activeDoctorNav = "";
-
-    if (ViewBag.UserLogin != null)
-    {
-        activeUser = "tab-pane fade active show";
-        activeDoctor = "tab-pane fade";
-        activeUserNav = "nav-link active";
-        activeDoctorNav = "nav-link";
-    }
-
-    if (ViewBag.DoctorLogin != null)
-    {
-        activeDoctor = "tab-pane fade active show";
-        activeUser = "tab-pane fade";
-        activeDoctorNav = "nav-link active";
-        activeUserNav = "nav-link";
-    }
-
+    
     var userLogin = new ViewModels.Accounts.UserLoginViewModel()
     {
         ReturnUrl = Model.ReturnUrl,
     };
-    var doctorLogin = new ViewModels.Accounts.DoctorLoginViewModel()
-    {
-         ReturnUrl = Model.ReturnUrl,
-    };
-
 }
 
 <main class="content">
@@ -49,19 +21,76 @@
                             <!-- **************************************************-->
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <button class="@(activeUserNav)" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
+                                    <button id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
                                         ورود کاربران
                                     </button>
                                 </li>
                             </ul>
                             <!-- **************************************************-->
                             <!-- **************************************************-->
-                            <div class="tab-content" id="myTabContent">
-                                @*General Login*@
-                                <div class="@(activeUser)" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                    <partial name="~/Views/Shared/PartialViews/Account/_UserLogin.cshtml" model="@userLogin" />
+                            <form asp-controller="Account" asp-action="Login" method="Post">
+                                <div asp-validation-summary="ModelOnly"></div>
+
+                                <input type="hidden" asp-for="ReturnUrl" />
+
+                                @if (ViewData["ErrorMessage"] != null)
+                                {
+                                    <div class="text-danger">
+                                        @ViewData["ErrorMessage"]
+                                    </div>
+                                }
+
+                                <div class="form-group">
+                                    <label asp-for="UserName">
+                                        نام کاربری
+                                        <span class="text-danger ">
+                                            *
+                                        </span>
+                                    </label>
+                                    <input asp-for="UserName" type="text" class="form-control">
+                                    <span asp-validation-for="UserName" class="text-danger fontSize14"></span>
                                 </div>
-                            </div>
+                                <div class="form-group mb-3">
+                                    <label asp-for="Password">
+                                        @Resources.Tables.User.Password
+                                        <span class="text-danger ">
+                                            *
+                                        </span>
+                                    </label>
+                                    <input asp-for="Password" type="password" id="password" class="form-control input-password" required />
+                                    <span asp-validation-for="Password" class="text-danger fontSize14"></span>
+                                    <br />
+                                    <span class="icon-eye-password" id="basic-addon2">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div class="d-sm-flex justify-content-between">
+                                    <div class="form-check form-check-custom ">
+                                        <label asp-for="RememberMe" class="checkbox-container">
+                                            @Resources.Tables.User.RememberMe
+                                            <input asp-for="RememberMe" type="checkbox" style="display: none;">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="forget_password mt-2">
+                                        <a asp-controller="Account" asp-action="ForgotPassword">
+                                            رمز عبور را فراموش کرده اید؟
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="btn-from-login">
+                                    <button type="submit" class="btn-animate1 mt-4">
+                                        ورود
+                                    </button>
+                                </div>
+
+                                <div class="form-note mt-4">
+                                    حساب کاربری ندارید؟
+                                    <a asp-controller="Account" asp-action="Register">
+                                        ثبت نام کنید
+                                    </a>
+                                </div>
+                            </form>
                             <!-- **************************************************-->
                             <!-- **************************************************-->
                             <div class="footer-login">

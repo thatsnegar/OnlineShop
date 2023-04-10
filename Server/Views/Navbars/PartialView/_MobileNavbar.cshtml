@@ -88,23 +88,7 @@
 					</li>
 				}
 			}
-			<!-- About -->
-			<li>
-				<a asp-controller="About" asp-action="Index">
-					درباره ما
-				</a>
-			</li>
-			<!-- Info -->
-			@{
-				if (foundedOnlineUser?.Role == "Doctor")
-				{
-					<li>
-						<a asp-controller="Info" asp-action="Index">
-							اطلاعات علمی
-						</a>
-					</li>
-				}
-			}
+			
 			<!-- Products -->
 			<li class="menu-item-has-children">
 				<a>
@@ -134,25 +118,15 @@
 					}
 				</ul>
 			</li>
-			<!-- Posts -->
+			
+			<!-- About -->
 			<li>
-				<a asp-controller="Blogs" asp-action="BlogsList">
-					بلاگ
+				<a asp-controller="About" asp-action="Index">
+					درباره ما
 				</a>
 			</li>
-			<!-- Vitual Tour -->
-			<li>
-				<a asp-controller="VirtualTours" asp-action="Index">
-					تور مجازی
-				</a>
-			</li>
-			<!-- Consultant -->
-			<li>
-				<a asp-controller="Consultation" asp-action="Index">
-					مشاوره تخصصی
+			
 
-				</a>
-			</li>
 			<!-- Logout -->
 			<li>
 				<a asp-controller="Account" asp-action="Logout">
