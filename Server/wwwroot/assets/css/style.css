@@ -524,15 +524,15 @@ nav.serv-navbar {
     z-index: 2;
     border-radius: 0.1rem;
     text-align: right;
-    top: 4rem;
+    top: 2rem;
     opacity: 0;
     transform: translateY(1.5rem);
     visibility: hidden;
     transition: all 0.3s ease-in-out;
     -webkit-transition: all 0.3s ease-in-out;
-    width: 100%;
+    width: 15%;
     padding: 1.3rem 1.5rem;
-    right: 0;
+  /*  right: 0;*/
 }
 
 .main_menu li.container-mega-menu {
@@ -583,7 +583,7 @@ a.title_megamenu {
     a.title_megamenu:before {
         position: absolute;
         content: "";
-        width: 30%;
+        width: 100%;
         background: #2b426e9e;
         bottom: 0;
         right: 0;

@@ -119,17 +119,17 @@
 												<div class="col-md-4">
 													<div class="form-group">
 														<label>
-															قیمت محصول:
+															کمترین قیمت
 														</label>
 														<input type="number" class="form-control" asp-for="Price" placeholder="@Html.DisplayNameFor(m=>m.Price)" />
 														<span asp-validation-for="Price" class="text-danger fontSize14"></span>
 													</div>
 												</div>
-												@*Discount Percentage*@
+												@*Main Price*@
 												<div class="col-md-4">
 													<div class="form-group">
 														<label>
-															درصد تخفیف:
+															قیمت اصلی:
 														</label>
 														<input type="number" class="form-control" asp-for="DiscountPercentage" placeholder="@Html.DisplayNameFor(m=>m.DiscountPercentage)" />
 														<div class="invalid-feedback">
@@ -140,7 +140,7 @@
 												<div class="col-md-4">
 													<div class="form-group">
 														<label>
-															تخفیف محاسبه شده:
+															بیشترین قیمت
 														</label>
 														<input type="number" class="form-control" asp-for="DiscountedPrice" placeholder="@Html.DisplayNameFor(m=>m.DiscountedPrice)" />
 														<div class="invalid-feedback">

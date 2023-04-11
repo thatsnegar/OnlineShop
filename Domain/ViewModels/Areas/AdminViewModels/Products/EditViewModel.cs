@@ -91,7 +91,7 @@ namespace ViewModels.AdminViewModels.Products
 			ErrorMessageResourceType = typeof(Resources.Messages.ErrorMessages),
 			ErrorMessageResourceName = nameof(Resources.Messages.ErrorMessages.Required))]
 		[Range(
-			minimum: 100000, maximum: 10000000,
+			minimum: 0, maximum: 10000000,
 			ErrorMessageResourceType = typeof(Resources.Messages.ErrorMessages),
 			ErrorMessageResourceName = nameof(Resources.Messages.ErrorMessages.Range))]
 		public double Price { get; set; }

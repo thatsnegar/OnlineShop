@@ -100,13 +100,17 @@
                             {
                                 <div class="area-price-Product d-flex mb-2 mb-sm-0">
                                     <span class="me-2">
-                                      قیمت
+                                      قیمت هر تکه از 
                                     </span>
-                                    <del class="price-discount me-3 ">
-                                        @Model.Price تومان
-                                    </del>
-                                    <p class="price mb-0">
-                                        @Model.DiscountedPrice تومان
+                                   
+                                    <p class="mb-0 text-dark me-2">
+                                        @Model.Price ¥
+                                    </p>
+                                    <p class="text-dark me-2">
+                                        تا
+                                    </p>
+                                    <p class="mb-0 text-dark me-2">
+                                        @Model.DiscountedPrice ¥
                                     </p>
                                 </div>
                             }
@@ -114,7 +118,10 @@
                             {
                                 <div class="area-price-Product d-flex mb-2 mb-sm-0">
                                     <span class="me-2">
-                                        @Model.Price تومان
+                                        (قیمت هر تکه تا )
+                                    </span>
+                                    <span class="me-2">
+                                        @Model.Price ¥
                                     </span>
                                 </div>
                             }

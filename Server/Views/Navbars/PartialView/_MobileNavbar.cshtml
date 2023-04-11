@@ -101,19 +101,6 @@
 							<a class="title-megamenu-mobile" asp-controller="Products" asp-action="ProductList" asp-route-productCategoryId="@(item.Id)">
 								@(item.Title)
 							</a>
-							<ul>
-								@if (item.ProductsNavbarViewModel is not null && item.ProductsNavbarViewModel.Any())
-								{
-									foreach (var result in item.ProductsNavbarViewModel)
-									{
-										<li>
-											<a asp-controller="Products" asp-action="ProductList" asp-route-id="@(result.ProductId)">
-												@(result.Title)
-											</a>
-										</li>
-									}
-								}
-							</ul>
 						</li>
 					}
 				</ul>

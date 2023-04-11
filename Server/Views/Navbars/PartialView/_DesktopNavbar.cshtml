@@ -6,60 +6,30 @@
 		محصولات
 		<i class="fa fa-angle-down" aria-hidden="true"></i>
 	</a>
-	@if(ViewBag.ImageName != null)
+	@if (ViewBag.ImageName != null)
 	{
 		<div class="serv-megamenu serv-megamenu-Style1" style="background-image: url('/EmoniFiles/Images/@(ViewBag.ImageName)')">
 			<div class="row">
 				@foreach (var item in Model)
 				{
-					<div class="col-3">
-						<a class="title_megamenu" asp-controller="Products" asp-action="ProductList" asp-route-productCategoryId="@(item.Id)">
-							@(item.Title)
-						</a>
-
-						@*<ul>
-							@if(item.ProductsNavbarViewModel is not null && item.ProductsNavbarViewModel.Any())
-							{
-								@foreach (var result in item.ProductsNavbarViewModel)
-								{
-									<li>
-										<a asp-controller="Products" asp-action="ProductDetails" asp-route-id="@(result.ProductId)">
-											@(result.Title)
-										</a>
-									</li>
-								}
-							}
-						</ul>*@
-					</div>
+					<a class="title_megamenu text-center" asp-controller="Products" asp-action="ProductList" asp-route-productCategoryId="@(item.Id)">
+						@(item.Title)
+					</a>
 				}
 			</div>
 		</div>
+
+
 	}
 	else
 	{
-	<div class="serv-megamenu serv-megamenu-Style1" style="background:#fff;">
+		<div class="serv-megamenu serv-megamenu-Style1" style="background:#fff;">
 			<div class="row">
 				@foreach (var item in Model)
 				{
-					<div class="col-3">
-						<a class="title_megamenu" asp-controller="Products" asp-action="ProductList" asp-route-productCategoryId="@(item.Id)">
-							@(item.Title)
-						</a>
-
-						@*<ul>
-							@if(item.ProductsNavbarViewModel is not null && item.ProductsNavbarViewModel.Any())
-							{
-								@foreach (var result in item.ProductsNavbarViewModel)
-								{
-									<li>
-										<a asp-controller="Products" asp-action="ProductDetails" asp-route-id="@(result.ProductId)">
-											@(result.Title)
-										</a>
-									</li>
-								}
-							}
-						</ul>*@
-					</div>
+					<a class="title_megamenu text-center" asp-controller="Products" asp-action="ProductList" asp-route-productCategoryId="@(item.Id)">
+						@(item.Title)
+					</a>
 				}
 			</div>
 		</div>

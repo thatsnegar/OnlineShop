@@ -160,16 +160,6 @@
 								{
 									<div class="col-12 col-sm-6 ">
 										<div class="product_cart">
-											@if (item.HasDiscount)
-											{
-												<div class="off">
-													<span>
-														%@(item.DiscountPercentage)
-														تخفیف
-													</span>
-												</div>
-											}
-
 											<div class="cart-img-product">
 												<a asp-controller="Products" asp-action="ProductDetails" asp-route-id="@(item.ProductId)">
 													<div class="d-flex justify-content-center align-items-center h-100">
@@ -188,24 +178,11 @@
 											</div>
 
 											<div class="content_product text-center">
+												<div class="price_card_product mb-2">
+													@(item.DiscountPercentage)
+													¥
+												</div>
 
-												@if (item.HasDiscount)
-												{
-													<div class="price_card_product mb-2">
-														<del class="me-1">
-															@(item.Price)
-														</del>
-														@(item.DiscountedPrice)
-														تومان
-													</div>
-												}
-												else
-												{
-													<div class="price_card_product mb-2">
-														@(item.Price)
-														تومان
-													</div>
-												}
 												<a asp-controller="Products" asp-action="ProductDetails" asp-route-id="@(item.ProductId)">
 													<h3 class="title-product mb-2">
 														@(item.Title)
@@ -299,15 +276,6 @@
 
 									<div class="col-12 col-sm-6 col-md-4">
 										<div class="product_cart">
-											@if (item.HasDiscount)
-											{
-												<div class="off">
-													<span>
-														%@(item.DiscountPercentage)
-														تخفیف
-													</span>
-												</div>
-											}
 											<div class="cart-img-product">
 												<a asp-controller="Products" asp-action="ProductDetails" asp-route-id="@(item.ProductId)">
 													<div class="d-flex justify-content-center align-items-center h-100">
@@ -325,24 +293,10 @@
 												</div>
 											</div>
 											<div class="content_product text-center">
-												@if (item.HasDiscount)
-												{
-													<div class="price_card_product mb-2">
-														<del class="me-1">
-															@(item.DiscountedPrice)
-														</del>
-														@(item.Price)
-														تومان
-													</div>
-												}
-												else
-												{
-													<div class="price_card_product mb-2">
-														@(item.Price)
-														تومان
-													</div>
-												}
-
+												<div class="price_card_product mb-2">
+													@(item.DiscountPercentage)
+													¥
+												</div>
 												<a asp-controller="Products" asp-action="ProductDetails" asp-route-id="@(item.ProductId)">
 													<h3 class="title-product mb-2">
 														@(item.Title)
@@ -434,15 +388,6 @@
 								{
 									<div class="col-12 col-sm-6 col-md-4 col-lg-3">
 										<div class="product_cart">
-											@if (item.HasDiscount)
-											{
-												<div class="off">
-													<span>
-														%@(item.DiscountPercentage)
-														تخفیف
-													</span>
-												</div>
-											}
 											<div class="cart-img-product">
 												<a asp-controller="Products" asp-action="ProductDetails" asp-route-id="@(item.ProductId)">
 													<div class="d-flex justify-content-center align-items-center h-100">
@@ -459,24 +404,10 @@
 												</div>
 											</div>
 											<div class="content_product text-center">
-												@if (item.HasDiscount)
-												{
-													<div class="price_card_product mb-2">
-														<del class="me-1">
-															@(item.Price)
-														</del>
-														@(item.DiscountedPrice)
-														تومان
-													</div>
-												}
-												else
-												{
-													<div class="price_card_product mb-2">
-														@(item.Price)
-														تومان
-													</div>
-												}
-
+												<div class="price_card_product mb-2">
+													@(item.DiscountPercentage)
+													¥
+												</div>
 												<a asp-controller="products" asp-action="ProductDetails" asp-route-id="@(item.ProductId)">
 													<h3 class="title-product mb-2">
 														@(item.Title)
@@ -583,33 +514,14 @@
 												</a>
 											</h3>
 											<div class="d-sm-flex justify-content-between align-items-center mb-3">
-												@if (item.HasDiscount)
-												{
-													<div class="area-price-Product d-flex  mb-3 mb-sm-0">
-														<span class="me-2">
-															قیمت:
-														</span>
-
-														<del class="price-discount me-3 ">
-															@(item.Price)تومان
-														</del>
-														<span class="price mb-0">
-															@(item.DiscountedPrice)تومان
-														</span>
-													</div>
-												}
-												else
-												{
-													<div class="area-price-Product d-flex  mb-3 mb-sm-0">
-														<span class="me-2">
-															قیمت:
-														</span>
-														<span class="price mb-0">
-															@(item.Price)تومان
-														</span>
-													</div>
-												}
-
+												<div class="area-price-Product d-flex  mb-3 mb-sm-0">
+													<span class="me-2">
+														قیمت:
+													</span>
+													<span class="price mb-0">
+														@(item.DiscountPercentage)¥
+													</span>
+												</div>
 												@*Rate*@
 												<a class="d-flex justify-content-center">
 													<div class="star_rating">
