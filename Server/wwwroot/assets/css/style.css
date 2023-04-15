@@ -276,6 +276,7 @@ nav.serv-navbar {
     height: 90px;
     display: flex;
     align-items: center;
+    background: #f8ede3;
 }
 
 .area-logo img {
@@ -1415,7 +1416,7 @@ span.star-icon i {
 }
 
 .area-footer {
-    background-color: #2b426e;
+    background-color: #dfd3c3;
     margin-top: 50px;
     padding: 0 100px;
 }

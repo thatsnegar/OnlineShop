@@ -19,18 +19,10 @@
 					{
 						<div class="wow bounceIn item_slider_product-new" data-wow-duration="2s">
 							<div class="product_cart">
-								@if (@item.HasDiscount)
-								{
-									<div class="off">
-										<span>
-											30% تخفیف
-										</span>
-									</div>
-								}
 								<div class="cart-img-product mb-3">
 									@if (@item.ImageProductName is not null)
 									{
-										<a asp-controller="Products" asp-action="Details" asp-route-productId="@(item.ProductId)">
+										<a asp-controller="Products" asp-action="ProductDetails" asp-route-id="@(item.ProductId)">
 											<div class="d-flex justify-content-center align-items-center h-100">
 												<img src="~/emoniFiles/Products/@(item.ImageProductName)" class="img1-product img-fluid" alt="@(item.ImageProductName)" />
 											</div>
@@ -43,7 +35,7 @@
 										</h2>
 									}
 									<div class="area-button-view-product">
-										<a asp-controller="Products" asp-action="Details" asp-route-productId="@(item.ProductId)" class="button-view-product">
+										<a asp-controller="Products" asp-action="ProductDetails" asp-route-id="@(item.ProductId)" class="button-view-product">
 											مشاهده محصول
 										</a>
 										<a asp-controller="Order" asp-action="AddToShoppingCart" asp-route-id="@(item.ProductId)" class="add-to-cart">
@@ -52,7 +44,7 @@
 									</div>
 								</div>
 								<div class="content_product text-center">
-									@if (@item.HasDiscount)
+									@if (@item.HasDiscount)	
 									{
 										<div class="price_card_product mb-2">
 											<del class="me-1">
@@ -69,7 +61,7 @@
 											تومان
 										</div>
 									}
-									<a asp-controller="Products" asp-action="Details" asp-route-productId="@(item.ProductId)">
+									<a asp-controller="Products" asp-action="ProductDetails" asp-route-id="@(item.ProductId)">
 										<h3 class="title-product mb-2">
 											@item.Title
 										</h3>
